@@ -6,6 +6,7 @@ const PRECACHE = [
   "./manifest.webmanifest",
   "./public/hero.svg",
   "./public/icons/icon-192.png",
+  "./public/fonts/fonts-static.css",
   "./mentions-legales.html",
   "./politique-confidentialite.html",
   "./politique-cookies.html",

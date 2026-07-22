@@ -33,7 +33,7 @@ export function Header() {
       }`}
     >
       <div className="container flex h-[var(--header-h)] items-center justify-between gap-4">
-        <Link href="/" className="group flex items-center gap-3" aria-label={`${siteConfig.name} — accueil`}>
+        <Link href="/" className="group flex items-center gap-3">
           <span
             aria-hidden
             className="grid h-10 w-10 place-items-center rounded-full bg-[var(--forest)] text-sm font-bold text-white transition-transform duration-300 group-hover:scale-105"

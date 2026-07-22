@@ -43,7 +43,14 @@ npm run build && npm start
 |---|---|
 | `NEXT_PUBLIC_SITE_URL` | URL canonique (défaut `https://meridian-digital.fr`) |
 
-## Brancher e-mail / CRM (hors démo)
+## Audits (Lighthouse)
+
+```bash
+npm run serve:static   # terminal 1 — http://127.0.0.1:3456
+npm run audit:lighthouse  # terminal 2 — scores Perf / A11y / BP / SEO
+```
+
+Rapport JSON dans `audits/lighthouse-mobile.json`. Optimisations appliquées : fonts auto-hébergées, contraste WCAG, Open Graph / Schema, images compressées, focus trap modales.
 
 Les routes `POST /api/rdv` et `POST /api/devis` valident les données (Zod) et journalisent côté serveur.
 Pour la production : brancher Resend, SMTP ou un CRM dans ces handlers.

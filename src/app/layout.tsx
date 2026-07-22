@@ -66,6 +66,12 @@ export const metadata: Metadata = {
         height: 630,
         alt: `${siteConfig.name} — valorisation Google SEO SEA PWA`,
       },
+      {
+        url: "/og.webp",
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} — valorisation Google SEO SEA PWA`,
+      },
     ],
   },
   twitter: {
