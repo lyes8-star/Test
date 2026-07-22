@@ -13,7 +13,7 @@ export function Hero() {
         className="absolute inset-0 -z-20"
         style={{
           background:
-            "radial-gradient(ellipse 70% 55% at 72% 28%, rgba(125, 211, 252, 0.22), transparent 55%), linear-gradient(165deg, #0e1218 0%, #161c26 48%, #0e1218 100%)",
+            "radial-gradient(ellipse 70% 55% at 72% 28%, rgba(125, 211, 252, 0.28), transparent 55%), linear-gradient(165deg, #0e1218 0%, #161c26 48%, #0e1218 100%)",
         }}
       />
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -25,19 +25,28 @@ export function Hero() {
         height={900}
         decoding="async"
         fetchPriority="high"
-        className="hero-media-drift absolute inset-0 -z-20 h-full w-full object-cover opacity-90"
+        className="hero-media-drift absolute inset-0 -z-20 h-full w-full object-cover opacity-95"
       />
       <div
         aria-hidden
         className="hero-beam-sweep pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "linear-gradient(105deg, transparent 0%, transparent 38%, rgba(125, 211, 252, 0.07) 46%, rgba(255, 90, 31, 0.08) 52%, transparent 62%, transparent 100%)",
+            "linear-gradient(105deg, transparent 0%, transparent 32%, rgba(125, 211, 252, 0.16) 44%, rgba(255, 90, 31, 0.18) 52%, transparent 64%, transparent 100%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-[5] opacity-[0.07]"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          backgroundSize: "160px 160px",
         }}
       />
 
       <div className="container relative pb-16 pt-28 sm:pb-20 sm:pt-32">
-        <p className="display reveal text-[clamp(3.4rem,14vw,7.5rem)] leading-[0.9] tracking-[-0.06em] text-white">
+        <p className="display hero-brand-in text-[clamp(3.4rem,14vw,7.5rem)] leading-[0.9] tracking-[-0.06em] text-white">
           {siteConfig.name}
         </p>
         <h1 className="display reveal reveal-delay-1 mt-4 max-w-[16ch] text-[clamp(1.75rem,4.8vw,3.1rem)] leading-[1.05] text-white">

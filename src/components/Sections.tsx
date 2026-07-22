@@ -7,11 +7,14 @@ export function Activities() {
   return (
     <section id="activites" className="section bg-white">
       <div className="container">
-        <p className="eyebrow text-[var(--signal)]">Activités</p>
-        <h2 className="display mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
+        <p className="eyebrow reveal-on-scroll text-[var(--signal)]">Activités</p>
+        <h2 className="display reveal-on-scroll mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
           Quatre leviers pour briller sur Google
         </h2>
-        <p className="mt-4 max-w-2xl text-lg text-[var(--ink-soft)]">
+        <p
+          className="reveal-on-scroll mt-4 max-w-2xl text-lg text-[var(--ink-soft)]"
+          style={{ ["--reveal-delay" as string]: "80ms" }}
+        >
           Création, référencement, publicité et optimisation — un dispositif clair pour être visible et
           convertir.
         </p>
@@ -20,7 +23,8 @@ export function Activities() {
           {activities.map((activity, index) => (
             <li
               key={activity.id}
-              className="grid gap-3 border-b border-[var(--line)] py-7 md:grid-cols-[4.5rem_1fr] md:gap-6"
+              className="reveal-on-scroll grid gap-3 border-b border-[var(--line)] py-7 md:grid-cols-[4.5rem_1fr] md:gap-6"
+              style={{ ["--reveal-delay" as string]: `${120 + index * 90}ms` }}
             >
               <span
                 aria-hidden
@@ -50,11 +54,14 @@ export function Formulas() {
   return (
     <section id="formules" className="section">
       <div className="container">
-        <p className="eyebrow text-[var(--signal)]">Formules</p>
-        <h2 className="display mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
+        <p className="eyebrow reveal-on-scroll text-[var(--signal)]">Formules</p>
+        <h2 className="display reveal-on-scroll mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
           Formules de valorisation Google
         </h2>
-        <p className="mt-4 max-w-2xl text-lg text-[var(--ink-soft)]">
+        <p
+          className="reveal-on-scroll mt-4 max-w-2xl text-lg text-[var(--ink-soft)]"
+          style={{ ["--reveal-delay" as string]: "80ms" }}
+        >
           De l’audit express au dispositif multi-campagnes — chaque formule est ajustable sur devis.
         </p>
 
@@ -62,13 +69,14 @@ export function Formulas() {
           {formulas.map((formula, i) => (
             <article
               key={formula.id}
-              className={`flex flex-col gap-3 border-b border-[var(--line)] py-7 lg:border-b-0 lg:border-r lg:px-6 lg:py-8 ${
+              className={`reveal-on-scroll lift-hover flex flex-col gap-3 border-b border-[var(--line)] py-7 lg:border-b-0 lg:border-r lg:px-6 lg:py-8 ${
                 i === 0 ? "lg:pl-0" : ""
               } ${i === formulas.length - 1 ? "lg:border-r-0 lg:pr-0" : ""} ${
                 formula.featured
                   ? "mx-[-1rem] rounded-[0.75rem] border-none bg-[var(--ink)] px-4 text-[var(--paper)] lg:mx-0 lg:px-6"
                   : ""
               }`}
+              style={{ ["--reveal-delay" as string]: `${100 + i * 110}ms` }}
             >
               {formula.featured ? (
                 <span className="inline-flex w-fit rounded-full bg-[var(--signal)] px-2.5 py-1 text-[0.72rem] font-bold uppercase tracking-[0.04em] text-white">
@@ -90,11 +98,7 @@ export function Formulas() {
               </ul>
               <button
                 type="button"
-                className={`btn mt-4 w-fit ${
-                  formula.featured
-                    ? "btn-primary"
-                    : "btn-secondary"
-                }`}
+                className={`btn mt-4 w-fit ${formula.featured ? "btn-primary" : "btn-secondary"}`}
                 onClick={() => open("devis", formula.id)}
               >
                 Demander un devis
@@ -111,18 +115,22 @@ export function Method() {
   return (
     <section id="methode" className="section bg-white">
       <div className="container">
-        <p className="eyebrow text-[var(--signal)]">Méthode</p>
-        <h2 className="display mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
+        <p className="eyebrow reveal-on-scroll text-[var(--signal)]">Méthode</p>
+        <h2 className="display reveal-on-scroll mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
           De l’audit Google à la performance mesurée
         </h2>
-        <p className="mt-4 max-w-2xl text-lg text-[var(--ink-soft)]">
+        <p
+          className="reveal-on-scroll mt-4 max-w-2xl text-lg text-[var(--ink-soft)]"
+          style={{ ["--reveal-delay" as string]: "80ms" }}
+        >
           Un rythme clair, une idée par étape — de la découverte à la mesure.
         </p>
         <div className="mt-10 border-t border-[var(--line)]">
-          {processSteps.map((step) => (
+          {processSteps.map((step, i) => (
             <article
               key={step.step}
-              className="grid gap-3 border-b border-[var(--line)] py-6 md:grid-cols-[3.5rem_1fr] md:gap-5"
+              className="reveal-on-scroll grid gap-3 border-b border-[var(--line)] py-6 md:grid-cols-[3.5rem_1fr] md:gap-5"
+              style={{ ["--reveal-delay" as string]: `${100 + i * 90}ms` }}
             >
               <span className="display text-[1.75rem] tracking-[-0.04em] text-[var(--signal)]">
                 {step.step}
@@ -143,14 +151,20 @@ export function Compliance() {
   return (
     <section className="section bg-[var(--ink)] text-[var(--paper)]">
       <div className="container">
-        <p className="eyebrow text-[var(--beam)]">Conformité</p>
-        <h2 className="display mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)]">
+        <p className="eyebrow reveal-on-scroll text-[var(--beam)]">Conformité</p>
+        <h2 className="display reveal-on-scroll mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)]">
           SEO, SEA et PWA — conformes FR & UE
         </h2>
-        <p className="mt-4 max-w-2xl text-lg text-[rgba(242,244,247,0.68)]">
+        <p
+          className="reveal-on-scroll mt-4 max-w-2xl text-lg text-[rgba(242,244,247,0.68)]"
+          style={{ ["--reveal-delay" as string]: "80ms" }}
+        >
           Cadre légal et technique pour publier, mesurer et annoncer sans friction.
         </p>
-        <ul className="mt-8 max-w-3xl space-y-4 text-[rgba(242,244,247,0.86)]">
+        <ul
+          className="reveal-on-scroll mt-8 max-w-3xl space-y-4 text-[rgba(242,244,247,0.86)]"
+          style={{ ["--reveal-delay" as string]: "160ms" }}
+        >
           <li>
             <strong className="text-white">RGPD & ePrivacy</strong> — consentement cookies granulaire
             (analytics + Google Ads), bases légales et droits des personnes.
@@ -176,14 +190,20 @@ export function ContactCta() {
     <section id="contact" className="section">
       <div className="container grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-12">
         <div>
-          <p className="eyebrow text-[var(--signal)]">Contact</p>
-          <h2 className="display mt-3 text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
+          <p className="eyebrow reveal-on-scroll text-[var(--signal)]">Contact</p>
+          <h2 className="display reveal-on-scroll mt-3 text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
             Parlons de votre prochain jalon
           </h2>
-          <p className="mt-4 max-w-xl text-lg text-[var(--ink-soft)]">
+          <p
+            className="reveal-on-scroll mt-4 max-w-xl text-lg text-[var(--ink-soft)]"
+            style={{ ["--reveal-delay" as string]: "80ms" }}
+          >
             Audit Google, site PWA, SEO ou Ads : un premier échange clarifie le périmètre.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div
+            className="reveal-on-scroll mt-8 flex flex-wrap gap-3"
+            style={{ ["--reveal-delay" as string]: "140ms" }}
+          >
             <button type="button" className="btn btn-primary" onClick={() => open("rdv")}>
               Réserver un créneau
             </button>
@@ -192,7 +212,10 @@ export function ContactCta() {
             </button>
           </div>
         </div>
-        <aside className="grid gap-3">
+        <aside
+          className="reveal-on-scroll grid gap-3"
+          style={{ ["--reveal-delay" as string]: "180ms" }}
+        >
           <p className="eyebrow text-[var(--signal)]">Coordonnées</p>
           <p>
             <a className="font-semibold hover:text-[var(--signal)]" href={`mailto:${siteConfig.email}`}>
