@@ -132,13 +132,33 @@ img {
   font-size: 0.95rem;
   overflow: hidden;
   isolation: isolate;
-  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease,
+  touch-action: manipulation;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease,
     color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
 }
 
 .btn:hover {
   transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: scale(0.97) translateY(0);
+  box-shadow: none;
+}
+
+.menu-toggle {
+  touch-action: manipulation;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.menu-toggle:active {
+  transform: scale(0.97);
+}
+
+.chip:active,
+.brand-mark-live:active {
+  transform: scale(0.97);
 }
 
 .btn:focus-visible,
@@ -391,6 +411,9 @@ a:hover .brand-mark-live {
   }
 
   .btn:hover,
+  .btn:active,
+  .menu-toggle:active,
+  .chip:active,
   .lift-hover:hover,
   .group:hover .brand-mark-live,
   a:hover .brand-mark-live {
