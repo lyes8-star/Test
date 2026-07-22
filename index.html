@@ -976,6 +976,24 @@ a { color: inherit; }
 .bubble { max-width: 90%; padding: 0.65rem 0.85rem; border-radius: 0.85rem; font-size: 0.9rem; line-height: 1.45; }
 .bubble.bot { background: #fff; border: 1px solid var(--line); }
 .bubble.user { background: var(--ink); color: #fff; margin-left: auto; }
+.chat-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  max-width: 100%;
+}
+.chat-actions button {
+  border: 1px solid var(--line-strong);
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.chat-actions button:active { transform: scale(0.97); }
 .chat-starters { display: flex; flex-wrap: nowrap; gap: 0.4rem; padding: 0.75rem; border-top: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
 .chat-starters::-webkit-scrollbar { display: none; }
 .chip {
@@ -1623,57 +1641,198 @@ body::before {
 
     /* Chatbot + cookies + SW : hors chemin critique (idle) */
     function initDeferredWidgets() {
-      const starters = ["Formules SEO / SEA ?", "Google Ads : comment ça marche ?", "Création site PWA ?", "Prendre rendez-vous"];
+      const FAQ_STARTERS = [
+        "Formules SEO / SEA ?",
+        "Google Ads : comment ça marche ?",
+        "Création site PWA ?",
+        "Prendre rendez-vous",
+        "Laisser mes coordonnées",
+      ];
       const chatBody = document.getElementById("chat-body");
       const chatPanel = document.getElementById("chat-panel");
-      function addBubble(role, text) {
+      const startersEl = document.getElementById("chat-starters");
+      const chatInput = document.getElementById("chat-input");
+      let leadStep = null;
+      let draft = { name: "", email: "", phone: "", need: "" };
+      let lastLead = null;
+
+      function wantsLead(msg) {
+        return /(laisser mes coordonn|être recontact|etre recontact|rappelle[rz]?[- ]?moi|contactez[- ]?moi|je veux un devis|envoyer (ma |une )?demande|prendre contact|coordonn)/i.test(msg);
+      }
+      function isValidEmail(v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v).trim());
+      }
+      function leadPrompt(step) {
+        const map = {
+          name: "Parfait — on prépare votre demande. Quel est votre nom (ou celui de votre société) ?",
+          email: "Merci. Quelle adresse e-mail pouvons-nous utiliser pour vous répondre ?",
+          phone: "Un numéro de téléphone (optionnel) ? Sinon répondez « passer ».",
+          need: "En une phrase, quel est votre besoin (SEO, Ads, site PWA, audit…) ?",
+          consent: "Dernière étape : acceptez-vous le traitement de vos données pour être recontacté·e (RGPD) ? Répondez « j’accepte » ou « oui ». Voir la politique de confidentialité.",
+        };
+        return map[step];
+      }
+      function buildMailto(d) {
+        const subject = encodeURIComponent("Demande Meridian — " + d.name);
+        const body = encodeURIComponent(
+          "Nom / société : " + d.name + "\nE-mail : " + d.email +
+          (d.phone ? "\nTéléphone : " + d.phone : "") +
+          "\nBesoin : " + d.need + "\n\n(Envoyé depuis l’assistant Meridian)"
+        );
+        return "mailto:contact@meridian-digital.fr?subject=" + subject + "&body=" + body;
+      }
+      function setSuggestions(list) {
+        startersEl.innerHTML = "";
+        list.forEach((s) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "chip";
+          b.textContent = s;
+          b.addEventListener("click", () => onChip(s));
+          startersEl.appendChild(b);
+        });
+      }
+      function addBubble(role, text, actions) {
+        const wrap = document.createElement("div");
         const div = document.createElement("div");
         div.className = "bubble " + role;
         div.textContent = text;
-        chatBody.appendChild(div);
+        wrap.appendChild(div);
+        if (role === "bot" && actions && actions.length) {
+          const row = document.createElement("div");
+          row.className = "chat-actions";
+          actions.forEach((action) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.textContent =
+              action === "lead" ? "Laisser mes coordonnées" :
+              action === "rdv" ? "Rendez-vous" :
+              action === "devis" ? "Devis" : "Ouvrir un e-mail";
+            btn.addEventListener("click", () => onAction(action));
+            row.appendChild(btn);
+          });
+          wrap.appendChild(row);
+        }
+        chatBody.appendChild(wrap);
         chatBody.scrollTop = chatBody.scrollHeight;
       }
-      addBubble("bot", "Bonjour, je suis l’assistant Meridian. Questions sur la création PWA, le SEO, Google Ads, les formules, un RDV ou un devis ?");
-      const startersEl = document.getElementById("chat-starters");
-      starters.forEach((s) => {
-        const b = document.createElement("button");
-        b.type = "button";
-        b.className = "chip";
-        b.textContent = s;
-        b.addEventListener("click", () => sendChat(s));
-        startersEl.appendChild(b);
-      });
       function replyFor(message) {
         const q = message.toLowerCase();
-        if (/(formule|tarif|prix|essentiel|croissance|sur[- ]?mesure)/.test(q))
-          return "Trois formules : Essentiel (dès 1 490 €), Croissance (dès 4 900 €, recommandée) et Sur-mesure (sur devis). Cliquez sur « Demander un devis ».";
+        if (/(formule|tarif|prix|essentiel|croissance|sur[- ]?mesure|budget)/.test(q))
+          return { reply: "Trois formules : Essentiel (dès 1 490 €), Croissance (dès 4 900 €, recommandée) et Sur-mesure (sur devis).", actions: ["devis", "lead"], suggestions: ["Laisser mes coordonnées", "Demander un devis", "Délais typiques ?"] };
+        if (/(délai|delai|durée|duree|combien de temps|semaine)/.test(q))
+          return { reply: "Essentiel 2–3 semaines, Croissance 4–8 semaines, Sur-mesure selon périmètre.", actions: ["rdv", "lead"], suggestions: ["Prendre rendez-vous", "Laisser mes coordonnées"] };
+        if (/(méthode|methode|process|étapes|etapes)/.test(q))
+          return { reply: "Méthode : Audit → Stratégie → Création / campagnes → Mesure.", actions: ["rdv"], suggestions: FAQ_STARTERS.slice() };
         if (/(google\s*ads|sea|publicité|campagne|ads)/.test(q))
-          return "Nous structurons et optimisons vos campagnes Google Ads (Search, Display, Remarketing) avec tracking après consentement cookies.";
-        if (/(seo|référencement|referencement|mise en avant|visibilité|valoris)/.test(q))
-          return "Notre SEO couvre l’audit technique, le contenu optimisé Google, le local SEO / Google Business Profile et l’alignement SEA.";
+          return { reply: "Campagnes Google Ads (Search, Display, Remarketing) avec tracking après consentement cookies.", actions: ["devis", "lead"], suggestions: ["Formules SEO / SEA ?", "Laisser mes coordonnées"] };
+        if (/(seo|référencement|referencement|mise en avant|visibilité|valoris|local)/.test(q))
+          return { reply: "SEO technique, contenu Google, local SEO / Business Profile, alignement SEA.", actions: ["devis", "lead"], suggestions: ["Laisser mes coordonnées", "Google Ads : comment ça marche ?"] };
         if (/(pwa|site|création|creation|web)/.test(q))
-          return "Nous créons des sites PWA ultra-design : installables, rapides, SEO-ready et préparés pour Google Ads / Analytics sous consentement RGPD.";
+          return { reply: "Sites & PWA installables, rapides, SEO-ready, prêts Ads/Analytics sous RGPD.", actions: ["devis", "rdv", "lead"], suggestions: FAQ_STARTERS.slice() };
         if (/(rendez[- ]?vous|rdv|créneau)/.test(q))
-          return "Utilisez le bouton « Rendez-vous » : visio, présentiel Paris ou téléphone. Confirmation sous 24 h.";
+          return { reply: "Réservez via « Rendez-vous » (visio, Paris, téléphone) ou laissez vos coordonnées.", actions: ["rdv", "lead"], suggestions: ["Prendre rendez-vous", "Laisser mes coordonnées"] };
         if (/(rgpd|cookie|confidentialité|cnil)/.test(q))
-          return "Oui : bannière cookies granulaire et pages légales FR. DPO : dpo@meridian-digital.fr.";
-        if (/(contact|email|téléphone|telephone|devis)/.test(q))
-          return "contact@meridian-digital.fr · 01 84 80 00 00 · 12 rue de la Paix, 75002 Paris.";
+          return { reply: "Cookies granulaires, pages légales FR, tags conditionnés au consentement. DPO : dpo@meridian-digital.fr.", suggestions: ["Laisser mes coordonnées"] };
+        if (/(contact|email|téléphone|telephone|adresse)/.test(q))
+          return { reply: "contact@meridian-digital.fr · 01 84 80 00 00 · 12 rue de la Paix, 75002 Paris.", actions: ["lead", "mailto", "devis", "rdv"], suggestions: ["Laisser mes coordonnées", "Prendre rendez-vous"] };
         if (/(bonjour|salut|hello|bonsoir)/.test(q))
-          return "Bonjour ! Je peux vous aider sur : création PWA, SEO, Google Ads / SEA, formules, RDV ou RGPD.";
-        return "Je renseigne sur la valorisation Google (SEO, SEA, Ads), les sites PWA, nos formules, le RDV et le devis.";
+          return { reply: "Bonjour ! PWA, SEO, Ads, formules, RDV — ou laissez vos coordonnées pour un rappel.", suggestions: FAQ_STARTERS.slice() };
+        return { reply: "Je couvre SEO, SEA, PWA, formules, RDV et la collecte de coordonnées. Choisissez une suggestion.", actions: ["lead"], suggestions: FAQ_STARTERS.slice() };
+      }
+      function startLead() {
+        leadStep = "name";
+        draft = { name: "", email: "", phone: "", need: "" };
+        setSuggestions(["Annuler"]);
+        addBubble("bot", leadPrompt("name"));
+        chatInput.placeholder = "Votre réponse…";
+      }
+      function cancelLead() {
+        leadStep = null;
+        draft = { name: "", email: "", phone: "", need: "" };
+        addBubble("bot", "Collecte annulée. Posez une question ou choisissez une suggestion.", ["lead", "rdv", "devis"]);
+        setSuggestions(FAQ_STARTERS.slice());
+        chatInput.placeholder = "Posez votre question…";
+      }
+      function saveLead() {
+        try {
+          const list = JSON.parse(localStorage.getItem("meridian_chat_leads") || "[]");
+          list.push({ ...draft, consent: true, at: new Date().toISOString() });
+          localStorage.setItem("meridian_chat_leads", JSON.stringify(list));
+          lastLead = { ...draft };
+          leadStep = null;
+          addBubble("bot", "Merci " + draft.name + ". Demande enregistrée — retour sous 24–48 h à " + draft.email + ". Vous pouvez ouvrir un e-mail prérempli.", ["mailto", "rdv", "devis"]);
+          setSuggestions(["Prendre rendez-vous", "Demander un devis", "Formules SEO / SEA ?"]);
+          chatInput.placeholder = "Posez votre question…";
+        } catch {
+          addBubble("bot", "Impossible d’enregistrer. Réessayez ou ouvrez un e-mail / devis.", ["mailto", "devis", "lead"]);
+          leadStep = null;
+        }
+      }
+      function handleLead(t) {
+        const lower = t.toLowerCase();
+        if (/^annuler$/i.test(t)) { cancelLead(); return; }
+        if (leadStep === "name") {
+          if (t.length < 2) { addBubble("bot", "Indiquez au moins 2 caractères."); return; }
+          draft.name = t; leadStep = "email"; addBubble("bot", leadPrompt("email")); setSuggestions(["Annuler"]); return;
+        }
+        if (leadStep === "email") {
+          if (!isValidEmail(t)) { addBubble("bot", "E-mail invalide. Ex. : vous@entreprise.fr"); return; }
+          draft.email = t; leadStep = "phone"; addBubble("bot", leadPrompt("phone")); setSuggestions(["Passer", "Annuler"]); return;
+        }
+        if (leadStep === "phone") {
+          draft.phone = /^(passer|skip|non)$/i.test(t) ? "" : t;
+          leadStep = "need"; addBubble("bot", leadPrompt("need")); setSuggestions(["Annuler"]); return;
+        }
+        if (leadStep === "need") {
+          if (t.length < 3) { addBubble("bot", "Décrivez brièvement votre besoin."); return; }
+          draft.need = t; leadStep = "consent"; addBubble("bot", leadPrompt("consent")); setSuggestions(["J’accepte", "Annuler"]); return;
+        }
+        if (leadStep === "consent") {
+          if (!/^(j[’']?accepte|oui|ok|d[’']?accord|accepte)$/i.test(lower)) {
+            addBubble("bot", "Répondez « j’accepte » pour envoyer, ou « Annuler ».");
+            setSuggestions(["J’accepte", "Annuler"]);
+            return;
+          }
+          saveLead();
+        }
+      }
+      function onAction(action) {
+        if (action === "lead") { addBubble("user", "Laisser mes coordonnées"); startLead(); return; }
+        if (action === "rdv") { openModal("rdv"); addBubble("bot", "Formulaire rendez-vous ouvert."); return; }
+        if (action === "devis") { openModal("devis"); addBubble("bot", "Formulaire devis ouvert."); return; }
+        if (action === "mailto") {
+          window.location.href = lastLead ? buildMailto(lastLead) : "mailto:contact@meridian-digital.fr";
+        }
+      }
+      function onChip(s) {
+        if (s === "Annuler" && leadStep) { addBubble("user", "Annuler"); cancelLead(); return; }
+        if (s === "J’accepte" && leadStep === "consent") { sendChat("j’accepte"); return; }
+        if (s === "Passer" && leadStep === "phone") { sendChat("passer"); return; }
+        if (s === "Demander un devis") { sendChat("Demander un devis"); return; }
+        if (s === "Prendre rendez-vous") { sendChat("Prendre rendez-vous"); return; }
+        sendChat(s);
       }
       function sendChat(text) {
-        const t = text.trim();
+        const t = String(text || "").trim();
         if (!t) return;
         addBubble("user", t);
-        addBubble("bot", replyFor(t));
+        if (leadStep) { handleLead(t); return; }
+        if (wantsLead(t) || /laisser mes coordonnées|être recontacté/i.test(t)) { startLead(); return; }
+        if (/demander un devis/i.test(t)) { openModal("devis"); addBubble("bot", "J’ouvre le formulaire de devis.", ["devis", "lead"]); setSuggestions(FAQ_STARTERS.slice()); return; }
+        if (/prendre rendez-vous/i.test(t)) { openModal("rdv"); addBubble("bot", "J’ouvre la prise de rendez-vous.", ["rdv", "lead"]); setSuggestions(FAQ_STARTERS.slice()); return; }
+        const r = replyFor(t);
+        addBubble("bot", r.reply, r.actions);
+        setSuggestions(r.suggestions || FAQ_STARTERS.slice());
       }
+
+      addBubble("bot", "Bonjour, je suis l’assistant Meridian. Questions sur la création PWA, le SEO, Google Ads, les formules — ou laissez vos coordonnées pour être recontacté·e.", ["lead", "rdv", "devis"]);
+      setSuggestions(FAQ_STARTERS.slice());
+
       document.getElementById("chat-form").addEventListener("submit", (e) => {
         e.preventDefault();
-        const input = document.getElementById("chat-input");
-        sendChat(input.value);
-        input.value = "";
+        sendChat(chatInput.value);
+        chatInput.value = "";
       });
       document.getElementById("chat-toggle").addEventListener("click", () => {
         chatPanel.classList.add("open");
