@@ -4,7 +4,9 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -30,8 +32,11 @@ export function useModal() {
 export function ModalProvider({ children }: { children: ReactNode }) {
   const [type, setType] = useState<ModalType>(null);
   const [formulaId, setFormulaId] = useState<string | undefined>();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const lastFocusRef = useRef<HTMLElement | null>(null);
 
   const open = useCallback((next: Exclude<ModalType, null>, id?: string) => {
+    lastFocusRef.current = document.activeElement as HTMLElement | null;
     setFormulaId(id);
     setType(next);
     document.body.style.overflow = "hidden";
@@ -41,7 +46,46 @@ export function ModalProvider({ children }: { children: ReactNode }) {
     setType(null);
     setFormulaId(undefined);
     document.body.style.overflow = "";
+    lastFocusRef.current?.focus?.();
+    lastFocusRef.current = null;
   }, []);
+
+  useEffect(() => {
+    if (!type || !dialogRef.current) return;
+    const root = dialogRef.current;
+    const focusable = () =>
+      [
+        ...root.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])',
+        ),
+      ].filter((el) => !el.hasAttribute("hidden") && el.getClientRects().length > 0);
+
+    const nodes = focusable();
+    nodes[0]?.focus();
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        close();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const list = focusable();
+      if (!list.length) return;
+      const first = list[0];
+      const last = list[list.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [type, close]);
 
   const value = useMemo(
     () => ({ open, close, formulaId }),
@@ -58,6 +102,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
           onClick={close}
         >
           <div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"

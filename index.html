@@ -5,33 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Meridian — Valorisez votre présence Google | SEO · SEA · PWA · Ads</title>
   <meta name="description" content="Agence française de création de sites PWA et valorisation Google : SEO, SEA, Google Ads. Prise de rendez-vous et devis en ligne." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <meta name="theme-color" content="#1b4d3e" />
+  <link rel="canonical" href="https://meridian-digital.fr/" />
   <meta property="og:title" content="Meridian — Valorisez votre présence Google" />
   <meta property="og:description" content="Création web, SEO, SEA et Google Ads — RDV et devis en ligne." />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://meridian-digital.fr/" />
+  <meta property="og:site_name" content="Meridian" />
+  <meta property="og:image" content="https://meridian-digital.fr/public/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Meridian — valorisation Google SEO SEA PWA" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Meridian — Valorisez votre présence Google" />
+  <meta name="twitter:description" content="Création web, SEO, SEA et Google Ads — RDV et devis en ligne." />
+  <meta name="twitter:image" content="https://meridian-digital.fr/public/og.jpg" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="public/icons/icon-192.png" />
   <link rel="apple-touch-icon" href="public/icons/icon-192.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" href="public/hero.svg" as="image" type="image/svg+xml" />
+  <link rel="stylesheet" href="public/fonts/fonts-static.css" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Meridian",
-    "description": "Création de sites PWA, SEO, SEA et Google Ads",
-    "url": "https://meridian-digital.fr",
-    "telephone": "+33 1 84 80 00 00",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "12 rue de la Paix",
-      "addressLocality": "Paris",
-      "postalCode": "75002",
-      "addressCountry": "FR"
-    },
-    "areaServed": "FR"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://meridian-digital.fr/#organization",
+        "name": "Meridian Digital SAS",
+        "url": "https://meridian-digital.fr",
+        "logo": "https://meridian-digital.fr/public/icons/icon-512.png",
+        "email": "contact@meridian-digital.fr",
+        "telephone": "+33 1 84 80 00 00",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "12 rue de la Paix",
+          "addressLocality": "Paris",
+          "postalCode": "75002",
+          "addressCountry": "FR"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://meridian-digital.fr/#website",
+        "url": "https://meridian-digital.fr",
+        "name": "Meridian",
+        "inLanguage": "fr-FR",
+        "publisher": { "@id": "https://meridian-digital.fr/#organization" }
+      },
+      {
+        "@type": "ProfessionalService",
+        "name": "Meridian",
+        "description": "Création de sites PWA, SEO, SEA et Google Ads",
+        "url": "https://meridian-digital.fr",
+        "image": "https://meridian-digital.fr/public/og.jpg",
+        "telephone": "+33 1 84 80 00 00",
+        "priceRange": "€€€",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "12 rue de la Paix",
+          "addressLocality": "Paris",
+          "postalCode": "75002",
+          "addressCountry": "FR"
+        },
+        "areaServed": { "@type": "Country", "name": "France" },
+        "knowsAbout": ["SEO", "SEA", "Google Ads", "PWA", "Création de sites web"]
+      }
+    ]
   }
   </script>
   <style>
@@ -46,8 +88,8 @@
       --mist-2: #f3f7f4;
       --paper: #fbfcfb;
       --line: rgba(20, 32, 26, 0.12);
-      --amber: #c47a2c;
-      --amber-deep: #9a5c1c;
+      --amber: #8f5418;
+      --amber-deep: #734314;
       --white: #fff;
       --danger: #b42318;
       --success: #1b7a4a;
@@ -298,7 +340,7 @@
 
   <header>
     <div class="container nav">
-      <a class="brand" href="#top" aria-label="Meridian — accueil">
+      <a class="brand" href="#top">
         <span class="brand-mark" aria-hidden="true">M</span>
         <span>Meridian</span>
       </a>
@@ -546,7 +588,7 @@
 
   <!-- Modale RDV -->
   <div class="modal-backdrop" id="modal-rdv" role="presentation">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rdv-title">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rdv-title" tabindex="-1">
       <div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:1.5rem;">
         <div>
           <p class="eyebrow">Meridian</p>
@@ -591,7 +633,7 @@
 
   <!-- Modale devis -->
   <div class="modal-backdrop" id="modal-devis" role="presentation">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="devis-title">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="devis-title" tabindex="-1">
       <div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:1.5rem;">
         <div>
           <p class="eyebrow">Meridian</p>
@@ -698,21 +740,67 @@
       menuBtn.setAttribute("aria-expanded", "false");
     }));
 
-    /* Modales */
+    /* Modales + focus trap */
+    let lastFocus = null;
+    let activeModal = null;
+    const mainEl = document.getElementById("contenu");
+    const headerEl = document.querySelector("header");
+    const footerEl = document.querySelector("footer");
+    const chatEl = document.getElementById("chat");
+
+    function getFocusable(root) {
+      return [...root.querySelectorAll('a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])')]
+        .filter((el) => !el.hasAttribute("hidden") && el.offsetParent !== null);
+    }
+
+    function setInertBackground(on) {
+      [mainEl, headerEl, footerEl, chatEl].forEach((el) => {
+        if (!el) return;
+        if (on) el.setAttribute("aria-hidden", "true");
+        else el.removeAttribute("aria-hidden");
+      });
+    }
+
+    function onTrapTab(e) {
+      if (e.key !== "Tab" || !activeModal) return;
+      const nodes = getFocusable(activeModal);
+      if (!nodes.length) return;
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
     function openModal(id, formula) {
       const el = document.getElementById("modal-" + id);
       if (!el) return;
+      lastFocus = document.activeElement;
+      activeModal = el;
       el.classList.add("open");
       document.body.style.overflow = "hidden";
+      setInertBackground(true);
       if (id === "devis" && formula) {
         const sel = document.getElementById("devis-formula");
         if (sel) sel.value = formula;
       }
       mobileNav.classList.remove("open");
+      const focusables = getFocusable(el);
+      (focusables[0] || el.querySelector(".modal")).focus();
+      document.addEventListener("keydown", onTrapTab);
     }
     function closeModals() {
       document.querySelectorAll(".modal-backdrop").forEach((m) => m.classList.remove("open"));
       document.body.style.overflow = "";
+      setInertBackground(false);
+      document.removeEventListener("keydown", onTrapTab);
+      activeModal = null;
+      if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+      lastFocus = null;
     }
     document.querySelectorAll("[data-open]").forEach((btn) => {
       btn.addEventListener("click", () => openModal(btn.getAttribute("data-open"), btn.getAttribute("data-formula")));
@@ -829,7 +917,10 @@
       window.dispatchEvent(new CustomEvent("meridian:consent", { detail: consent }));
       cookiesEl.classList.remove("open");
     }
-    if (!localStorage.getItem(COOKIE_KEY)) cookiesEl.classList.add("open");
+    if (!localStorage.getItem(COOKIE_KEY)) {
+      cookiesEl.classList.add("open");
+      setTimeout(() => document.getElementById("c-accept")?.focus(), 50);
+    }
     document.getElementById("c-accept").addEventListener("click", () => saveConsent(true, true));
     document.getElementById("c-reject").addEventListener("click", () => saveConsent(false, false));
     document.getElementById("c-custom").addEventListener("click", () => {
