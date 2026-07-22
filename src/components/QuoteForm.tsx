@@ -96,7 +96,7 @@ export function QuoteForm({ onSuccess, formulaId }: Props) {
           {message}
         </p>
       ) : null}
-      <button type="submit" className="btn btn-amber" disabled={status === "loading"}>
+      <button type="submit" className="btn btn-primary" disabled={status === "loading"}>
         {status === "loading" ? "Envoi…" : "Envoyer la demande"}
       </button>
     </form>

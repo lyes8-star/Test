@@ -131,7 +131,7 @@ export function CookieBanner() {
             Refuser le non-essentiel
           </button>
           {openPrefs ? (
-            <button type="button" className="btn btn-amber" onClick={savePrefs}>
+            <button type="button" className="btn btn-primary" onClick={savePrefs}>
               Enregistrer mes choix
             </button>
           ) : (

@@ -5,10 +5,10 @@ import { useModal } from "@/components/ModalProvider";
 
 export function Activities() {
   return (
-    <section id="activites" className="section">
+    <section id="activites" className="section bg-white">
       <div className="container">
-        <p className="eyebrow">Activités</p>
-        <h2 className="display mt-3 max-w-2xl text-4xl text-[var(--ink)] sm:text-5xl">
+        <p className="eyebrow text-[var(--signal)]">Activités</p>
+        <h2 className="display mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
           Quatre leviers pour briller sur Google
         </h2>
         <p className="mt-4 max-w-2xl text-lg text-[var(--ink-soft)]">
@@ -16,23 +16,29 @@ export function Activities() {
           convertir.
         </p>
 
-        <div className="mt-12 grid gap-8 md:grid-cols-2">
+        <ol className="mt-12 list-none border-t border-[var(--line)] p-0">
           {activities.map((activity, index) => (
-            <article key={activity.id} className="border-t border-[var(--line)] pt-6">
-              <p className="text-sm font-semibold text-[var(--moss)]">0{index + 1}</p>
-              <h3 className="display mt-2 text-3xl text-[var(--ink)]">{activity.title}</h3>
-              <p className="mt-3 text-[var(--ink-soft)]">{activity.summary}</p>
-              <ul className="mt-5 space-y-2 text-sm text-[var(--ink)]">
-                {activity.points.map((point) => (
-                  <li key={point} className="flex gap-2">
-                    <span aria-hidden className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--amber)]" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            </article>
+            <li
+              key={activity.id}
+              className="grid gap-3 border-b border-[var(--line)] py-7 md:grid-cols-[4.5rem_1fr] md:gap-6"
+            >
+              <span
+                aria-hidden
+                className="display text-[clamp(2rem,4vw,2.6rem)] leading-none tracking-[-0.04em] text-[var(--ink)] opacity-30"
+              >
+                0{index + 1}
+              </span>
+              <div>
+                <h3 className="display text-[clamp(1.35rem,2.5vw,1.75rem)] text-[var(--ink)]">
+                  {activity.title}
+                </h3>
+                <p className="mt-3 max-w-3xl text-[1.05rem] text-[var(--ink-soft)]">
+                  {activity.summary} {activity.points.slice(0, 2).join(" · ")}.
+                </p>
+              </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );
@@ -42,52 +48,53 @@ export function Formulas() {
   const { open } = useModal();
 
   return (
-    <section id="formules" className="section bg-[rgba(255,255,255,0.45)]">
+    <section id="formules" className="section">
       <div className="container">
-        <p className="eyebrow">Formules</p>
-        <h2 className="display mt-3 max-w-2xl text-4xl text-[var(--ink)] sm:text-5xl">
+        <p className="eyebrow text-[var(--signal)]">Formules</p>
+        <h2 className="display mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
           Formules de valorisation Google
         </h2>
         <p className="mt-4 max-w-2xl text-lg text-[var(--ink-soft)]">
           De l’audit express au dispositif multi-campagnes — chaque formule est ajustable sur devis.
         </p>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {formulas.map((formula) => (
+        <div className="mt-12 grid gap-0 border-t border-[var(--line)] lg:grid-cols-3 lg:border-t-0">
+          {formulas.map((formula, i) => (
             <article
               key={formula.id}
-              className={`flex flex-col rounded-[1.5rem] p-6 sm:p-7 ${
+              className={`flex flex-col gap-3 border-b border-[var(--line)] py-7 lg:border-b-0 lg:border-r lg:px-6 lg:py-8 ${
+                i === 0 ? "lg:pl-0" : ""
+              } ${i === formulas.length - 1 ? "lg:border-r-0 lg:pr-0" : ""} ${
                 formula.featured
-                  ? "bg-[var(--forest)] text-white shadow-[var(--shadow)]"
-                  : "bg-white/70 ring-1 ring-[var(--line)]"
+                  ? "mx-[-1rem] rounded-[0.75rem] border-none bg-[var(--ink)] px-4 text-[var(--paper)] lg:mx-0 lg:px-6"
+                  : ""
               }`}
             >
-              <div className="flex items-baseline justify-between gap-3">
-                <h3 className="display text-3xl">{formula.name}</h3>
-                {formula.featured ? (
-                  <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--sage)]">
-                    Recommandé
-                  </span>
-                ) : null}
-              </div>
-              <p className={`mt-3 text-sm ${formula.featured ? "text-white/75" : "text-[var(--ink-soft)]"}`}>
+              {formula.featured ? (
+                <span className="inline-flex w-fit rounded-full bg-[var(--signal)] px-2.5 py-1 text-[0.72rem] font-bold uppercase tracking-[0.04em] text-white">
+                  Recommandé
+                </span>
+              ) : null}
+              <h3 className="display text-[1.55rem] tracking-[-0.03em]">{formula.name}</h3>
+              <p className={`text-sm ${formula.featured ? "text-[rgba(242,244,247,0.68)]" : "text-[var(--ink-soft)]"}`}>
                 {formula.description}
               </p>
-              <p className="mt-5 text-2xl font-semibold">{formula.price}</p>
-              <p className={`text-sm ${formula.featured ? "text-white/70" : "text-[var(--ink-soft)]"}`}>
+              <p className="display text-[2rem] tracking-[-0.03em]">{formula.price}</p>
+              <p className={`text-sm ${formula.featured ? "text-[rgba(242,244,247,0.68)]" : "text-[var(--ink-soft)]"}`}>
                 {formula.duration}
               </p>
-              <ul className="mt-6 flex-1 space-y-2.5 text-sm">
+              <ul className="mt-1 flex-1 space-y-2 text-sm opacity-90">
                 {formula.features.map((feature) => (
-                  <li key={feature} className="flex gap-2">
-                    <span aria-hidden>✓</span>
-                    {feature}
-                  </li>
+                  <li key={feature}>{feature}</li>
                 ))}
               </ul>
               <button
                 type="button"
-                className={`btn mt-8 ${formula.featured ? "btn-amber" : "btn-primary"}`}
+                className={`btn mt-4 w-fit ${
+                  formula.featured
+                    ? "btn-primary"
+                    : "btn-secondary"
+                }`}
                 onClick={() => open("devis", formula.id)}
               >
                 Demander un devis
@@ -102,18 +109,28 @@ export function Formulas() {
 
 export function Method() {
   return (
-    <section id="methode" className="section">
+    <section id="methode" className="section bg-white">
       <div className="container">
-        <p className="eyebrow">Méthode</p>
-        <h2 className="display mt-3 max-w-2xl text-4xl text-[var(--ink)] sm:text-5xl">
+        <p className="eyebrow text-[var(--signal)]">Méthode</p>
+        <h2 className="display mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
           De l’audit Google à la performance mesurée
         </h2>
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <p className="mt-4 max-w-2xl text-lg text-[var(--ink-soft)]">
+          Un rythme clair, une idée par étape — de la découverte à la mesure.
+        </p>
+        <div className="mt-10 border-t border-[var(--line)]">
           {processSteps.map((step) => (
-            <article key={step.step}>
-              <p className="display text-5xl text-[var(--sage)]">{step.step}</p>
-              <h3 className="mt-3 text-xl font-semibold text-[var(--ink)]">{step.title}</h3>
-              <p className="mt-2 text-[var(--ink-soft)]">{step.text}</p>
+            <article
+              key={step.step}
+              className="grid gap-3 border-b border-[var(--line)] py-6 md:grid-cols-[3.5rem_1fr] md:gap-5"
+            >
+              <span className="display text-[1.75rem] tracking-[-0.04em] text-[var(--signal)]">
+                {step.step}
+              </span>
+              <div>
+                <h3 className="display text-[1.25rem] tracking-[-0.02em] text-[var(--ink)]">{step.title}</h3>
+                <p className="mt-2 text-[var(--ink-soft)]">{step.text}</p>
+              </div>
             </article>
           ))}
         </div>
@@ -124,32 +141,29 @@ export function Method() {
 
 export function Compliance() {
   return (
-    <section className="section-tight">
-      <div className="container rounded-[2rem] bg-[var(--forest-deep)] px-6 py-10 text-white sm:px-10 sm:py-12">
-        <p className="eyebrow text-[var(--sage)]">Conformité</p>
-        <h2 className="display mt-3 max-w-3xl text-3xl sm:text-4xl">
+    <section className="section bg-[var(--ink)] text-[var(--paper)]">
+      <div className="container">
+        <p className="eyebrow text-[var(--beam)]">Conformité</p>
+        <h2 className="display mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)]">
           SEO, SEA et PWA — conformes FR & UE
         </h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          <div>
-            <h3 className="font-semibold">RGPD & ePrivacy</h3>
-            <p className="mt-2 text-sm text-white/75">
-              Consentement cookies granulaire (analytics + Google Ads), bases légales et droits des personnes.
-            </p>
-          </div>
-          <div>
-            <h3 className="font-semibold">SEO & Google Ads ready</h3>
-            <p className="mt-2 text-sm text-white/75">
-              Métadonnées, JSON-LD, sitemap, pages de conversion et tags Ads activés uniquement après consentement.
-            </p>
-          </div>
-          <div>
-            <h3 className="font-semibold">PWA & accessibilité</h3>
-            <p className="mt-2 text-sm text-white/75">
-              Site installable, offline de base, contraste soigné, navigation clavier et lien d’évitement.
-            </p>
-          </div>
-        </div>
+        <p className="mt-4 max-w-2xl text-lg text-[rgba(242,244,247,0.68)]">
+          Cadre légal et technique pour publier, mesurer et annoncer sans friction.
+        </p>
+        <ul className="mt-8 max-w-3xl space-y-4 text-[rgba(242,244,247,0.86)]">
+          <li>
+            <strong className="text-white">RGPD & ePrivacy</strong> — consentement cookies granulaire
+            (analytics + Google Ads), bases légales et droits des personnes.
+          </li>
+          <li>
+            <strong className="text-white">SEO & Google Ads ready</strong> — métadonnées, JSON-LD,
+            sitemap, pages de conversion et tags Ads activés uniquement après consentement.
+          </li>
+          <li>
+            <strong className="text-white">PWA & accessibilité</strong> — site installable, contraste
+            soigné, navigation clavier et lien d’évitement.
+          </li>
+        </ul>
       </div>
     </section>
   );
@@ -160,15 +174,14 @@ export function ContactCta() {
 
   return (
     <section id="contact" className="section">
-      <div className="container grid items-end gap-10 md:grid-cols-[1.3fr_1fr]">
+      <div className="container grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-12">
         <div>
-          <p className="eyebrow">Contact</p>
-          <h2 className="display mt-3 text-4xl text-[var(--ink)] sm:text-5xl">
+          <p className="eyebrow text-[var(--signal)]">Contact</p>
+          <h2 className="display mt-3 text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
             Parlons de votre prochain jalon
           </h2>
           <p className="mt-4 max-w-xl text-lg text-[var(--ink-soft)]">
-            Audit Google, site PWA, SEO ou Ads : un premier échange clarifie le périmètre. RDV, devis ou
-            chatbot — à vous de choisir.
+            Audit Google, site PWA, SEO ou Ads : un premier échange clarifie le périmètre.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <button type="button" className="btn btn-primary" onClick={() => open("rdv")}>
@@ -179,24 +192,25 @@ export function ContactCta() {
             </button>
           </div>
         </div>
-        <aside className="rounded-[1.5rem] bg-white/70 p-6 ring-1 ring-[var(--line)]">
-          <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[var(--moss)]">Coordonnées</p>
-          <ul className="mt-4 space-y-3 text-[var(--ink)]">
-            <li>
-              <a className="font-medium hover:text-[var(--forest)]" href={`mailto:${siteConfig.email}`}>
-                {siteConfig.email}
-              </a>
-            </li>
-            <li>
-              <a className="font-medium hover:text-[var(--forest)]" href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>
-                {siteConfig.phoneDisplay}
-              </a>
-            </li>
-            <li className="text-[var(--ink-soft)]">
-              {siteConfig.address.street}, {siteConfig.address.city}
-            </li>
-          </ul>
-          <p className="mt-5 text-sm text-[var(--ink-soft)]">Réponse sous 24 à 48 h ouvrées.</p>
+        <aside className="grid gap-3">
+          <p className="eyebrow text-[var(--signal)]">Coordonnées</p>
+          <p>
+            <a className="font-semibold hover:text-[var(--signal)]" href={`mailto:${siteConfig.email}`}>
+              {siteConfig.email}
+            </a>
+          </p>
+          <p>
+            <a
+              className="font-semibold hover:text-[var(--signal)]"
+              href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}
+            >
+              {siteConfig.phoneDisplay}
+            </a>
+          </p>
+          <p className="text-[var(--ink-soft)]">
+            {siteConfig.address.street}, {siteConfig.address.city}
+          </p>
+          <p className="text-sm text-[var(--ink-soft)]">Réponse sous 24 à 48 h ouvrées.</p>
         </aside>
       </div>
     </section>

@@ -105,14 +105,14 @@ export const metadata: Metadata = {
     address: true,
   },
   other: {
-    "msapplication-TileColor": "#1b4d3e",
+    "msapplication-TileColor": "#0E1218",
   },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#e7f1ec" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f2f26" },
+    { media: "(prefers-color-scheme: light)", color: "#F2F4F7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0E1218" },
   ],
   width: "device-width",
   initialScale: 1,

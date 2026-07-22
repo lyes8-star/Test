@@ -3,24 +3,25 @@ import { siteConfig } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-[var(--line)] bg-[var(--forest-deep)] text-[rgba(255,255,255,0.86)]">
+    <footer className="bg-[var(--ink)] text-[rgba(242,244,247,0.78)]">
       <div className="container grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <p className="display text-3xl text-white">{siteConfig.name}</p>
-          <p className="mt-3 max-w-sm text-[rgba(255,255,255,0.72)]">
-            {siteConfig.tagline} Création de sites PWA, SEO, SEA et Google Ads — conforme RGPD et droit français.
+          <p className="mt-3 max-w-sm">
+            {siteConfig.tagline} Création de sites PWA, SEO, SEA et Google Ads — conforme RGPD et droit
+            français.
           </p>
         </div>
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--sage)]">Contact</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--beam)]">Contact</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
-              <a className="hover:text-white" href={`mailto:${siteConfig.email}`}>
+              <a className="hover:text-[var(--beam)]" href={`mailto:${siteConfig.email}`}>
                 {siteConfig.email}
               </a>
             </li>
             <li>
-              <a className="hover:text-white" href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>
+              <a className="hover:text-[var(--beam)]" href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}>
                 {siteConfig.phoneDisplay}
               </a>
             </li>
@@ -32,20 +33,20 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--sage)]">Légal</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--beam)]">Légal</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
-              <Link className="hover:text-white" href="/mentions-legales">
+              <Link className="hover:text-[var(--beam)]" href="/mentions-legales">
                 Mentions légales
               </Link>
             </li>
             <li>
-              <Link className="hover:text-white" href="/politique-confidentialite">
+              <Link className="hover:text-[var(--beam)]" href="/politique-confidentialite">
                 Politique de confidentialité
               </Link>
             </li>
             <li>
-              <Link className="hover:text-white" href="/politique-cookies">
+              <Link className="hover:text-[var(--beam)]" href="/politique-cookies">
                 Politique cookies
               </Link>
             </li>
