@@ -7,7 +7,7 @@ SEO, SEA / Google Ads, sites PWA, prise de rendez-vous, devis et chatbot.
 
 - Landing : activités, formules, méthode, conformité, contact
 - Modales **RDV** et **devis** avec consentement RGPD
-- **Chatbot** à règles (SEO, Ads, PWA, formules…)
+- **Chatbot** multi-tours : FAQ enrichie + collecte de coordonnées (consentement RGPD), actions RDV/devis/mailto
 - **PWA** : manifest, service worker, icônes, installable
 - **SEO** : metadata, Open Graph, JSON-LD, `robots.ts`, `sitemap.ts`
 - **SEA ready** : catégorie cookies publicitaires ; tags Ads à brancher après consentement
@@ -60,8 +60,9 @@ npm run audit:all
 
 Rapports dans `audits/`. Optimisations : fonts locales, `next/dynamic` (chat/cookies), `content-visibility`, idle init widgets.
 
-Les routes `POST /api/rdv` et `POST /api/devis` valident les données (Zod) et journalisent côté serveur.
-Pour la production : brancher Resend, SMTP ou un CRM dans ces handlers.
+Les routes `POST /api/rdv`, `POST /api/devis` et `POST /api/chat-lead` valident les données (Zod) et journalisent côté serveur.
+Le chat static enregistre aussi les leads dans `localStorage` (`meridian_chat_leads`).
+Pour la production : brancher Resend, SMTP ou un CRM dans ces handlers (e-mail transactionnel non branché pour l’instant).
 
 ## Tracking Google Ads / Analytics (consentement)
 
