@@ -377,12 +377,22 @@ a:hover .brand-mark-live {
   transform: translateY(0);
 }
 
-.lift-hover {
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+.magnetic-cta {
+  will-change: transform;
+  transition: transform 0.15s ease-out, background 0.25s ease, box-shadow 0.25s ease;
 }
 
-.lift-hover:hover {
-  transform: translateY(-4px);
+.faq-panel {
+  transition: grid-template-rows 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .magnetic-cta {
+    transition: none;
+  }
+  .faq-panel {
+    transition: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

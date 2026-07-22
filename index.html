@@ -89,26 +89,32 @@
           {
             "@type": "Question",
             "name": "Quelles formules propose Meridian ?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Essentiel (audit + quick wins dès 1 490 €), Croissance (site/PWA + SEO + Google Ads dès 4 900 €) et Sur-mesure (multi-campagnes, sur devis)."
-            }
+            "acceptedAnswer": { "@type": "Answer", "text": "Essentiel (audit + quick wins dès 1 490 €), Croissance (site/PWA + SEO + Google Ads dès 4 900 €) et Sur-mesure (multi-campagnes, sur devis)." }
           },
           {
             "@type": "Question",
             "name": "Proposez-vous du SEO et Google Ads ?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Oui : SEO technique et contenu, SEA / Google Ads (Search, Display, Remarketing) avec tracking après consentement cookies RGPD."
-            }
+            "acceptedAnswer": { "@type": "Answer", "text": "Oui : SEO technique et contenu, SEA / Google Ads (Search, Display, Remarketing) avec tracking après consentement cookies RGPD." }
           },
           {
             "@type": "Question",
-            "name": "Le site est-il conforme RGPD ?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Oui : bannière cookies granulaire, pages légales françaises et tags analytics/Ads conditionnés au consentement."
-            }
+            "name": "Le site et vos dispositifs sont-ils conformes RGPD ?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Oui : bannière cookies granulaire, pages légales françaises et tags analytics/Ads conditionnés au consentement. DPO : dpo@meridian-digital.fr." }
+          },
+          {
+            "@type": "Question",
+            "name": "Quels sont les délais typiques ?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Essentiel 2–3 semaines, Croissance 4–8 semaines, Sur-mesure selon le périmètre. Un RDV initial fixe le calendrier." }
+          },
+          {
+            "@type": "Question",
+            "name": "Qu’est-ce qu’une PWA et en ai-je besoin ?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Une Progressive Web App s’installe comme une app, reste rapide hors ligne de base et reste indexable. Idéale pour convertir sur mobile tout en gardant le SEO." }
+          },
+          {
+            "@type": "Question",
+            "name": "Comment démarrer ?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Prenez rendez-vous, demandez un devis, ou laissez vos coordonnées via le chat. Réponse sous 24 à 48 h ouvrées." }
           }
         ]
       }
@@ -1111,6 +1117,55 @@ body::before {
   .btn:hover, .btn:active, .chip:active { transform: none; }
   .btn-primary::after, .btn-amber::after { display: none; }
 }
+
+.case-list { list-style: none; margin: 2.75rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+.case-item {
+  display: grid; gap: 1.5rem; padding: 2.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 900px) {
+  .case-item { grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: center; }
+}
+.case-item img { width: 100%; border-radius: 0.75rem; }
+.case-meta { display: flex; align-items: baseline; gap: 0.75rem; font-size: 0.92rem; color: var(--muted); font-weight: 600; }
+.case-metric { margin: 1.25rem 0; display: flex; flex-wrap: wrap; gap: 0.65rem; align-items: baseline; }
+.metric { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem,4vw,2.75rem); color: var(--signal); letter-spacing: -0.04em; }
+.quote-list { list-style: none; margin: 2.5rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+.quote-list li { padding: 2rem 0; border-bottom: 1px solid var(--line); }
+.quote-list blockquote {
+  margin: 0; font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(1.25rem, 2.8vw, 1.85rem); letter-spacing: -0.03em; line-height: 1.25;
+}
+.faq-list { margin-top: 2rem; border-top: 1px solid var(--line); }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-q {
+  width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  min-height: 3.5rem; padding: 1.15rem 0; border: 0; background: transparent;
+  font: inherit; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem;
+  letter-spacing: -0.02em; text-align: left; cursor: pointer; color: var(--ink);
+}
+.faq-q span {
+  width: 2rem; height: 2rem; border-radius: 999px; border: 1px solid var(--line-strong);
+  display: grid; place-items: center; flex-shrink: 0; transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.faq-q[aria-expanded="true"] span { transform: rotate(45deg); background: var(--ink); color: #fff; border-color: var(--ink); }
+.faq-a { padding: 0 0 1.25rem; max-width: 42rem; color: var(--muted); }
+.faq-a[hidden] { display: none; }
+.sticky-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 65;
+  background: rgba(242,244,247,0.94); border-top: 1px solid var(--line);
+  backdrop-filter: blur(12px); padding: 0.75rem 0;
+}
+.sticky-bar[hidden] { display: none !important; }
+.sticky-bar-inner { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+.sticky-bar .btn { min-height: 2.75rem; padding: 0.55rem 0.5rem; font-size: 0.9rem; }
+@media (min-width: 900px) { .sticky-bar { display: none !important; } }
+.nav-links a[aria-current="true"] { color: var(--ink); }
+.nav-links a[aria-current="true"]::after { transform: scaleX(1); }
+.magnetic-cta { will-change: transform; transition: transform 0.12s ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .magnetic-cta { transition: none; }
+}
 </style>
 </head>
 <body>
@@ -1123,10 +1178,11 @@ body::before {
         <span>Meridian</span>
       </a>
       <nav class="nav-links" aria-label="Navigation principale">
-        <a href="#activites">Activités</a>
-        <a href="#formules">Formules</a>
-        <a href="#methode">Méthode</a>
-        <a href="#contact">Contact</a>
+        <a href="#activites" data-nav="activites">Activités</a>
+        <a href="#realisations" data-nav="realisations">Réalisations</a>
+        <a href="#formules" data-nav="formules">Formules</a>
+        <a href="#faq" data-nav="faq">FAQ</a>
+        <a href="#contact" data-nav="contact">Contact</a>
       </nav>
       <div class="nav-cta">
         <button type="button" class="btn btn-secondary" data-open="devis">Devis</button>
@@ -1136,8 +1192,9 @@ body::before {
     </div>
     <div id="mobile-nav" class="container">
       <a href="#activites">Activités</a>
+      <a href="#realisations">Réalisations</a>
       <a href="#formules">Formules</a>
-      <a href="#methode">Méthode</a>
+      <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
       <button type="button" class="btn btn-secondary" data-open="devis">Demander un devis</button>
       <button type="button" class="btn btn-primary" data-open="rdv">Prendre rendez-vous</button>
@@ -1155,7 +1212,7 @@ body::before {
         <h1>Valorisez votre présence Google</h1>
         <p class="hero-lead">Création de sites PWA, SEO, SEA et Google Ads — pour être trouvé, choisi et converti.</p>
         <div class="hero-actions">
-          <button type="button" class="btn btn-primary" data-open="rdv">Prendre rendez-vous</button>
+          <button type="button" class="btn btn-primary magnetic-cta" id="hero-rdv" data-open="rdv">Prendre rendez-vous</button>
           <button type="button" class="btn btn-secondary" data-open="devis">Demander un devis</button>
         </div>
       </div>
@@ -1196,6 +1253,47 @@ body::before {
             </div>
           </li>
         </ol>
+      </div>
+    </section>
+
+
+    <section class="section" id="realisations">
+      <div class="container">
+        <p class="eyebrow reveal-on-scroll">Réalisations</p>
+        <h2 class="reveal-on-scroll">Preuves de valorisation Google</h2>
+        <p class="section-intro reveal-on-scroll" style="--reveal-delay:80ms">Trois parcours représentatifs — local, PWA, Ads — avec un résultat mesurable.</p>
+        <ul class="case-list">
+          <li class="case-item reveal-on-scroll" style="--reveal-delay:100ms">
+            <img src="public/cases/local-seo.svg" alt="" width="640" height="400" loading="lazy" />
+            <div>
+              <p class="case-meta"><span class="activity-num">01</span> Commerce de proximité · Lyon</p>
+              <h3>Local SEO &amp; Google Business</h3>
+              <p class="muted">Refonte de la présence locale : fiche Google Business, pages de zones, avis et contenu sémantique.</p>
+              <p class="case-metric"><span class="metric" data-count="180" data-prefix="+" data-suffix=" %">+0 %</span> <span class="muted">impressions locales</span></p>
+              <button type="button" class="btn btn-secondary" data-open="devis">Demander un devis</button>
+            </div>
+          </li>
+          <li class="case-item reveal-on-scroll" style="--reveal-delay:200ms">
+            <img src="public/cases/pwa-ecom.svg" alt="" width="640" height="400" loading="lazy" />
+            <div>
+              <p class="case-meta"><span class="activity-num">02</span> E-commerce · mode</p>
+              <h3>PWA boutique &amp; Core Web Vitals</h3>
+              <p class="muted">Passage en PWA installable, tunnels de conversion et SEO technique pour un catalogue 400+ SKU.</p>
+              <p class="case-metric"><span class="metric" data-count="42" data-prefix="+" data-suffix=" %">+0 %</span> <span class="muted">taux de conversion mobile</span></p>
+              <button type="button" class="btn btn-secondary" data-open="devis">Demander un devis</button>
+            </div>
+          </li>
+          <li class="case-item reveal-on-scroll" style="--reveal-delay:300ms">
+            <img src="public/cases/ads-b2b.svg" alt="" width="640" height="400" loading="lazy" />
+            <div>
+              <p class="case-meta"><span class="activity-num">03</span> SaaS B2B · Paris</p>
+              <h3>Google Ads Search &amp; Remarketing</h3>
+              <p class="muted">Restructuration du compte Ads, tracking consentement et landings SEO-ready pour leads qualifiés.</p>
+              <p class="case-metric"><span class="metric" data-count="31" data-prefix="−" data-suffix=" %">−0 %</span> <span class="muted">coût par lead</span></p>
+              <button type="button" class="btn btn-secondary" data-open="devis">Demander un devis</button>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -1285,6 +1383,64 @@ body::before {
               <p>Optimisation continue des performances Google et reporting transparent.</p>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="temoignages">
+      <div class="container">
+        <p class="eyebrow reveal-on-scroll">Témoignages</p>
+        <h2 class="reveal-on-scroll">Ce que les équipes retiennent</h2>
+        <ul class="quote-list">
+          <li class="reveal-on-scroll" style="--reveal-delay:80ms">
+            <blockquote>« Meridian a clarifié notre présence Google en six semaines. On sait enfin ce qui convertit — et pourquoi. »</blockquote>
+            <p><strong>Camille Renard</strong></p>
+            <p class="muted">Directrice marketing, atelier lyonnais</p>
+          </li>
+          <li class="reveal-on-scroll" style="--reveal-delay:160ms">
+            <blockquote>« La PWA est rapide, installable, et les Ads sont branchés proprement après consentement. Niveau agence, c’est rare. »</blockquote>
+            <p><strong>Hugo Belmont</strong></p>
+            <p class="muted">Fondateur, boutique mode</p>
+          </li>
+          <li class="reveal-on-scroll" style="--reveal-delay:240ms">
+            <blockquote>« Reporting clair, équipe réactive, devis sans surprise. On a divisé notre CPL sans sacrifier la qualité des leads. »</blockquote>
+            <p><strong>Inès Moreau</strong></p>
+            <p class="muted">Growth lead, SaaS B2B</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="faq">
+      <div class="container">
+        <p class="eyebrow reveal-on-scroll">FAQ</p>
+        <h2 class="reveal-on-scroll">Questions fréquentes</h2>
+        <div class="faq-list" id="faq-list">
+          <div class="faq-item reveal-on-scroll">
+            <button type="button" class="faq-q" aria-expanded="true" aria-controls="faq-p1" id="faq-b1">Quelles formules propose Meridian ? <span aria-hidden>+</span></button>
+            <div class="faq-a open" id="faq-p1" role="region" aria-labelledby="faq-b1"><p>Essentiel (audit + quick wins dès 1 490 €), Croissance (site/PWA + SEO + Google Ads dès 4 900 €) et Sur-mesure (multi-campagnes, sur devis).</p></div>
+          </div>
+          <div class="faq-item reveal-on-scroll">
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-p2" id="faq-b2">Proposez-vous du SEO et Google Ads ? <span aria-hidden>+</span></button>
+            <div class="faq-a" id="faq-p2" role="region" aria-labelledby="faq-b2" hidden><p>Oui : SEO technique et contenu, SEA / Google Ads (Search, Display, Remarketing) avec tracking après consentement cookies RGPD.</p></div>
+          </div>
+          <div class="faq-item reveal-on-scroll">
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-p3" id="faq-b3">Le site et vos dispositifs sont-ils conformes RGPD ? <span aria-hidden>+</span></button>
+            <div class="faq-a" id="faq-p3" role="region" aria-labelledby="faq-b3" hidden><p>Oui : bannière cookies granulaire, pages légales françaises et tags analytics/Ads conditionnés au consentement. DPO : dpo@meridian-digital.fr.</p></div>
+          </div>
+          <div class="faq-item reveal-on-scroll">
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-p4" id="faq-b4">Quels sont les délais typiques ? <span aria-hidden>+</span></button>
+            <div class="faq-a" id="faq-p4" role="region" aria-labelledby="faq-b4" hidden><p>Essentiel 2–3 semaines, Croissance 4–8 semaines, Sur-mesure selon le périmètre. Un RDV initial fixe le calendrier.</p></div>
+          </div>
+          <div class="faq-item reveal-on-scroll">
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-p5" id="faq-b5">Qu’est-ce qu’une PWA et en ai-je besoin ? <span aria-hidden>+</span></button>
+            <div class="faq-a" id="faq-p5" role="region" aria-labelledby="faq-b5" hidden><p>Une Progressive Web App s’installe comme une app, reste rapide hors ligne de base et reste indexable. Idéale pour convertir sur mobile tout en gardant le SEO.</p></div>
+          </div>
+          <div class="faq-item reveal-on-scroll">
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq-p6" id="faq-b6">Comment démarrer ? <span aria-hidden>+</span></button>
+            <div class="faq-a" id="faq-p6" role="region" aria-labelledby="faq-b6" hidden><p>Prenez rendez-vous, demandez un devis, ou laissez vos coordonnées via le chat. Réponse sous 24 à 48 h ouvrées.</p></div>
+          </div>
         </div>
       </div>
     </section>
@@ -1445,6 +1601,15 @@ body::before {
     </div>
   </div>
 
+
+  <div id="sticky-bar" class="sticky-bar" hidden>
+    <div class="container sticky-bar-inner">
+      <button type="button" class="btn btn-primary" data-open="rdv">RDV</button>
+      <button type="button" class="btn btn-secondary" data-open="devis">Devis</button>
+      <button type="button" class="btn btn-secondary" id="sticky-chat">Chat</button>
+    </div>
+  </div>
+
   <!-- Chatbot -->
   <div id="chat">
     <div class="chat-panel" id="chat-panel" aria-label="Assistant conversationnel">
@@ -1463,7 +1628,7 @@ body::before {
         <button type="submit" class="btn btn-primary" style="min-height:2.5rem;padding:.5rem 1rem;">Envoyer</button>
       </form>
     </div>
-    <button type="button" class="btn btn-primary" id="chat-toggle" style="box-shadow:var(--shadow);">Discuter</button>
+    <button type="button" class="btn btn-primary" id="chat-toggle" style="box-shadow:var(--shadow);">Une question ?</button>
   </div>
 
   <!-- Cookies -->
@@ -1500,6 +1665,97 @@ body::before {
     };
     onScrollHeader();
     window.addEventListener("scroll", onScrollHeader, { passive: true });
+
+    /* FAQ accordion */
+    document.querySelectorAll('.faq-q').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = document.getElementById(btn.getAttribute('aria-controls'));
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        document.querySelectorAll('.faq-q').forEach((b) => {
+          b.setAttribute('aria-expanded', 'false');
+          const p = document.getElementById(b.getAttribute('aria-controls'));
+          if (p) { p.hidden = true; p.classList.remove('open'); }
+        });
+        if (!open && panel) {
+          btn.setAttribute('aria-expanded', 'true');
+          panel.hidden = false;
+          panel.classList.add('open');
+        }
+      });
+    });
+
+    /* Metric counters */
+    (function () {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const nodes = document.querySelectorAll('.metric[data-count]');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          if (el.dataset.done) return;
+          el.dataset.done = '1';
+          const target = Number(el.dataset.count || 0);
+          const prefix = el.dataset.prefix || '';
+          const suffix = el.dataset.suffix || '';
+          if (reduce) { el.textContent = prefix + target + suffix; return; }
+          const start = performance.now();
+          const dur = 1100;
+          const tick = (now) => {
+            const t = Math.min(1, (now - start) / dur);
+            const eased = 1 - Math.pow(1 - t, 3);
+            el.textContent = prefix + Math.round(target * eased) + suffix;
+            if (t < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          io.unobserve(el);
+        });
+      }, { threshold: 0.4 });
+      nodes.forEach((n) => io.observe(n));
+    })();
+
+    /* Sticky mobile bar */
+    (function () {
+      const bar = document.getElementById('sticky-bar');
+      if (!bar) return;
+      const onScroll = () => {
+        bar.hidden = !(window.scrollY > window.innerHeight * 0.65);
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      document.getElementById('sticky-chat')?.addEventListener('click', () => {
+        document.getElementById('chat-toggle')?.click();
+      });
+    })();
+
+    /* Active nav */
+    (function () {
+      const links = [...document.querySelectorAll('.nav-links a[data-nav]')];
+      const sections = links.map((a) => document.getElementById(a.dataset.nav)).filter(Boolean);
+      if (!sections.length) return;
+      const io = new IntersectionObserver((entries) => {
+        const vis = entries.filter((e) => e.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!vis) return;
+        links.forEach((a) => a.removeAttribute('aria-current'));
+        const active = links.find((a) => a.dataset.nav === vis.target.id);
+        active?.setAttribute('aria-current', 'true');
+      }, { rootMargin: '-30% 0px -55% 0px', threshold: [0, 0.25, 0.5] });
+      sections.forEach((s) => io.observe(s));
+    })();
+
+    /* Magnetic hero CTA */
+    (function () {
+      const btn = document.getElementById('hero-rdv');
+      if (!btn || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const onMove = (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - (r.left + r.width / 2);
+        const y = e.clientY - (r.top + r.height / 2);
+        if (Math.hypot(x, y) > 140) { btn.style.transform = ''; return; }
+        btn.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`;
+      };
+      window.addEventListener('pointermove', onMove);
+      btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+    })();
 
     /* Scroll reveals */
     (function () {

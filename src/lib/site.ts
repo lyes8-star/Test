@@ -149,3 +149,108 @@ export const processSteps = [
     text: "Optimisation continue des performances Google et reporting transparent.",
   },
 ] as const;
+
+export const caseStudies = [
+  {
+    id: "local-seo",
+    number: "01",
+    sector: "Commerce de proximité · Lyon",
+    title: "Local SEO & Google Business",
+    summary:
+      "Refonte de la présence locale : fiche Google Business, pages de zones, avis et contenu sémantique.",
+    metricLabel: "impressions locales",
+    metricValue: 180,
+    metricPrefix: "+",
+    metricSuffix: " %",
+    image: "/cases/local-seo.svg",
+  },
+  {
+    id: "pwa-ecom",
+    number: "02",
+    sector: "E-commerce · mode",
+    title: "PWA boutique & Core Web Vitals",
+    summary:
+      "Passage en PWA installable, tunnels de conversion et SEO technique pour un catalogue 400+ SKU.",
+    metricLabel: "taux de conversion mobile",
+    metricValue: 42,
+    metricPrefix: "+",
+    metricSuffix: " %",
+    image: "/cases/pwa-ecom.svg",
+  },
+  {
+    id: "ads-b2b",
+    number: "03",
+    sector: "SaaS B2B · Paris",
+    title: "Google Ads Search & Remarketing",
+    summary:
+      "Restructuration du compte Ads, tracking consentement et landings SEO-ready pour leads qualifiés.",
+    metricLabel: "coût par lead",
+    metricValue: 31,
+    metricPrefix: "−",
+    metricSuffix: " %",
+    image: "/cases/ads-b2b.svg",
+  },
+] as const;
+
+export const testimonials = [
+  {
+    id: "t1",
+    quote:
+      "Meridian a clarifié notre présence Google en six semaines. On sait enfin ce qui convertit — et pourquoi.",
+    name: "Camille Renard",
+    role: "Directrice marketing, atelier lyonnais",
+  },
+  {
+    id: "t2",
+    quote:
+      "La PWA est rapide, installable, et les Ads sont branchés proprement après consentement. Niveau agence, c’est rare.",
+    name: "Hugo Belmont",
+    role: "Fondateur, boutique mode",
+  },
+  {
+    id: "t3",
+    quote:
+      "Reporting clair, équipe réactive, devis sans surprise. On a divisé notre CPL sans sacrifier la qualité des leads.",
+    name: "Inès Moreau",
+    role: "Growth lead, SaaS B2B",
+  },
+] as const;
+
+export const faqItems = [
+  {
+    id: "faq-formules",
+    question: "Quelles formules propose Meridian ?",
+    answer:
+      "Essentiel (audit + quick wins dès 1 490 €), Croissance (site/PWA + SEO + Google Ads dès 4 900 €) et Sur-mesure (multi-campagnes, sur devis).",
+  },
+  {
+    id: "faq-seo-ads",
+    question: "Proposez-vous du SEO et Google Ads ?",
+    answer:
+      "Oui : SEO technique et contenu, SEA / Google Ads (Search, Display, Remarketing) avec tracking après consentement cookies RGPD.",
+  },
+  {
+    id: "faq-rgpd",
+    question: "Le site et vos dispositifs sont-ils conformes RGPD ?",
+    answer:
+      "Oui : bannière cookies granulaire, pages légales françaises et tags analytics/Ads conditionnés au consentement. DPO : dpo@meridian-digital.fr.",
+  },
+  {
+    id: "faq-delais",
+    question: "Quels sont les délais typiques ?",
+    answer:
+      "Essentiel 2–3 semaines, Croissance 4–8 semaines, Sur-mesure selon le périmètre. Un RDV initial fixe le calendrier.",
+  },
+  {
+    id: "faq-pwa",
+    question: "Qu’est-ce qu’une PWA et en ai-je besoin ?",
+    answer:
+      "Une Progressive Web App s’installe comme une app, reste rapide hors ligne de base et reste indexable. Idéale pour convertir sur mobile tout en gardant le SEO.",
+  },
+  {
+    id: "faq-contact",
+    question: "Comment démarrer ?",
+    answer:
+      "Prenez rendez-vous, demandez un devis, ou laissez vos coordonnées via le chat. Réponse sous 24 à 48 h ouvrées.",
+  },
+] as const;
