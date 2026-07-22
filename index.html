@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meridian — Valorisez votre présence Google | SEO · SEA · PWA · Ads</title>
+  <meta name="description" content="Agence française de création de sites PWA et valorisation Google : SEO, SEA, Google Ads. Prise de rendez-vous et devis en ligne." />
+  <meta name="theme-color" content="#1b4d3e" />
+  <meta property="og:title" content="Meridian — Valorisez votre présence Google" />
+  <meta property="og:description" content="Création web, SEO, SEA et Google Ads — RDV et devis en ligne." />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:type" content="website" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="public/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="public/icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Meridian",
+    "description": "Création de sites PWA, SEO, SEA et Google Ads",
+    "url": "https://meridian-digital.fr",
+    "telephone": "+33 1 84 80 00 00",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "12 rue de la Paix",
+      "addressLocality": "Paris",
+      "postalCode": "75002",
+      "addressCountry": "FR"
+    },
+    "areaServed": "FR"
+  }
+  </script>
+  <style>
+    :root {
+      --ink: #14201a;
+      --ink-soft: #3a4a42;
+      --forest: #1b4d3e;
+      --forest-deep: #0f2f26;
+      --moss: #2f6b55;
+      --sage: #9fc0b0;
+      --mist: #e7f1ec;
+      --mist-2: #f3f7f4;
+      --paper: #fbfcfb;
+      --line: rgba(20, 32, 26, 0.12);
+      --amber: #c47a2c;
+      --amber-deep: #9a5c1c;
+      --white: #fff;
+      --danger: #b42318;
+      --success: #1b7a4a;
+      --shadow: 0 24px 60px rgba(15, 47, 38, 0.12);
+      --header-h: 4.5rem;
+      --font-display: "Syne", Georgia, serif;
+      --font-body: "Source Sans 3", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--font-body);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(159,192,176,.35), transparent 60%),
+        radial-gradient(900px 500px at 100% 0%, rgba(196,122,44,.12), transparent 55%),
+        linear-gradient(180deg, var(--mist-2) 0%, var(--paper) 40%, var(--mist) 100%);
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 2rem)); margin-inline: auto; }
+    .display { font-family: var(--font-display); font-weight: 700; letter-spacing: -.03em; line-height: .95; }
+    .eyebrow { display: inline-block; font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--moss); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      min-height: 3rem; padding: .75rem 1.35rem; border-radius: 999px; border: 1px solid transparent;
+      font: inherit; font-weight: 600; cursor: pointer;
+      transition: transform .25s ease, background .25s ease, border-color .25s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--forest); color: var(--white); box-shadow: 0 10px 30px rgba(27,77,62,.28); }
+    .btn-primary:hover { background: var(--forest-deep); }
+    .btn-secondary { background: transparent; color: var(--ink); border-color: var(--line); }
+    .btn-amber { background: var(--amber); color: var(--white); }
+    .btn-amber:hover { background: var(--amber-deep); }
+    .section { padding: 5.5rem 0; }
+    .skip {
+      position: absolute; left: -9999px; top: 0;
+    }
+    .skip:focus { left: 1rem; top: 1rem; z-index: 100; background: #fff; padding: .5rem 1rem; border-radius: .5rem; }
+
+    header {
+      position: sticky; top: 0; z-index: 50;
+      height: var(--header-h);
+      backdrop-filter: blur(16px);
+      background: rgba(251,252,251,.86);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      height: 100%;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .brand { display: flex; align-items: center; gap: .75rem; font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; }
+    .brand-mark {
+      width: 2.5rem; height: 2.5rem; border-radius: 999px; background: var(--forest);
+      color: #fff; display: grid; place-items: center; font-size: .9rem; font-weight: 700;
+    }
+    .nav-links { display: none; gap: 2rem; }
+    .nav-links a { font-size: .9rem; font-weight: 600; color: var(--ink-soft); }
+    .nav-links a:hover { color: var(--forest); }
+    .nav-cta { display: none; gap: .75rem; }
+    .menu-btn { display: inline-flex; }
+    @media (min-width: 900px) {
+      .nav-links, .nav-cta { display: flex; }
+      .menu-btn { display: none; }
+    }
+    #mobile-nav {
+      display: none; border-top: 1px solid var(--line); background: var(--paper); padding: 1rem 0 1.25rem;
+    }
+    #mobile-nav.open { display: block; }
+    #mobile-nav a, #mobile-nav button { display: block; width: 100%; margin: .35rem 0; }
+
+    .hero {
+      position: relative; min-height: calc(100svh - var(--header-h)); overflow: hidden;
+      display: flex; align-items: flex-end;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(120deg, rgba(15,47,38,.72) 0%, rgba(27,77,62,.45) 42%, rgba(20,32,26,.25) 100%),
+        url("public/hero.svg") center/cover no-repeat;
+      animation: drift 18s ease-in-out infinite;
+    }
+    .hero-dots {
+      position: absolute; inset: 0; opacity: .4;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.18) 0 1px, transparent 1px),
+        radial-gradient(circle at 80% 40%, rgba(255,255,255,.12) 0 1px, transparent 1px);
+      background-size: 28px 28px, 42px 42px;
+      animation: pulse-soft 6s ease-in-out infinite;
+    }
+    .hero-inner { position: relative; padding: 5rem 0 4rem; color: #fff; }
+    .hero .eyebrow { color: var(--sage); }
+    .hero h1 { margin: 1rem 0 0; font-size: clamp(3rem, 9vw, 6.5rem); max-width: 16ch; }
+    .hero p { max-width: 36rem; font-size: clamp(1.05rem, 2vw, 1.25rem); line-height: 1.6; color: rgba(255,255,255,.88); }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+    .hero .btn-secondary { border-color: rgba(255,255,255,.35); color: #fff; }
+
+    .grid-2 { display: grid; gap: 2rem; }
+    .grid-3 { display: grid; gap: 1.5rem; }
+    .grid-4 { display: grid; gap: 2rem; }
+    @media (min-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+      .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (min-width: 1024px) {
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+    .activity { border-top: 1px solid var(--line); padding-top: 1.5rem; }
+    .activity h3 { margin: .5rem 0 0; font-size: 1.85rem; }
+    .activity ul { list-style: none; padding: 0; margin: 1.25rem 0 0; }
+    .activity li { display: flex; gap: .5rem; margin: .4rem 0; font-size: .95rem; }
+    .activity li::before {
+      content: ""; width: .4rem; height: .4rem; margin-top: .55rem; border-radius: 999px;
+      background: var(--amber); flex-shrink: 0;
+    }
+
+    .formulas { background: rgba(255,255,255,.45); }
+    .card {
+      display: flex; flex-direction: column; border-radius: 1.5rem; padding: 1.75rem;
+      background: rgba(255,255,255,.7); box-shadow: inset 0 0 0 1px var(--line);
+    }
+    .card.featured { background: var(--forest); color: #fff; box-shadow: var(--shadow); }
+    .card h3 { margin: 0; font-size: 1.85rem; }
+    .card ul { list-style: none; padding: 0; margin: 1.5rem 0; flex: 1; }
+    .card li { margin: .45rem 0; font-size: .95rem; }
+    .price { font-size: 1.5rem; font-weight: 700; margin: 1rem 0 0; }
+
+    .compliance {
+      background: var(--forest-deep); color: #fff; border-radius: 2rem; padding: 2.5rem 1.5rem;
+    }
+    .compliance .eyebrow { color: var(--sage); }
+    .compliance h2 { margin: .75rem 0 0; font-size: clamp(1.8rem, 4vw, 2.4rem); }
+
+    footer {
+      background: var(--forest-deep); color: rgba(255,255,255,.86); margin-top: 2rem;
+    }
+    .footer-grid {
+      display: grid; gap: 2.5rem; padding: 3.5rem 0;
+    }
+    @media (min-width: 768px) {
+      .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding: 1.25rem 0; font-size: .75rem; color: rgba(255,255,255,.55);
+      display: flex; flex-direction: column; gap: .5rem;
+    }
+    @media (min-width: 640px) {
+      .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+    footer a:hover { color: #fff; }
+
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 80; display: none;
+      align-items: flex-end; justify-content: center;
+      background: rgba(15,47,38,.55); padding: 0;
+    }
+    .modal-backdrop.open { display: flex; }
+    @media (min-width: 640px) {
+      .modal-backdrop { align-items: center; padding: 1.5rem; }
+    }
+    .modal {
+      width: min(36rem, 100%); max-height: 92vh; overflow: auto;
+      background: var(--paper); border-radius: 1.5rem 1.5rem 0 0; padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    @media (min-width: 640px) {
+      .modal { border-radius: 1.5rem; padding: 2rem; }
+    }
+    .field { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; }
+    .field label { font-size: .85rem; font-weight: 600; color: var(--ink-soft); }
+    .field input, .field textarea, .field select {
+      width: 100%; border: 1px solid var(--line); border-radius: .85rem;
+      background: rgba(255,255,255,.85); padding: .85rem 1rem; font: inherit; color: var(--ink);
+    }
+    .field textarea { min-height: 110px; resize: vertical; }
+    .form-row { display: grid; gap: 1rem; }
+    @media (min-width: 560px) { .form-row { grid-template-columns: 1fr 1fr; } }
+    .consent { display: flex; gap: .75rem; align-items: flex-start; font-size: .9rem; color: var(--ink-soft); margin-bottom: 1rem; }
+    .form-msg { font-size: .9rem; margin: 0 0 1rem; }
+    .form-msg.ok { color: var(--success); }
+    .form-msg.err { color: var(--danger); }
+
+    #chat {
+      position: fixed; right: 1rem; bottom: 1rem; z-index: 70;
+      display: flex; flex-direction: column; align-items: flex-end; gap: .75rem;
+    }
+    @media (min-width: 640px) { #chat { right: 1.5rem; bottom: 1.5rem; } }
+    .chat-panel {
+      display: none; width: min(380px, calc(100vw - 2rem)); height: min(520px, 70vh);
+      flex-direction: column; overflow: hidden; border-radius: 1.5rem;
+      border: 1px solid var(--line); background: var(--paper); box-shadow: var(--shadow);
+    }
+    .chat-panel.open { display: flex; }
+    .chat-head { background: var(--forest); color: #fff; padding: .85rem 1rem; display: flex; justify-content: space-between; align-items: center; }
+    .chat-body { flex: 1; overflow: auto; padding: 1rem; display: flex; flex-direction: column; gap: .75rem; }
+    .bubble { max-width: 90%; padding: .65rem .85rem; border-radius: 1rem; font-size: .9rem; line-height: 1.45; }
+    .bubble.bot { background: var(--mist); }
+    .bubble.user { background: var(--forest); color: #fff; margin-left: auto; }
+    .chat-starters { display: flex; flex-wrap: wrap; gap: .4rem; padding: .75rem .75rem 0; border-top: 1px solid var(--line); }
+    .chip {
+      border: 1px solid var(--line); background: transparent; border-radius: 999px;
+      padding: .25rem .65rem; font-size: .7rem; font-weight: 600; color: var(--ink-soft); cursor: pointer;
+    }
+    .chat-form { display: flex; gap: .5rem; padding: .75rem; }
+    .chat-form input {
+      flex: 1; border: 1px solid var(--line); border-radius: 999px; padding: .65rem 1rem; font: inherit;
+    }
+
+    #cookies {
+      position: fixed; inset-inline: 0; bottom: 0; z-index: 90; padding: .75rem; display: none;
+    }
+    #cookies.open { display: block; }
+    .cookie-box {
+      max-width: 48rem; margin: 0 auto; border-radius: 1.5rem; border: 1px solid var(--line);
+      background: rgba(251,252,251,.97); padding: 1.25rem 1.5rem; box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+    .cookie-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+    .prefs { margin-top: 1rem; background: var(--mist); border-radius: 1rem; padding: 1rem; font-size: .9rem; }
+    .prefs label { display: flex; gap: .75rem; margin: .5rem 0; align-items: flex-start; }
+
+    @keyframes drift {
+      0%, 100% { transform: translate3d(0,0,0) scale(1); }
+      50% { transform: translate3d(1.5%, -1.5%, 0) scale(1.03); }
+    }
+    @keyframes pulse-soft {
+      0%, 100% { opacity: .55; }
+      50% { opacity: .9; }
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { animation: rise .9s cubic-bezier(.22,1,.36,1) both; }
+    .d1 { animation-delay: .12s; }
+    .d2 { animation-delay: .24s; }
+    .d3 { animation-delay: .36s; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal, .hero-bg, .hero-dots { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Meridian — accueil">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span>Meridian</span>
+      </a>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <a href="#activites">Activités</a>
+        <a href="#formules">Formules</a>
+        <a href="#methode">Méthode</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <button type="button" class="btn btn-secondary" data-open="devis">Devis</button>
+        <button type="button" class="btn btn-primary" data-open="rdv">Rendez-vous</button>
+      </div>
+      <button type="button" class="btn btn-secondary menu-btn" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    </div>
+    <div id="mobile-nav" class="container">
+      <a href="#activites">Activités</a>
+      <a href="#formules">Formules</a>
+      <a href="#methode">Méthode</a>
+      <a href="#contact">Contact</a>
+      <button type="button" class="btn btn-secondary" data-open="devis">Demander un devis</button>
+      <button type="button" class="btn btn-primary" data-open="rdv">Prendre rendez-vous</button>
+    </div>
+  </header>
+
+  <main id="contenu">
+    <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-dots" aria-hidden="true"></div>
+      <div class="container hero-inner">
+        <p class="eyebrow reveal">Meridian</p>
+        <h1 class="display reveal d1">Valorisez votre présence Google</h1>
+        <p class="reveal d2">Création de sites PWA, SEO, SEA et Google Ads — pour être trouvé, choisi et converti. RDV et devis en ligne, conforme RGPD.</p>
+        <div class="hero-cta reveal d3">
+          <button type="button" class="btn btn-amber" data-open="rdv">Prendre rendez-vous</button>
+          <button type="button" class="btn btn-secondary" data-open="devis">Demander un devis</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="activites">
+      <div class="container">
+        <p class="eyebrow">Activités</p>
+        <h2 class="display" style="font-size:clamp(2rem,5vw,3rem);margin:.75rem 0 0;max-width:18ch;">Quatre leviers pour briller sur Google</h2>
+        <p style="max-width:40rem;color:var(--ink-soft);font-size:1.1rem;">Création, référencement, publicité et optimisation — un dispositif clair pour être visible et convertir.</p>
+        <div class="grid-2" style="margin-top:3rem;">
+          <article class="activity">
+            <p style="color:var(--moss);font-weight:600;font-size:.9rem;">01</p>
+            <h3 class="display">Création site &amp; PWA</h3>
+            <p style="color:var(--ink-soft);">Sites ultra-design, rapides et installables — pensés pour convertir et briller sur Google.</p>
+            <ul>
+              <li>Sites vitrine &amp; tunnels de conversion</li>
+              <li>PWA installable (mobile &amp; desktop)</li>
+              <li>Performance Core Web Vitals</li>
+            </ul>
+          </article>
+          <article class="activity">
+            <p style="color:var(--moss);font-weight:600;font-size:.9rem;">02</p>
+            <h3 class="display">SEO &amp; mise en avant</h3>
+            <p style="color:var(--ink-soft);">Référencement naturel technique et éditorial pour apparaître là où vos clients cherchent.</p>
+            <ul>
+              <li>Audit technique &amp; sémantique</li>
+              <li>Contenu optimisé Google</li>
+              <li>Fiche Google Business &amp; local SEO</li>
+            </ul>
+          </article>
+          <article class="activity">
+            <p style="color:var(--moss);font-weight:600;font-size:.9rem;">03</p>
+            <h3 class="display">SEA &amp; Google Ads</h3>
+            <p style="color:var(--ink-soft);">Campagnes Search, Display et Remarketing pour une visibilité immédiate et mesurable.</p>
+            <ul>
+              <li>Structure de comptes Google Ads</li>
+              <li>Tracking conversions &amp; consentement</li>
+              <li>Optimisation CPA / ROAS</li>
+            </ul>
+          </article>
+          <article class="activity">
+            <p style="color:var(--moss);font-weight:600;font-size:.9rem;">04</p>
+            <h3 class="display">Suivi &amp; optimisation</h3>
+            <p style="color:var(--ink-soft);">Pilotage continu : rapports clairs, itérations et alignement SEO + SEA.</p>
+            <ul>
+              <li>Tableaux de bord Google Analytics</li>
+              <li>A/B tests landing &amp; annonces</li>
+              <li>Roadmap mensuelle d’amélioration</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section formulas" id="formules">
+      <div class="container">
+        <p class="eyebrow">Formules</p>
+        <h2 class="display" style="font-size:clamp(2rem,5vw,3rem);margin:.75rem 0 0;">Formules de valorisation Google</h2>
+        <p style="max-width:40rem;color:var(--ink-soft);font-size:1.1rem;">De l’audit express au dispositif multi-campagnes — chaque formule est ajustable sur devis.</p>
+        <div class="grid-3" style="margin-top:3rem;">
+          <article class="card">
+            <h3 class="display">Essentiel</h3>
+            <p style="color:var(--ink-soft);font-size:.95rem;">Audit Google + quick wins SEO/SEA pour débloquer votre visibilité rapidement.</p>
+            <p class="price">à partir de 1 490 €</p>
+            <p style="color:var(--ink-soft);font-size:.9rem;">2 à 3 semaines</p>
+            <ul>
+              <li>✓ Audit SEO technique &amp; Ads</li>
+              <li>✓ Plan d’actions priorisées</li>
+              <li>✓ Optimisations on-page express</li>
+              <li>✓ Support e-mail 15 jours</li>
+            </ul>
+            <button type="button" class="btn btn-primary" data-open="devis" data-formula="essentiel">Demander un devis</button>
+          </article>
+          <article class="card featured">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
+              <h3 class="display">Croissance</h3>
+              <span style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);font-weight:600;">Recommandé</span>
+            </div>
+            <p style="color:rgba(255,255,255,.75);font-size:.95rem;">Site ou PWA + SEO on-page + lancement Google Ads — le parcours complet.</p>
+            <p class="price">à partir de 4 900 €</p>
+            <p style="color:rgba(255,255,255,.7);font-size:.9rem;">4 à 8 semaines</p>
+            <ul>
+              <li>✓ Tout Essentiel inclus</li>
+              <li>✓ Création / refonte site PWA</li>
+              <li>✓ SEO technique &amp; contenu</li>
+              <li>✓ Campagne Google Ads initiale</li>
+              <li>✓ Reporting bi-mensuel</li>
+            </ul>
+            <button type="button" class="btn btn-amber" data-open="devis" data-formula="croissance">Demander un devis</button>
+          </article>
+          <article class="card">
+            <h3 class="display">Sur-mesure</h3>
+            <p style="color:var(--ink-soft);font-size:.95rem;">Dispositif multi-sites ou multi-campagnes, avec équipe dédiée et SLA.</p>
+            <p class="price">sur devis</p>
+            <p style="color:var(--ink-soft);font-size:.9rem;">selon périmètre</p>
+            <ul>
+              <li>✓ Équipe dédiée SEO + SEA</li>
+              <li>✓ Multi-comptes Google Ads</li>
+              <li>✓ PWA / produit digital avancé</li>
+              <li>✓ Conformité RGPD &amp; tags consent</li>
+              <li>✓ Reporting exécutif mensuel</li>
+            </ul>
+            <button type="button" class="btn btn-primary" data-open="devis" data-formula="sur-mesure">Demander un devis</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="methode">
+      <div class="container">
+        <p class="eyebrow">Méthode</p>
+        <h2 class="display" style="font-size:clamp(2rem,5vw,3rem);margin:.75rem 0 0;max-width:18ch;">De l’audit Google à la performance mesurée</h2>
+        <div class="grid-4" style="margin-top:3rem;">
+          <article>
+            <p class="display" style="font-size:3rem;color:var(--sage);margin:0;">01</p>
+            <h3 style="margin:.75rem 0 0;">Audit</h3>
+            <p style="color:var(--ink-soft);">Analyse de votre présence Google : site, SEO, Ads, concurrence et opportunités.</p>
+          </article>
+          <article>
+            <p class="display" style="font-size:3rem;color:var(--sage);margin:0;">02</p>
+            <h3 style="margin:.75rem 0 0;">Stratégie</h3>
+            <p style="color:var(--ink-soft);">Feuille de route SEO / SEA, priorités de création et objectifs de conversion.</p>
+          </article>
+          <article>
+            <p class="display" style="font-size:3rem;color:var(--sage);margin:0;">03</p>
+            <h3 style="margin:.75rem 0 0;">Création &amp; campagnes</h3>
+            <p style="color:var(--ink-soft);">Site PWA, contenus, structure Ads et mise en ligne avec tracking conforme.</p>
+          </article>
+          <article>
+            <p class="display" style="font-size:3rem;color:var(--sage);margin:0;">04</p>
+            <h3 style="margin:.75rem 0 0;">Mesure</h3>
+            <p style="color:var(--ink-soft);">Optimisation continue des performances Google et reporting transparent.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0;">
+      <div class="container">
+        <div class="compliance">
+          <p class="eyebrow">Conformité</p>
+          <h2 class="display">SEO, SEA et PWA — conformes FR &amp; UE</h2>
+          <div class="grid-3" style="margin-top:2rem;">
+            <div>
+              <h3 style="margin:0;font-size:1.05rem;">RGPD &amp; ePrivacy</h3>
+              <p style="color:rgba(255,255,255,.75);font-size:.9rem;">Consentement cookies granulaire (analytics + Google Ads), bases légales et droits des personnes.</p>
+            </div>
+            <div>
+              <h3 style="margin:0;font-size:1.05rem;">SEO &amp; Google Ads ready</h3>
+              <p style="color:rgba(255,255,255,.75);font-size:.9rem;">Métadonnées, JSON-LD, pages de conversion et tags Ads après consentement.</p>
+            </div>
+            <div>
+              <h3 style="margin:0;font-size:1.05rem;">PWA &amp; accessibilité</h3>
+              <p style="color:rgba(255,255,255,.75);font-size:.9rem;">Site installable, contraste soigné, navigation clavier et lien d’évitement.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container" style="display:grid;gap:2.5rem;align-items:end;">
+        <div style="display:grid;gap:2.5rem;" class="contact-grid">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h2 class="display" style="font-size:clamp(2rem,5vw,3rem);margin:.75rem 0 0;">Parlons de votre prochain jalon</h2>
+            <p style="max-width:36rem;color:var(--ink-soft);font-size:1.1rem;">Audit Google, site PWA, SEO ou Ads : un premier échange clarifie le périmètre.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem;">
+              <button type="button" class="btn btn-primary" data-open="rdv">Réserver un créneau</button>
+              <button type="button" class="btn btn-secondary" data-open="devis">Obtenir un devis</button>
+            </div>
+          </div>
+          <aside style="border-radius:1.5rem;background:rgba(255,255,255,.7);padding:1.5rem;box-shadow:inset 0 0 0 1px var(--line);">
+            <p style="font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--moss);margin:0;">Coordonnées</p>
+            <p style="margin:1rem 0 0;"><a href="mailto:contact@meridian-digital.fr"><strong>contact@meridian-digital.fr</strong></a></p>
+            <p><a href="tel:+33184800000"><strong>01 84 80 00 00</strong></a></p>
+            <p style="color:var(--ink-soft);">12 rue de la Paix, 75002 Paris</p>
+            <p style="color:var(--ink-soft);font-size:.9rem;">Réponse sous 24 à 48 h ouvrées.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <p class="display" style="font-size:1.85rem;color:#fff;margin:0;">Meridian</p>
+        <p style="color:rgba(255,255,255,.72);max-width:22rem;">Valorisez votre présence Google. Création de sites PWA, SEO, SEA et Google Ads — conforme RGPD.</p>
+      </div>
+      <div>
+        <p style="font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);">Contact</p>
+        <p><a href="mailto:contact@meridian-digital.fr">contact@meridian-digital.fr</a></p>
+        <p><a href="tel:+33184800000">01 84 80 00 00</a></p>
+        <p>12 rue de la Paix<br />75002 Paris</p>
+      </div>
+      <div>
+        <p style="font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);">Légal</p>
+        <p><a href="mentions-legales.html">Mentions légales</a></p>
+        <p><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
+        <p><a href="politique-cookies.html">Politique cookies</a></p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> Meridian Digital SAS. Tous droits réservés.</p>
+      <p>Site PWA · SEO / SEA ready · RGPD &amp; droit français</p>
+    </div>
+  </footer>
+
+  <!-- Modale RDV -->
+  <div class="modal-backdrop" id="modal-rdv" role="presentation">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rdv-title">
+      <div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:1.5rem;">
+        <div>
+          <p class="eyebrow">Meridian</p>
+          <h2 class="display" id="rdv-title" style="font-size:1.85rem;margin:.5rem 0 0;">Prendre rendez-vous</h2>
+          <p style="color:var(--ink-soft);margin:.5rem 0 0;">Choisissez un créneau. Confirmation sous 24 h ouvrées.</p>
+        </div>
+        <button type="button" class="btn btn-secondary" data-close style="min-height:2.5rem;padding:.5rem .85rem;" aria-label="Fermer">✕</button>
+      </div>
+      <form id="form-rdv">
+        <div class="form-row">
+          <div class="field"><label for="rdv-name">Nom complet *</label><input id="rdv-name" name="name" required autocomplete="name" /></div>
+          <div class="field"><label for="rdv-email">E-mail *</label><input id="rdv-email" name="email" type="email" required autocomplete="email" /></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="rdv-phone">Téléphone</label><input id="rdv-phone" name="phone" type="tel" autocomplete="tel" /></div>
+          <div class="field">
+            <label for="rdv-type">Type d’échange *</label>
+            <select id="rdv-type" name="type" required>
+              <option value="visio">Visio (30 min)</option>
+              <option value="presentiel">Présentiel Paris (45 min)</option>
+              <option value="telephone">Téléphone (20 min)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="rdv-date">Date souhaitée *</label><input id="rdv-date" name="date" type="date" required /></div>
+          <div class="field">
+            <label for="rdv-slot">Créneau *</label>
+            <select id="rdv-slot" name="slot" required>
+              <option>09:00</option><option selected>10:00</option><option>11:30</option>
+              <option>14:00</option><option>15:30</option><option>17:00</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="rdv-message">Objectif de l’échange</label><textarea id="rdv-message" name="message" placeholder="Ex. lancer un site, campagne Ads…"></textarea></div>
+        <label class="consent"><input type="checkbox" name="consent" required /><span>J’accepte le traitement de mes données pour organiser ce RDV, selon la <a href="politique-confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a>. *</span></label>
+        <p class="form-msg" id="rdv-msg" hidden></p>
+        <button type="submit" class="btn btn-primary">Confirmer le rendez-vous</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modale devis -->
+  <div class="modal-backdrop" id="modal-devis" role="presentation">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="devis-title">
+      <div style="display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:1.5rem;">
+        <div>
+          <p class="eyebrow">Meridian</p>
+          <h2 class="display" id="devis-title" style="font-size:1.85rem;margin:.5rem 0 0;">Demander un devis</h2>
+          <p style="color:var(--ink-soft);margin:.5rem 0 0;">Décrivez votre besoin. Réponse sous 48 h ouvrées.</p>
+        </div>
+        <button type="button" class="btn btn-secondary" data-close style="min-height:2.5rem;padding:.5rem .85rem;" aria-label="Fermer">✕</button>
+      </div>
+      <form id="form-devis">
+        <div class="form-row">
+          <div class="field"><label for="devis-name">Nom / société *</label><input id="devis-name" name="name" required autocomplete="organization" /></div>
+          <div class="field"><label for="devis-email">E-mail *</label><input id="devis-email" name="email" type="email" required autocomplete="email" /></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="devis-phone">Téléphone</label><input id="devis-phone" name="phone" type="tel" /></div>
+          <div class="field">
+            <label for="devis-formula">Formule *</label>
+            <select id="devis-formula" name="formula" required>
+              <option value="essentiel">Essentiel</option>
+              <option value="croissance" selected>Croissance</option>
+              <option value="sur-mesure">Sur-mesure</option>
+              <option value="autre">Autre / à définir</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="devis-budget">Budget indicatif</label>
+          <select id="devis-budget" name="budget">
+            <option value="&lt;2k">Moins de 2 000 €</option>
+            <option value="2-5k">2 000 – 5 000 €</option>
+            <option value="5-10k" selected>5 000 – 10 000 €</option>
+            <option value="10k+">Plus de 10 000 €</option>
+          </select>
+        </div>
+        <div class="field"><label for="devis-message">Votre besoin *</label><textarea id="devis-message" name="message" required placeholder="Contexte, délais, livrables…"></textarea></div>
+        <label class="consent"><input type="checkbox" name="consent" required /><span>J’autorise Meridian à traiter ces informations pour un devis, selon la <a href="politique-confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a>. *</span></label>
+        <p class="form-msg" id="devis-msg" hidden></p>
+        <button type="submit" class="btn btn-amber">Envoyer la demande</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Chatbot -->
+  <div id="chat">
+    <div class="chat-panel" id="chat-panel" aria-label="Assistant conversationnel">
+      <div class="chat-head">
+        <div>
+          <strong style="font-size:.9rem;">Assistant Meridian</strong>
+          <div style="font-size:.7rem;opacity:.8;">Réponses indicatives · données non stockées</div>
+        </div>
+        <button type="button" class="btn" id="chat-close" style="min-height:auto;padding:.35rem .7rem;background:rgba(255,255,255,.15);color:#fff;border:0;">Fermer</button>
+      </div>
+      <div class="chat-body" id="chat-body"></div>
+      <div class="chat-starters" id="chat-starters"></div>
+      <form class="chat-form" id="chat-form">
+        <label class="skip" for="chat-input">Votre message</label>
+        <input id="chat-input" placeholder="Posez votre question…" autocomplete="off" />
+        <button type="submit" class="btn btn-primary" style="min-height:2.5rem;padding:.5rem 1rem;">Envoyer</button>
+      </form>
+    </div>
+    <button type="button" class="btn btn-primary" id="chat-toggle" style="box-shadow:var(--shadow);">Discuter</button>
+  </div>
+
+  <!-- Cookies -->
+  <div id="cookies" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-desc">
+    <div class="cookie-box">
+      <h2 class="display" id="cookie-title" style="font-size:1.5rem;margin:0;">Cookies &amp; confidentialité</h2>
+      <p id="cookie-desc" style="color:var(--ink-soft);font-size:.9rem;line-height:1.5;">
+        Cookies nécessaires toujours actifs. Analytics et publicité SEA / Google Ads uniquement avec votre accord.
+        Voir la <a href="politique-cookies.html" style="text-decoration:underline;">politique cookies</a>.
+      </p>
+      <div class="prefs" id="cookie-prefs" hidden>
+        <label><input type="checkbox" checked disabled /> <span><strong>Nécessaires</strong> — sécurité, session, consentement.</span></label>
+        <label><input type="checkbox" id="c-analytics" /> <span><strong>Analytiques</strong> — mesure d’audience.</span></label>
+        <label><input type="checkbox" id="c-ads" /> <span><strong>Publicitaires / SEA</strong> — Google Ads &amp; remarketing.</span></label>
+      </div>
+      <div class="cookie-actions">
+        <button type="button" class="btn btn-primary" id="c-accept">Tout accepter</button>
+        <button type="button" class="btn btn-secondary" id="c-reject">Refuser le non-essentiel</button>
+        <button type="button" class="btn btn-secondary" id="c-custom">Personnaliser</button>
+        <button type="button" class="btn btn-amber" id="c-save" hidden>Enregistrer mes choix</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @media (min-width: 768px) {
+      .contact-grid { grid-template-columns: 1.3fr 1fr !important; }
+    }
+  </style>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    /* Menu mobile */
+    const menuBtn = document.getElementById("menu-toggle");
+    const mobileNav = document.getElementById("mobile-nav");
+    menuBtn.addEventListener("click", () => {
+      const open = mobileNav.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", String(open));
+    });
+    mobileNav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
+      mobileNav.classList.remove("open");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }));
+
+    /* Modales */
+    function openModal(id, formula) {
+      const el = document.getElementById("modal-" + id);
+      if (!el) return;
+      el.classList.add("open");
+      document.body.style.overflow = "hidden";
+      if (id === "devis" && formula) {
+        const sel = document.getElementById("devis-formula");
+        if (sel) sel.value = formula;
+      }
+      mobileNav.classList.remove("open");
+    }
+    function closeModals() {
+      document.querySelectorAll(".modal-backdrop").forEach((m) => m.classList.remove("open"));
+      document.body.style.overflow = "";
+    }
+    document.querySelectorAll("[data-open]").forEach((btn) => {
+      btn.addEventListener("click", () => openModal(btn.getAttribute("data-open"), btn.getAttribute("data-formula")));
+    });
+    document.querySelectorAll("[data-close]").forEach((btn) => btn.addEventListener("click", closeModals));
+    document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
+      backdrop.addEventListener("click", (e) => { if (e.target === backdrop) closeModals(); });
+    });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModals(); });
+
+    function showMsg(id, text, ok) {
+      const el = document.getElementById(id);
+      el.hidden = false;
+      el.textContent = text;
+      el.className = "form-msg " + (ok ? "ok" : "err");
+    }
+
+    document.getElementById("form-rdv").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      try {
+        const list = JSON.parse(localStorage.getItem("meridian_rdv") || "[]");
+        list.push({ ...data, at: new Date().toISOString() });
+        localStorage.setItem("meridian_rdv", JSON.stringify(list));
+        showMsg("rdv-msg", "Demande enregistrée. Confirmation sous 24 h ouvrées.", true);
+        e.target.reset();
+      } catch {
+        showMsg("rdv-msg", "Impossible d’enregistrer. Réessayez.", false);
+      }
+    });
+
+    document.getElementById("form-devis").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      try {
+        const list = JSON.parse(localStorage.getItem("meridian_devis") || "[]");
+        list.push({ ...data, at: new Date().toISOString() });
+        localStorage.setItem("meridian_devis", JSON.stringify(list));
+        showMsg("devis-msg", "Demande de devis reçue. Réponse sous 48 h.", true);
+        e.target.reset();
+      } catch {
+        showMsg("devis-msg", "Impossible d’envoyer. Réessayez.", false);
+      }
+    });
+
+    /* Chatbot */
+    const starters = ["Formules SEO / SEA ?", "Google Ads : comment ça marche ?", "Création site PWA ?", "Prendre rendez-vous"];
+    const chatBody = document.getElementById("chat-body");
+    const chatPanel = document.getElementById("chat-panel");
+    function addBubble(role, text) {
+      const div = document.createElement("div");
+      div.className = "bubble " + role;
+      div.textContent = text;
+      chatBody.appendChild(div);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+    addBubble("bot", "Bonjour, je suis l’assistant Meridian. Questions sur la création PWA, le SEO, Google Ads, les formules, un RDV ou un devis ?");
+    const startersEl = document.getElementById("chat-starters");
+    starters.forEach((s) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip";
+      b.textContent = s;
+      b.addEventListener("click", () => sendChat(s));
+      startersEl.appendChild(b);
+    });
+    function replyFor(message) {
+      const q = message.toLowerCase();
+      if (/(formule|tarif|prix|essentiel|croissance|sur[- ]?mesure)/.test(q))
+        return "Trois formules : Essentiel (dès 1 490 €), Croissance (dès 4 900 €, recommandée) et Sur-mesure (sur devis). Cliquez sur « Demander un devis ».";
+      if (/(google\s*ads|sea|publicité|campagne|ads)/.test(q))
+        return "Nous structurons et optimisons vos campagnes Google Ads (Search, Display, Remarketing) avec tracking après consentement cookies.";
+      if (/(seo|référencement|referencement|mise en avant|visibilité|valoris)/.test(q))
+        return "Notre SEO couvre l’audit technique, le contenu optimisé Google, le local SEO / Google Business Profile et l’alignement SEA.";
+      if (/(pwa|site|création|creation|web)/.test(q))
+        return "Nous créons des sites PWA ultra-design : installables, rapides, SEO-ready et préparés pour Google Ads / Analytics sous consentement RGPD.";
+      if (/(rendez[- ]?vous|rdv|créneau)/.test(q))
+        return "Utilisez le bouton « Rendez-vous » : visio, présentiel Paris ou téléphone. Confirmation sous 24 h.";
+      if (/(rgpd|cookie|confidentialité|cnil)/.test(q))
+        return "Oui : bannière cookies granulaire et pages légales FR. DPO : dpo@meridian-digital.fr.";
+      if (/(contact|email|téléphone|telephone|devis)/.test(q))
+        return "contact@meridian-digital.fr · 01 84 80 00 00 · 12 rue de la Paix, 75002 Paris.";
+      if (/(bonjour|salut|hello|bonsoir)/.test(q))
+        return "Bonjour ! Je peux vous aider sur : création PWA, SEO, Google Ads / SEA, formules, RDV ou RGPD.";
+      return "Je renseigne sur la valorisation Google (SEO, SEA, Ads), les sites PWA, nos formules, le RDV et le devis.";
+    }
+    function sendChat(text) {
+      const t = text.trim();
+      if (!t) return;
+      addBubble("user", t);
+      addBubble("bot", replyFor(t));
+    }
+    document.getElementById("chat-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const input = document.getElementById("chat-input");
+      sendChat(input.value);
+      input.value = "";
+    });
+    document.getElementById("chat-toggle").addEventListener("click", () => {
+      const open = chatPanel.classList.toggle("open");
+      document.getElementById("chat-toggle").textContent = open ? "Masquer le chat" : "Discuter";
+    });
+    document.getElementById("chat-close").addEventListener("click", () => {
+      chatPanel.classList.remove("open");
+      document.getElementById("chat-toggle").textContent = "Discuter";
+    });
+
+    /* Cookies RGPD */
+    const COOKIE_KEY = "meridian_cookie_consent_v1";
+    const cookiesEl = document.getElementById("cookies");
+    function saveConsent(analytics, advertising) {
+      const consent = { necessary: true, analytics, advertising, decidedAt: new Date().toISOString() };
+      localStorage.setItem(COOKIE_KEY, JSON.stringify(consent));
+      window.dispatchEvent(new CustomEvent("meridian:consent", { detail: consent }));
+      cookiesEl.classList.remove("open");
+    }
+    if (!localStorage.getItem(COOKIE_KEY)) cookiesEl.classList.add("open");
+    document.getElementById("c-accept").addEventListener("click", () => saveConsent(true, true));
+    document.getElementById("c-reject").addEventListener("click", () => saveConsent(false, false));
+    document.getElementById("c-custom").addEventListener("click", () => {
+      document.getElementById("cookie-prefs").hidden = false;
+      document.getElementById("c-save").hidden = false;
+      document.getElementById("c-custom").hidden = true;
+    });
+    document.getElementById("c-save").addEventListener("click", () => {
+      saveConsent(
+        document.getElementById("c-analytics").checked,
+        document.getElementById("c-ads").checked
+      );
+    });
+
+    /* PWA SW (si servi en http) */
+    if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    }
+  </script>
+</body>
+</html>
