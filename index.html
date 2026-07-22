@@ -26,7 +26,11 @@
   <link rel="icon" href="public/icons/icon-192.png" />
   <link rel="apple-touch-icon" href="public/icons/icon-192.png" />
   <link rel="preload" href="public/hero.svg" as="image" type="image/svg+xml" />
-  <link rel="stylesheet" href="public/fonts/fonts-static.css" />
+  <link rel="preload" href="public/fonts/8vIH7w4qzmVxm2BL9A.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="public/fonts/nwpStKy2OAdR1K-IwhWudF-R3w8aZQ.woff2" as="font" type="font/woff2" crossorigin />
+  <style id="critical-fonts">@font-face { font-family: 'Syne'; font-style: normal; font-weight: 700; font-display: swap; src: url(public/fonts/8vIH7w4qzmVxm2BL9A.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; } @font-face { font-family: 'Syne'; font-style: normal; font-weight: 800; font-display: swap; src: url(public/fonts/8vIH7w4qzmVxm2BL9A.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; } @font-face { font-family: 'Source Sans 3'; font-style: normal; font-weight: 400; font-display: swap; src: url(public/fonts/nwpStKy2OAdR1K-IwhWudF-R3w8aZQ.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; } @font-face { font-family: 'Source Sans 3'; font-style: normal; font-weight: 600; font-display: swap; src: url(public/fonts/nwpStKy2OAdR1K-IwhWudF-R3w8aZQ.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; } @font-face { font-family: 'Source Sans 3'; font-style: normal; font-weight: 700; font-display: swap; src: url(public/fonts/nwpStKy2OAdR1K-IwhWudF-R3w8aZQ.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }</style>
+  <link rel="preload" href="public/fonts/fonts-static.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="public/fonts/fonts-static.css" /></noscript>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -161,6 +165,10 @@
     .btn-amber { background: var(--amber); color: var(--white); }
     .btn-amber:hover { background: var(--amber-deep); }
     .section { padding: 5.5rem 0; }
+    footer {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 480px;
+    }
     .skip {
       position: absolute; left: -9999px; top: 0;
     }
@@ -881,98 +889,104 @@
       }
     });
 
-    /* Chatbot */
-    const starters = ["Formules SEO / SEA ?", "Google Ads : comment ça marche ?", "Création site PWA ?", "Prendre rendez-vous"];
-    const chatBody = document.getElementById("chat-body");
-    const chatPanel = document.getElementById("chat-panel");
-    function addBubble(role, text) {
-      const div = document.createElement("div");
-      div.className = "bubble " + role;
-      div.textContent = text;
-      chatBody.appendChild(div);
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }
-    addBubble("bot", "Bonjour, je suis l’assistant Meridian. Questions sur la création PWA, le SEO, Google Ads, les formules, un RDV ou un devis ?");
-    const startersEl = document.getElementById("chat-starters");
-    starters.forEach((s) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "chip";
-      b.textContent = s;
-      b.addEventListener("click", () => sendChat(s));
-      startersEl.appendChild(b);
-    });
-    function replyFor(message) {
-      const q = message.toLowerCase();
-      if (/(formule|tarif|prix|essentiel|croissance|sur[- ]?mesure)/.test(q))
-        return "Trois formules : Essentiel (dès 1 490 €), Croissance (dès 4 900 €, recommandée) et Sur-mesure (sur devis). Cliquez sur « Demander un devis ».";
-      if (/(google\s*ads|sea|publicité|campagne|ads)/.test(q))
-        return "Nous structurons et optimisons vos campagnes Google Ads (Search, Display, Remarketing) avec tracking après consentement cookies.";
-      if (/(seo|référencement|referencement|mise en avant|visibilité|valoris)/.test(q))
-        return "Notre SEO couvre l’audit technique, le contenu optimisé Google, le local SEO / Google Business Profile et l’alignement SEA.";
-      if (/(pwa|site|création|creation|web)/.test(q))
-        return "Nous créons des sites PWA ultra-design : installables, rapides, SEO-ready et préparés pour Google Ads / Analytics sous consentement RGPD.";
-      if (/(rendez[- ]?vous|rdv|créneau)/.test(q))
-        return "Utilisez le bouton « Rendez-vous » : visio, présentiel Paris ou téléphone. Confirmation sous 24 h.";
-      if (/(rgpd|cookie|confidentialité|cnil)/.test(q))
-        return "Oui : bannière cookies granulaire et pages légales FR. DPO : dpo@meridian-digital.fr.";
-      if (/(contact|email|téléphone|telephone|devis)/.test(q))
-        return "contact@meridian-digital.fr · 01 84 80 00 00 · 12 rue de la Paix, 75002 Paris.";
-      if (/(bonjour|salut|hello|bonsoir)/.test(q))
-        return "Bonjour ! Je peux vous aider sur : création PWA, SEO, Google Ads / SEA, formules, RDV ou RGPD.";
-      return "Je renseigne sur la valorisation Google (SEO, SEA, Ads), les sites PWA, nos formules, le RDV et le devis.";
-    }
-    function sendChat(text) {
-      const t = text.trim();
-      if (!t) return;
-      addBubble("user", t);
-      addBubble("bot", replyFor(t));
-    }
-    document.getElementById("chat-form").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const input = document.getElementById("chat-input");
-      sendChat(input.value);
-      input.value = "";
-    });
-    document.getElementById("chat-toggle").addEventListener("click", () => {
-      const open = chatPanel.classList.toggle("open");
-      document.getElementById("chat-toggle").textContent = open ? "Masquer le chat" : "Discuter";
-    });
-    document.getElementById("chat-close").addEventListener("click", () => {
-      chatPanel.classList.remove("open");
-      document.getElementById("chat-toggle").textContent = "Discuter";
-    });
+    /* Chatbot + cookies + SW : hors chemin critique (idle) */
+    function initDeferredWidgets() {
+      const starters = ["Formules SEO / SEA ?", "Google Ads : comment ça marche ?", "Création site PWA ?", "Prendre rendez-vous"];
+      const chatBody = document.getElementById("chat-body");
+      const chatPanel = document.getElementById("chat-panel");
+      function addBubble(role, text) {
+        const div = document.createElement("div");
+        div.className = "bubble " + role;
+        div.textContent = text;
+        chatBody.appendChild(div);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+      addBubble("bot", "Bonjour, je suis l’assistant Meridian. Questions sur la création PWA, le SEO, Google Ads, les formules, un RDV ou un devis ?");
+      const startersEl = document.getElementById("chat-starters");
+      starters.forEach((s) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "chip";
+        b.textContent = s;
+        b.addEventListener("click", () => sendChat(s));
+        startersEl.appendChild(b);
+      });
+      function replyFor(message) {
+        const q = message.toLowerCase();
+        if (/(formule|tarif|prix|essentiel|croissance|sur[- ]?mesure)/.test(q))
+          return "Trois formules : Essentiel (dès 1 490 €), Croissance (dès 4 900 €, recommandée) et Sur-mesure (sur devis). Cliquez sur « Demander un devis ».";
+        if (/(google\s*ads|sea|publicité|campagne|ads)/.test(q))
+          return "Nous structurons et optimisons vos campagnes Google Ads (Search, Display, Remarketing) avec tracking après consentement cookies.";
+        if (/(seo|référencement|referencement|mise en avant|visibilité|valoris)/.test(q))
+          return "Notre SEO couvre l’audit technique, le contenu optimisé Google, le local SEO / Google Business Profile et l’alignement SEA.";
+        if (/(pwa|site|création|creation|web)/.test(q))
+          return "Nous créons des sites PWA ultra-design : installables, rapides, SEO-ready et préparés pour Google Ads / Analytics sous consentement RGPD.";
+        if (/(rendez[- ]?vous|rdv|créneau)/.test(q))
+          return "Utilisez le bouton « Rendez-vous » : visio, présentiel Paris ou téléphone. Confirmation sous 24 h.";
+        if (/(rgpd|cookie|confidentialité|cnil)/.test(q))
+          return "Oui : bannière cookies granulaire et pages légales FR. DPO : dpo@meridian-digital.fr.";
+        if (/(contact|email|téléphone|telephone|devis)/.test(q))
+          return "contact@meridian-digital.fr · 01 84 80 00 00 · 12 rue de la Paix, 75002 Paris.";
+        if (/(bonjour|salut|hello|bonsoir)/.test(q))
+          return "Bonjour ! Je peux vous aider sur : création PWA, SEO, Google Ads / SEA, formules, RDV ou RGPD.";
+        return "Je renseigne sur la valorisation Google (SEO, SEA, Ads), les sites PWA, nos formules, le RDV et le devis.";
+      }
+      function sendChat(text) {
+        const t = text.trim();
+        if (!t) return;
+        addBubble("user", t);
+        addBubble("bot", replyFor(t));
+      }
+      document.getElementById("chat-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const input = document.getElementById("chat-input");
+        sendChat(input.value);
+        input.value = "";
+      });
+      document.getElementById("chat-toggle").addEventListener("click", () => {
+        const open = chatPanel.classList.toggle("open");
+        document.getElementById("chat-toggle").textContent = open ? "Masquer le chat" : "Discuter";
+      });
+      document.getElementById("chat-close").addEventListener("click", () => {
+        chatPanel.classList.remove("open");
+        document.getElementById("chat-toggle").textContent = "Discuter";
+      });
 
-    /* Cookies RGPD */
-    const COOKIE_KEY = "meridian_cookie_consent_v1";
-    const cookiesEl = document.getElementById("cookies");
-    function saveConsent(analytics, advertising) {
-      const consent = { necessary: true, analytics, advertising, decidedAt: new Date().toISOString() };
-      localStorage.setItem(COOKIE_KEY, JSON.stringify(consent));
-      window.dispatchEvent(new CustomEvent("meridian:consent", { detail: consent }));
-      cookiesEl.classList.remove("open");
-    }
-    if (!localStorage.getItem(COOKIE_KEY)) {
-      cookiesEl.classList.add("open");
-      setTimeout(() => document.getElementById("c-accept")?.focus(), 50);
-    }
-    document.getElementById("c-accept").addEventListener("click", () => saveConsent(true, true));
-    document.getElementById("c-reject").addEventListener("click", () => saveConsent(false, false));
-    document.getElementById("c-custom").addEventListener("click", () => {
-      document.getElementById("cookie-prefs").hidden = false;
-      document.getElementById("c-save").hidden = false;
-      document.getElementById("c-custom").hidden = true;
-    });
-    document.getElementById("c-save").addEventListener("click", () => {
-      saveConsent(
-        document.getElementById("c-analytics").checked,
-        document.getElementById("c-ads").checked
-      );
-    });
+      const COOKIE_KEY = "meridian_cookie_consent_v1";
+      const cookiesEl = document.getElementById("cookies");
+      function saveConsent(analytics, advertising) {
+        const consent = { necessary: true, analytics, advertising, decidedAt: new Date().toISOString() };
+        localStorage.setItem(COOKIE_KEY, JSON.stringify(consent));
+        window.dispatchEvent(new CustomEvent("meridian:consent", { detail: consent }));
+        cookiesEl.classList.remove("open");
+      }
+      if (!localStorage.getItem(COOKIE_KEY)) {
+        cookiesEl.classList.add("open");
+        setTimeout(() => document.getElementById("c-accept")?.focus(), 50);
+      }
+      document.getElementById("c-accept").addEventListener("click", () => saveConsent(true, true));
+      document.getElementById("c-reject").addEventListener("click", () => saveConsent(false, false));
+      document.getElementById("c-custom").addEventListener("click", () => {
+        document.getElementById("cookie-prefs").hidden = false;
+        document.getElementById("c-save").hidden = false;
+        document.getElementById("c-custom").hidden = true;
+      });
+      document.getElementById("c-save").addEventListener("click", () => {
+        saveConsent(
+          document.getElementById("c-analytics").checked,
+          document.getElementById("c-ads").checked
+        );
+      });
 
-    /* PWA SW (si servi en http) */
-    if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-      navigator.serviceWorker.register("sw.js").catch(() => {});
+      if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+        navigator.serviceWorker.register("sw.js").catch(() => {});
+      }
+    }
+
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(() => initDeferredWidgets(), { timeout: 1200 });
+    } else {
+      setTimeout(initDeferredWidgets, 200);
     }
   </script>
 </body>

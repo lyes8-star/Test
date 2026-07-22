@@ -2,14 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Syne, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { CookieBanner } from "@/components/CookieBanner";
-import { Chatbot } from "@/components/Chatbot";
-import { ModalProvider } from "@/components/ModalProvider";
 import { JsonLd } from "@/components/JsonLd";
-import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
-import { ConsentScripts } from "@/components/ConsentScripts";
+import { AppShell } from "@/components/AppShell";
 
 const display = Syne({
   subsets: ["latin"],
@@ -137,17 +131,7 @@ export default function RootLayout({
           Aller au contenu
         </a>
         <JsonLd />
-        <ModalProvider>
-          <Header />
-          <main id="contenu" className="flex-1">
-            {children}
-          </main>
-          <Footer />
-          <Chatbot />
-          <CookieBanner />
-        </ModalProvider>
-        <ServiceWorkerRegister />
-        <ConsentScripts />
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );
