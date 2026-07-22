@@ -43,14 +43,19 @@ npm run build && npm start
 |---|---|
 | `NEXT_PUBLIC_SITE_URL` | URL canonique (défaut `https://meridian-digital.fr`) |
 
-## Audits (Lighthouse)
+## Audits (Lighthouse, Axe, OG/Schema, Bundle)
 
 ```bash
-npm run serve:static   # terminal 1 — http://127.0.0.1:3456
-npm run audit:lighthouse  # terminal 2 — scores Perf / A11y / BP / SEO
+npm run serve:static      # terminal 1 — http://127.0.0.1:3456
+npm run audit:lighthouse  # home Lighthouse
+npm run audit:axe         # WCAG Axe sur 4 pages
+npm run audit:og          # Open Graph + JSON-LD
+npm run audit:sitewide    # Lighthouse multi-pages (équivalent Unlighthouse/PageSpeed local)
+npm run audit:bundle      # tailles deps (Bundlephobia)
+npm run audit:all         # enchaîne og + axe + sitewide + bundle
 ```
 
-Rapport JSON dans `audits/lighthouse-mobile.json`. Optimisations appliquées : fonts auto-hébergées, contraste WCAG, Open Graph / Schema, images compressées, focus trap modales.
+Rapports dans `audits/`.
 
 Les routes `POST /api/rdv` et `POST /api/devis` valident les données (Zod) et journalisent côté serveur.
 Pour la production : brancher Resend, SMTP ou un CRM dans ces handlers.

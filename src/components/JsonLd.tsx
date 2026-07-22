@@ -58,6 +58,46 @@ export function JsonLd() {
           "Valorisation Google",
         ],
       },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Accueil",
+            item: `${siteConfig.url}/`,
+          },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Quelles formules propose Meridian ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Essentiel (audit + quick wins dès 1 490 €), Croissance (site/PWA + SEO + Google Ads dès 4 900 €) et Sur-mesure (multi-campagnes, sur devis).",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Proposez-vous du SEO et Google Ads ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Oui : SEO technique et contenu, SEA / Google Ads avec tracking après consentement cookies RGPD.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Le site est-il conforme RGPD ?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Oui : bannière cookies granulaire, pages légales françaises et tags analytics/Ads conditionnés au consentement.",
+            },
+          },
+        ],
+      },
     ],
   };
 
