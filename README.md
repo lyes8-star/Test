@@ -13,7 +13,18 @@ SEO, SEA / Google Ads, sites PWA, prise de rendez-vous, devis et chatbot.
 - **SEA ready** : catégorie cookies publicitaires ; tags Ads à brancher après consentement
 - **RGPD / droit FR** : mentions légales, confidentialité, cookies, bannière granulaire
 
-## Démarrage
+## Démarrage rapide (fichier `index.html`)
+
+Ouvrez **[`index.html`](index.html)** à la racine du dépôt (double-clic ou serveur statique).  
+C’est l’entrée du site : landing, RDV, devis, chatbot, cookies RGPD — sans installation.
+
+```bash
+# optionnel : serveur local
+npx serve .
+# puis ouvrir http://localhost:3000
+```
+
+## Version Next.js (App Router)
 
 ```bash
 npm install
