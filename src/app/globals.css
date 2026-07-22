@@ -69,6 +69,20 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Film grain — anti-flat texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
 ::selection {
   background: rgba(255, 90, 31, 0.22);
 }
@@ -89,10 +103,10 @@ img {
 }
 
 .display {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 0.92;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
 }
 
 .eyebrow {
@@ -105,6 +119,7 @@ img {
 }
 
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -115,13 +130,15 @@ img {
   border: 1px solid transparent;
   font-weight: 700;
   font-size: 0.95rem;
-  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease,
-    border-color 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease,
+    color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   cursor: pointer;
 }
 
 .btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .btn:focus-visible,
@@ -141,9 +158,26 @@ button:focus-visible {
   box-shadow: 0 12px 32px rgba(255, 90, 31, 0.28);
 }
 
+.btn-primary::after,
+.btn-amber::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-primary:hover::after,
+.btn-amber:hover::after {
+  transform: translateX(120%);
+}
+
 .btn-primary:hover,
 .btn-amber:hover {
   background: var(--signal-deep);
+  box-shadow: 0 16px 40px rgba(255, 90, 31, 0.38);
 }
 
 .btn-secondary {
@@ -156,6 +190,37 @@ button:focus-visible {
   background: var(--ink);
   color: var(--paper);
   border-color: var(--ink);
+}
+
+.linkish {
+  position: relative;
+}
+
+.linkish::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.2em;
+  width: 100%;
+  height: 1.5px;
+  background: var(--signal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.linkish:hover::after {
+  transform: scaleX(1);
+}
+
+.brand-mark-live {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+
+.group:hover .brand-mark-live,
+a:hover .brand-mark-live {
+  transform: scale(1.08) rotate(-4deg);
+  box-shadow: 0 0 0 3px var(--beam-soft);
 }
 
 .field {
@@ -219,6 +284,10 @@ button:focus-visible {
   animation-delay: 0.36s;
 }
 
+.hero-brand-in {
+  animation: brand-in 1.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @keyframes rise {
   from {
     opacity: 0;
@@ -230,12 +299,25 @@ button:focus-visible {
   }
 }
 
-@keyframes hero-drift {
+@keyframes brand-in {
   from {
-    transform: scale(1.04) translate3d(0, 0, 0);
+    opacity: 0;
+    letter-spacing: 0.12em;
+    transform: translateY(1.4rem);
   }
   to {
-    transform: scale(1.1) translate3d(-1.5%, 1%, 0);
+    opacity: 1;
+    letter-spacing: -0.06em;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-drift {
+  from {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.14) translate3d(-2%, 1.5%, 0);
   }
 }
 
@@ -243,7 +325,7 @@ button:focus-visible {
   0%,
   100% {
     background-position: 0% 50%;
-    opacity: 0.55;
+    opacity: 0.7;
   }
   50% {
     background-position: 100% 50%;
@@ -252,12 +334,35 @@ button:focus-visible {
 }
 
 .hero-media-drift {
-  animation: hero-drift 28s ease-in-out infinite alternate;
+  animation: hero-drift 18s ease-in-out infinite alternate;
 }
 
 .hero-beam-sweep {
-  animation: beam-sweep 9s ease-in-out infinite;
+  animation: beam-sweep 5.5s ease-in-out infinite;
   background-size: 220% 100%;
+}
+
+/* Scroll reveals */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(1.75rem);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-on-scroll.is-inview {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lift-hover {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+
+.lift-hover:hover {
+  transform: translateY(-4px);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -265,16 +370,35 @@ button:focus-visible {
     scroll-behavior: auto;
   }
 
+  body::before {
+    opacity: 0.02;
+  }
+
   .reveal,
   .reveal-delay-1,
   .reveal-delay-2,
   .reveal-delay-3,
+  .hero-brand-in,
   .hero-media-drift,
   .hero-beam-sweep {
     animation: none !important;
   }
 
-  .btn:hover {
+  .reveal-on-scroll {
+    opacity: 1;
     transform: none;
+    transition: none;
+  }
+
+  .btn:hover,
+  .lift-hover:hover,
+  .group:hover .brand-mark-live,
+  a:hover .brand-mark-live {
+    transform: none;
+  }
+
+  .btn-primary::after,
+  .btn-amber::after {
+    display: none;
   }
 }

@@ -36,7 +36,7 @@ export function Header() {
         <Link href="/" className="group flex items-center gap-3">
           <span
             aria-hidden
-            className="grid h-8 w-8 place-items-center rounded-[0.55rem] bg-[var(--ink)] text-[0.95rem] font-bold text-[var(--beam)] transition-transform duration-300 group-hover:scale-105"
+            className="brand-mark-live grid h-8 w-8 place-items-center rounded-[0.55rem] bg-[var(--ink)] text-[0.95rem] font-bold text-[var(--beam)]"
           >
             M
           </span>
