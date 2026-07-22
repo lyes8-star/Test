@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ModalProvider } from "@/components/ModalProvider";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { StickyMobileBar } from "@/components/StickyMobileBar";
 
 const Chatbot = dynamic(
   () => import("@/components/Chatbot").then((m) => m.Chatbot),
@@ -41,6 +42,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <Footer />
         <Chatbot />
         <CookieBanner />
+        <StickyMobileBar />
       </ModalProvider>
       <ScrollReveal />
       <ServiceWorkerRegister />

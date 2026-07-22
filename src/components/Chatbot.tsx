@@ -455,13 +455,14 @@ export function Chatbot() {
         </section>
       ) : (
         <button
+          id="chat-launcher"
           type="button"
           className="btn btn-primary shadow-[var(--shadow)]"
           onClick={() => setOpen(true)}
           aria-expanded={false}
           aria-controls="chat-panel"
         >
-          Discuter
+          Une question ?
         </button>
       )}
     </div>

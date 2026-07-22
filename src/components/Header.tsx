@@ -6,22 +6,42 @@ import { siteConfig } from "@/lib/site";
 import { useModal } from "@/components/ModalProvider";
 
 const links = [
-  { href: "#activites", label: "Activités" },
-  { href: "#formules", label: "Formules" },
-  { href: "#methode", label: "Méthode" },
-  { href: "#contact", label: "Contact" },
+  { href: "#activites", id: "activites", label: "Activités" },
+  { href: "#realisations", id: "realisations", label: "Réalisations" },
+  { href: "#formules", id: "formules", label: "Formules" },
+  { href: "#faq", id: "faq", label: "FAQ" },
+  { href: "#contact", id: "contact", label: "Contact" },
 ];
 
 export function Header() {
   const { open } = useModal();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [active, setActive] = useState("");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sections = links
+      .map((l) => document.getElementById(l.id))
+      .filter((el): el is HTMLElement => !!el);
+    if (!sections.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target?.id) setActive(visible.target.id);
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.25, 0.5] },
+    );
+    sections.forEach((s) => io.observe(s));
+    return () => io.disconnect();
   }, []);
 
   return (
@@ -45,12 +65,15 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
+        <nav className="hidden items-center gap-6 xl:gap-8 lg:flex" aria-label="Navigation principale">
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="linkish text-sm font-semibold text-[var(--ink-soft)] transition-colors hover:text-[var(--ink)]"
+              className={`linkish text-sm font-semibold transition-colors ${
+                active === link.id ? "text-[var(--ink)]" : "text-[var(--ink-soft)] hover:text-[var(--ink)]"
+              }`}
+              aria-current={active === link.id ? "true" : undefined}
             >
               {link.label}
             </a>
@@ -58,17 +81,17 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <button type="button" className="btn btn-secondary" onClick={() => open("devis")}>
+          <button type="button" className="btn btn-secondary min-h-11" onClick={() => open("devis")}>
             Devis
           </button>
-          <button type="button" className="btn btn-primary" onClick={() => open("rdv")}>
+          <button type="button" className="btn btn-primary min-h-11" onClick={() => open("rdv")}>
             Rendez-vous
           </button>
         </div>
 
         <button
           type="button"
-          className="menu-toggle inline-flex min-h-10 items-center justify-center rounded-full border border-[var(--line)] px-3 text-sm font-bold text-[var(--ink)] lg:!hidden"
+          className="menu-toggle inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--line)] px-3 text-sm font-bold text-[var(--ink)] lg:!hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           onClick={() => setMenuOpen((v) => !v)}
@@ -93,7 +116,7 @@ export function Header() {
             <div className="mt-2 grid gap-2">
               <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-secondary min-h-11"
                 onClick={() => {
                   setMenuOpen(false);
                   open("devis");
@@ -103,7 +126,7 @@ export function Header() {
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-primary min-h-11"
                 onClick={() => {
                   setMenuOpen(false);
                   open("rdv");
