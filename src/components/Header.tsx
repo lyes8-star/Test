@@ -18,7 +18,7 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -26,21 +26,23 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-[background,box-shadow,backdrop-filter] duration-300 ${
+      className={`sticky top-0 z-50 transition-[background,border-color,backdrop-filter] duration-300 ${
         scrolled
-          ? "border-b border-[var(--line)] bg-[rgba(251,252,251,0.86)] shadow-sm backdrop-blur-xl"
-          : "bg-transparent"
+          ? "border-b border-[var(--line)] bg-[rgba(242,244,247,0.92)] backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent"
       }`}
     >
       <div className="container flex h-[var(--header-h)] items-center justify-between gap-4">
         <Link href="/" className="group flex items-center gap-3">
           <span
             aria-hidden
-            className="grid h-10 w-10 place-items-center rounded-full bg-[var(--forest)] text-sm font-bold text-white transition-transform duration-300 group-hover:scale-105"
+            className="grid h-8 w-8 place-items-center rounded-[0.55rem] bg-[var(--ink)] text-[0.95rem] font-bold text-[var(--beam)] transition-transform duration-300 group-hover:scale-105"
           >
             M
           </span>
-          <span className="display text-xl tracking-tight text-[var(--ink)]">{siteConfig.name}</span>
+          <span className="display text-[1.15rem] tracking-[-0.03em] text-[var(--ink)]">
+            {siteConfig.name}
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
@@ -48,7 +50,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="linkish text-sm font-semibold text-[var(--ink-soft)] transition-colors hover:text-[var(--forest)]"
+              className="linkish text-sm font-semibold text-[var(--ink-soft)] transition-colors hover:text-[var(--ink)]"
             >
               {link.label}
             </a>
@@ -76,7 +78,7 @@ export function Header() {
       </div>
 
       {menuOpen ? (
-        <div id="mobile-nav" className="border-t border-[var(--line)] bg-[var(--paper)] lg:hidden">
+        <div id="mobile-nav" className="border-t border-[var(--line)] bg-[rgba(242,244,247,0.98)] lg:hidden">
           <nav className="container flex flex-col gap-2 py-4" aria-label="Navigation mobile">
             {links.map((link) => (
               <a
@@ -89,10 +91,24 @@ export function Header() {
               </a>
             ))}
             <div className="mt-2 grid gap-2">
-              <button type="button" className="btn btn-secondary" onClick={() => { setMenuOpen(false); open("devis"); }}>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => {
+                  setMenuOpen(false);
+                  open("devis");
+                }}
+              >
                 Demander un devis
               </button>
-              <button type="button" className="btn btn-primary" onClick={() => { setMenuOpen(false); open("rdv"); }}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => {
+                  setMenuOpen(false);
+                  open("rdv");
+                }}
+              >
                 Prendre rendez-vous
               </button>
             </div>

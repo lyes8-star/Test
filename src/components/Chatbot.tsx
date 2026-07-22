@@ -63,7 +63,7 @@ export function Chatbot() {
           aria-label="Assistant conversationnel"
           className="flex h-[min(520px,70vh)] w-[min(380px,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-[var(--line)] bg-[var(--paper)] shadow-[var(--shadow)]"
         >
-          <header className="flex items-center justify-between gap-3 bg-[var(--forest)] px-4 py-3 text-white">
+          <header className="flex items-center justify-between gap-3 bg-[var(--ink)] px-4 py-3 text-white">
             <div>
               <p className="text-sm font-semibold">Assistant Meridian</p>
               <p className="text-xs text-white/75">Réponses indicatives · données non stockées</p>
@@ -79,7 +79,7 @@ export function Chatbot() {
                 className={`max-w-[90%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                   m.role === "bot"
                     ? "bg-[var(--mist)] text-[var(--ink)]"
-                    : "ml-auto bg-[var(--forest)] text-white"
+                    : "ml-auto bg-[var(--ink)] text-white"
                 }`}
               >
                 {m.text}
@@ -93,7 +93,7 @@ export function Chatbot() {
               <button
                 key={s}
                 type="button"
-                className="rounded-full border border-[var(--line)] px-2.5 py-1 text-[11px] font-medium text-[var(--ink-soft)] hover:border-[var(--moss)] hover:text-[var(--forest)]"
+                className="rounded-full border border-[var(--line)] px-2.5 py-1 text-[11px] font-medium text-[var(--ink-soft)] hover:border-[var(--ink)] hover:text-[var(--ink)]"
                 onClick={() => void send(s)}
               >
                 {s}

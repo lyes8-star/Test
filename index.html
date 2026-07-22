@@ -6,7 +6,7 @@
   <title>Meridian — Valorisez votre présence Google | SEO · SEA · PWA · Ads</title>
   <meta name="description" content="Agence française de création de sites PWA et valorisation Google : SEO, SEA, Google Ads. Prise de rendez-vous et devis en ligne." />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-  <meta name="theme-color" content="#1b4d3e" />
+  <meta name="theme-color" content="#0E1218" />
   <link rel="canonical" href="https://meridian-digital.fr/" />
   <meta property="og:title" content="Meridian — Valorisez votre présence Google" />
   <meta property="og:description" content="Création web, SEO, SEA et Google Ads — RDV et devis en ligne." />
@@ -116,272 +116,977 @@
   }
   </script>
   <style>
-    :root {
-      --ink: #14201a;
-      --ink-soft: #3a4a42;
-      --forest: #1b4d3e;
-      --forest-deep: #0f2f26;
-      --moss: #2f6b55;
-      --sage: #9fc0b0;
-      --mist: #e7f1ec;
-      --mist-2: #f3f7f4;
-      --paper: #fbfcfb;
-      --line: rgba(20, 32, 26, 0.12);
-      --amber: #8f5418;
-      --amber-deep: #734314;
-      --white: #fff;
-      --danger: #b42318;
-      --success: #1b7a4a;
-      --shadow: 0 24px 60px rgba(15, 47, 38, 0.12);
-      --header-h: 4.5rem;
-      --font-display: "Syne", Georgia, serif;
-      --font-body: "Source Sans 3", system-ui, sans-serif;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--ink);
-      font-family: var(--font-body);
-      background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(159,192,176,.35), transparent 60%),
-        radial-gradient(900px 500px at 100% 0%, rgba(196,122,44,.12), transparent 55%),
-        linear-gradient(180deg, var(--mist-2) 0%, var(--paper) 40%, var(--mist) 100%);
-    }
-    a { color: inherit; text-decoration: none; }
-    .container { width: min(1120px, calc(100% - 2rem)); margin-inline: auto; }
-    .display { font-family: var(--font-display); font-weight: 700; letter-spacing: -.03em; line-height: .95; }
-    .eyebrow { display: inline-block; font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--moss); }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-      min-height: 3rem; padding: .75rem 1.35rem; border-radius: 999px; border: 1px solid transparent;
-      font: inherit; font-weight: 600; cursor: pointer;
-      transition: transform .25s ease, background .25s ease, border-color .25s ease;
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { background: var(--forest); color: var(--white); box-shadow: 0 10px 30px rgba(27,77,62,.28); }
-    .btn-primary:hover { background: var(--forest-deep); }
-    .btn-secondary { background: transparent; color: var(--ink); border-color: var(--line); }
-    .btn-amber { background: var(--amber); color: var(--white); }
-    .btn-amber:hover { background: var(--amber-deep); }
-    .section { padding: 5.5rem 0; }
-    footer {
-      content-visibility: auto;
-      contain-intrinsic-size: 1px 480px;
-    }
-    .skip {
-      position: absolute; left: -9999px; top: 0;
-    }
-    .skip:focus { left: 1rem; top: 1rem; z-index: 100; background: #fff; padding: .5rem 1rem; border-radius: .5rem; }
+:root {
+  --ink: #0e1218;
+  --paper: #f2f4f7;
+  --signal: #ff5a1f;
+  --beam: #7dd3fc;
+  --muted: #5c6778;
+  --line: rgba(14, 18, 24, 0.1);
+  --line-strong: rgba(14, 18, 24, 0.18);
+  --radius: 0.75rem;
+  --shadow: 0 18px 50px rgba(14, 18, 24, 0.12);
+  --font-display: "Syne", system-ui, sans-serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+  --max: 72rem;
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+img, svg { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 3px;
+}
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  z-index: 100;
+  border-radius: 0.5rem;
+}
+.skip:focus { top: 1rem; }
+.container {
+  width: min(100% - 2rem, var(--max));
+  margin-inline: auto;
+}
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
+}
+.site-header.is-solid {
+  background: rgba(242, 244, 247, 0.92);
+  border-bottom-color: var(--line);
+  backdrop-filter: blur(12px);
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.25rem;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-size: 1.15rem;
+}
+.brand-mark {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.55rem;
+  background: var(--ink);
+  color: var(--beam);
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+}
+.nav-links {
+  display: none;
+  gap: 1.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { display: none; gap: 0.6rem; }
+.menu-btn {
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  border-radius: 999px;
+  padding: 0.55rem 0.95rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+@media (min-width: 900px) {
+  .nav-links, .nav-cta { display: flex; }
+  .menu-btn { display: none; }
+}
+.mobile-panel {
+  display: none;
+  border-top: 1px solid var(--line);
+  background: rgba(242, 244, 247, 0.98);
+  padding: 1rem 0 1.25rem;
+}
+.mobile-panel.open { display: block; }
+.mobile-panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.mobile-panel a { text-decoration: none; font-weight: 700; }
+.mobile-actions {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  padding: 0.8rem 1.3rem;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary {
+  background: var(--signal);
+  color: #fff;
+  box-shadow: 0 10px 28px rgba(255, 90, 31, 0.28);
+}
+.btn-primary:hover { background: #e84e16; }
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+.btn-secondary:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: transparent;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.hero {
+  position: relative;
+  min-height: min(100svh, 58rem);
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+  color: #fff;
+  isolation: isolate;
+}
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 70% 55% at 72% 28%, rgba(125, 211, 252, 0.22), transparent 55%),
+    linear-gradient(165deg, #0e1218 0%, #161c26 48%, #0e1218 100%);
+}
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.92;
+  animation: hero-drift 28s ease-in-out infinite alternate;
+}
+.hero-beam {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(125, 211, 252, 0.07) 46%,
+    rgba(255, 90, 31, 0.08) 52%,
+    transparent 62%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  animation: beam-sweep 9s ease-in-out infinite;
+}
+.hero-content {
+  width: min(100% - 2rem, var(--max));
+  margin: 0 auto;
+  padding: 7.5rem 0 4.5rem;
+}
+.hero-brand {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.4rem, 14vw, 7.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  color: #fff;
+  animation: reveal-up 0.9s ease both;
+}
+.hero h1 {
+  margin: 0;
+  max-width: 16ch;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 4.8vw, 3.1rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  animation: reveal-up 0.9s ease 0.08s both;
+}
+.hero-lead {
+  margin: 1.15rem 0 0;
+  max-width: 36ch;
+  color: rgba(242, 244, 247, 0.82);
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  animation: reveal-up 0.9s ease 0.16s both;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.85rem;
+  animation: reveal-up 0.9s ease 0.24s both;
+}
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(1.1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-drift {
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to { transform: scale(1.1) translate3d(-1.5%, 1%, 0); }
+}
+@keyframes beam-sweep {
+  0%, 100% { background-position: 0% 50%; opacity: 0.55; }
+  50% { background-position: 100% 50%; opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-media img, .hero-beam { animation: none; }
+  .hero-brand, .hero h1, .hero-lead, .hero-actions { animation: none; }
+}
+.section {
+  padding: clamp(4rem, 9vw, 6.5rem) 0;
+}
+.section-alt {
+  background: #fff;
+}
+.section-ink {
+  background: var(--ink);
+  color: var(--paper);
+}
+.section-ink .muted { color: rgba(242, 244, 247, 0.68); }
+.section-ink .eyebrow { color: var(--beam); }
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 0.7rem;
+  color: var(--signal);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+.section h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.85rem, 4vw, 2.85rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  max-width: 16ch;
+}
+.section-intro {
+  margin: 0.9rem 0 0;
+  max-width: 42rem;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+.muted { color: var(--muted); }
+.activity-list {
+  margin: 2.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.activity-item {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 760px) {
+  .activity-item {
+    grid-template-columns: 4.5rem 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+}
+.activity-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--ink);
+  opacity: 0.28;
+}
+.activity-item h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  letter-spacing: -0.03em;
+}
+.activity-item p {
+  margin: 0.55rem 0 0;
+  color: var(--muted);
+  max-width: 48rem;
+  font-size: 1.05rem;
+}
+.formulas {
+  display: grid;
+  gap: 0;
+  margin-top: 2.75rem;
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 900px) {
+  .formulas {
+    grid-template-columns: repeat(3, 1fr);
+    border-top: none;
+    gap: 0;
+  }
+}
+.formula {
+  padding: 1.85rem 0 1.5rem;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+@media (min-width: 900px) {
+  .formula {
+    padding: 2rem 1.5rem 1.75rem;
+    border-bottom: none;
+    border-right: 1px solid var(--line);
+  }
+  .formula:first-child { padding-left: 0; }
+  .formula:last-child {
+    border-right: none;
+    padding-right: 0;
+  }
+}
+.formula.featured {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  margin: 0 -1rem;
+  padding: 1.85rem 1rem;
+  border-radius: var(--radius);
+}
+@media (min-width: 900px) {
+  .formula.featured {
+    margin: 0;
+    padding: 2.25rem 1.6rem;
+    border-radius: var(--radius);
+  }
+}
+.formula.featured .muted,
+.formula.featured .price-note { color: rgba(242, 244, 247, 0.68); }
+.formula.featured .badge {
+  background: var(--signal);
+  color: #fff;
+}
+.formula h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  letter-spacing: -0.03em;
+}
+.price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+}
+.price-note { font-size: 0.92rem; }
+.badge {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  background: rgba(255, 90, 31, 0.12);
+  color: var(--signal);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.formula ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.45rem;
+  color: inherit;
+  opacity: 0.92;
+}
+.formula .btn { margin-top: auto; width: fit-content; }
+.formula.featured .btn-secondary {
+  color: var(--paper);
+  border-color: rgba(242, 244, 247, 0.35);
+}
+.formula.featured .btn-secondary:hover {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+}
+.steps {
+  display: grid;
+  gap: 0;
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--line);
+}
+.step {
+  display: grid;
+  gap: 0.65rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 760px) {
+  .step {
+    grid-template-columns: 3.5rem 1fr;
+    gap: 1.25rem;
+  }
+}
+.step-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.75rem;
+  letter-spacing: -0.04em;
+  color: var(--signal);
+}
+.step h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+.step p { margin: 0.4rem 0 0; color: var(--muted); }
+.compliance {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+@media (min-width: 800px) {
+  .compliance { grid-template-columns: 1.2fr 1fr; gap: 3rem; align-items: start; }
+}
+.compliance ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.55rem;
+}
+.contact-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+@media (min-width: 800px) {
+  .contact-grid { grid-template-columns: 1.1fr 0.9fr; gap: 3rem; }
+}
+.contact-panel {
+  display: grid;
+  gap: 0.85rem;
+}
+.contact-panel p { margin: 0; color: var(--muted); }
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+.site-footer {
+  background: var(--ink);
+  color: rgba(242, 244, 247, 0.78);
+  padding: 3rem 0 2rem;
+}
+.footer-grid {
+  display: grid;
+  gap: 1.75rem;
+}
+@media (min-width: 800px) {
+  .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+}
+.site-footer h2, .site-footer h3 {
+  color: #fff;
+  font-family: var(--font-display);
+  margin: 0 0 0.75rem;
+}
+.site-footer a {
+  color: rgba(242, 244, 247, 0.78);
+  text-decoration: none;
+}
+.site-footer a:hover { color: var(--beam); }
+.footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+.footer-bottom {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(242, 244, 247, 0.12);
+  font-size: 0.92rem;
+}
+.modal[hidden], .chat[hidden], .cookie-banner[hidden] { display: none !important; }
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 18, 24, 0.55);
+}
+.modal-dialog {
+  position: relative;
+  width: min(100%, 34rem);
+  max-height: min(90vh, 44rem);
+  overflow: auto;
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.35rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+}
+.modal-dialog h2 {
+  margin: 0 1.5rem 0.35rem 0;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+}
+.modal-close {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  border: 0;
+  background: transparent;
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+  color: var(--muted);
+}
+.form {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+.form label {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.form input, .form select, .form textarea {
+  font: inherit;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.65rem;
+  padding: 0.7rem 0.8rem;
+  background: #fff;
+  color: var(--ink);
+}
+.form textarea { min-height: 7rem; resize: vertical; }
+.form .row {
+  display: grid;
+  gap: 0.85rem;
+}
+@media (min-width: 560px) {
+  .form .row { grid-template-columns: 1fr 1fr; }
+}
+.form .check {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  font-weight: 500;
+  font-size: 0.92rem;
+}
+.form .check input { margin-top: 0.25rem; }
+.form-status {
+  margin: 0;
+  min-height: 1.25rem;
+  font-size: 0.92rem;
+}
+.form-status[data-state="ok"] { color: #0f7a4a; }
+.form-status[data-state="error"] { color: #b42318; }
+.chat-launcher {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 45;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.85rem 1.15rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.chat {
+  position: fixed;
+  right: 1rem;
+  bottom: 4.5rem;
+  z-index: 46;
+  width: min(calc(100vw - 2rem), 22rem);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: min(70vh, 28rem);
+}
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: var(--ink);
+  color: #fff;
+}
+.chat-header strong { font-family: var(--font-display); }
+.chat-close {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+.chat-log {
+  padding: 1rem;
+  overflow: auto;
+  display: grid;
+  gap: 0.65rem;
+  background: #fafbfc;
+}
+.bubble {
+  max-width: 90%;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.85rem;
+  font-size: 0.95rem;
+}
+.bubble.bot {
+  background: #fff;
+  border: 1px solid var(--line);
+  justify-self: start;
+}
+.bubble.user {
+  background: var(--ink);
+  color: #fff;
+  justify-self: end;
+}
+.chat-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-top: 1px solid var(--line);
+}
+.chat-form input {
+  font: inherit;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 0.65rem 0.9rem;
+}
+.chat-form button {
+  border: 0;
+  border-radius: 999px;
+  background: var(--signal);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  padding: 0.65rem 0.95rem;
+  cursor: pointer;
+}
+.cookie-banner {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  padding: 1.1rem;
+  width: min(36rem, calc(100% - 2rem));
+  margin-inline: auto;
+}
+.cookie-banner h2 {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+.cookie-banner p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.cookie-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+.cookie-prefs {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.85rem;
+}
+.cookie-prefs label {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  font-size: 0.92rem;
+}
 
-    header {
-      position: sticky; top: 0; z-index: 50;
-      height: var(--header-h);
-      backdrop-filter: blur(16px);
-      background: rgba(251,252,251,.86);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav {
-      height: 100%;
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-    }
-    .brand { display: flex; align-items: center; gap: .75rem; font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; }
-    .brand-mark {
-      width: 2.5rem; height: 2.5rem; border-radius: 999px; background: var(--forest);
-      color: #fff; display: grid; place-items: center; font-size: .9rem; font-weight: 700;
-    }
-    .nav-links { display: none; gap: 2rem; }
-    .nav-links a { font-size: .9rem; font-weight: 600; color: var(--ink-soft); }
-    .nav-links a:hover { color: var(--forest); }
-    .nav-cta { display: none; gap: .75rem; }
-    .menu-btn { display: inline-flex; }
-    @media (min-width: 900px) {
-      .nav-links, .nav-cta { display: flex; }
-      .menu-btn { display: none; }
-    }
-    #mobile-nav {
-      display: none; border-top: 1px solid var(--line); background: var(--paper); padding: 1rem 0 1.25rem;
-    }
-    #mobile-nav.open { display: block; }
-    #mobile-nav a, #mobile-nav button { display: block; width: 100%; margin: .35rem 0; }
-
-    .hero {
-      position: relative; min-height: calc(100svh - var(--header-h)); overflow: hidden;
-      display: flex; align-items: flex-end;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background:
-        linear-gradient(120deg, rgba(15,47,38,.72) 0%, rgba(27,77,62,.45) 42%, rgba(20,32,26,.25) 100%),
-        url("public/hero.svg") center/cover no-repeat;
-      animation: drift 18s ease-in-out infinite;
-    }
-    .hero-dots {
-      position: absolute; inset: 0; opacity: .4;
-      background-image:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.18) 0 1px, transparent 1px),
-        radial-gradient(circle at 80% 40%, rgba(255,255,255,.12) 0 1px, transparent 1px);
-      background-size: 28px 28px, 42px 42px;
-      animation: pulse-soft 6s ease-in-out infinite;
-    }
-    .hero-inner { position: relative; padding: 5rem 0 4rem; color: #fff; }
-    .hero .eyebrow { color: var(--sage); }
-    .hero h1 { margin: 1rem 0 0; font-size: clamp(3rem, 9vw, 6.5rem); max-width: 16ch; }
-    .hero p { max-width: 36rem; font-size: clamp(1.05rem, 2vw, 1.25rem); line-height: 1.6; color: rgba(255,255,255,.88); }
-    .hero-cta { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
-    .hero .btn-secondary { border-color: rgba(255,255,255,.35); color: #fff; }
-
-    .grid-2 { display: grid; gap: 2rem; }
-    .grid-3 { display: grid; gap: 1.5rem; }
-    .grid-4 { display: grid; gap: 2rem; }
-    @media (min-width: 768px) {
-      .grid-2 { grid-template-columns: 1fr 1fr; }
-      .grid-4 { grid-template-columns: repeat(4, 1fr); }
-    }
-    @media (min-width: 1024px) {
-      .grid-3 { grid-template-columns: repeat(3, 1fr); }
-    }
-    .activity { border-top: 1px solid var(--line); padding-top: 1.5rem; }
-    .activity h3 { margin: .5rem 0 0; font-size: 1.85rem; }
-    .activity ul { list-style: none; padding: 0; margin: 1.25rem 0 0; }
-    .activity li { display: flex; gap: .5rem; margin: .4rem 0; font-size: .95rem; }
-    .activity li::before {
-      content: ""; width: .4rem; height: .4rem; margin-top: .55rem; border-radius: 999px;
-      background: var(--amber); flex-shrink: 0;
-    }
-
-    .formulas { background: rgba(255,255,255,.45); }
-    .card {
-      display: flex; flex-direction: column; border-radius: 1.5rem; padding: 1.75rem;
-      background: rgba(255,255,255,.7); box-shadow: inset 0 0 0 1px var(--line);
-    }
-    .card.featured { background: var(--forest); color: #fff; box-shadow: var(--shadow); }
-    .card h3 { margin: 0; font-size: 1.85rem; }
-    .card ul { list-style: none; padding: 0; margin: 1.5rem 0; flex: 1; }
-    .card li { margin: .45rem 0; font-size: .95rem; }
-    .price { font-size: 1.5rem; font-weight: 700; margin: 1rem 0 0; }
-
-    .compliance {
-      background: var(--forest-deep); color: #fff; border-radius: 2rem; padding: 2.5rem 1.5rem;
-    }
-    .compliance .eyebrow { color: var(--sage); }
-    .compliance h2 { margin: .75rem 0 0; font-size: clamp(1.8rem, 4vw, 2.4rem); }
-
-    footer {
-      background: var(--forest-deep); color: rgba(255,255,255,.86); margin-top: 2rem;
-    }
-    .footer-grid {
-      display: grid; gap: 2.5rem; padding: 3.5rem 0;
-    }
-    @media (min-width: 768px) {
-      .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
-    }
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,.1);
-      padding: 1.25rem 0; font-size: .75rem; color: rgba(255,255,255,.55);
-      display: flex; flex-direction: column; gap: .5rem;
-    }
-    @media (min-width: 640px) {
-      .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; }
-    }
-    footer a:hover { color: #fff; }
-
-    .modal-backdrop {
-      position: fixed; inset: 0; z-index: 80; display: none;
-      align-items: flex-end; justify-content: center;
-      background: rgba(15,47,38,.55); padding: 0;
-    }
-    .modal-backdrop.open { display: flex; }
-    @media (min-width: 640px) {
-      .modal-backdrop { align-items: center; padding: 1.5rem; }
-    }
-    .modal {
-      width: min(36rem, 100%); max-height: 92vh; overflow: auto;
-      background: var(--paper); border-radius: 1.5rem 1.5rem 0 0; padding: 1.5rem;
-      box-shadow: var(--shadow);
-    }
-    @media (min-width: 640px) {
-      .modal { border-radius: 1.5rem; padding: 2rem; }
-    }
-    .field { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; }
-    .field label { font-size: .85rem; font-weight: 600; color: var(--ink-soft); }
-    .field input, .field textarea, .field select {
-      width: 100%; border: 1px solid var(--line); border-radius: .85rem;
-      background: rgba(255,255,255,.85); padding: .85rem 1rem; font: inherit; color: var(--ink);
-    }
-    .field textarea { min-height: 110px; resize: vertical; }
-    .form-row { display: grid; gap: 1rem; }
-    @media (min-width: 560px) { .form-row { grid-template-columns: 1fr 1fr; } }
-    .consent { display: flex; gap: .75rem; align-items: flex-start; font-size: .9rem; color: var(--ink-soft); margin-bottom: 1rem; }
-    .form-msg { font-size: .9rem; margin: 0 0 1rem; }
-    .form-msg.ok { color: var(--success); }
-    .form-msg.err { color: var(--danger); }
-
-    #chat {
-      position: fixed; right: 1rem; bottom: 1rem; z-index: 70;
-      display: flex; flex-direction: column; align-items: flex-end; gap: .75rem;
-    }
-    @media (min-width: 640px) { #chat { right: 1.5rem; bottom: 1.5rem; } }
-    .chat-panel {
-      display: none; width: min(380px, calc(100vw - 2rem)); height: min(520px, 70vh);
-      flex-direction: column; overflow: hidden; border-radius: 1.5rem;
-      border: 1px solid var(--line); background: var(--paper); box-shadow: var(--shadow);
-    }
-    .chat-panel.open { display: flex; }
-    .chat-head { background: var(--forest); color: #fff; padding: .85rem 1rem; display: flex; justify-content: space-between; align-items: center; }
-    .chat-body { flex: 1; overflow: auto; padding: 1rem; display: flex; flex-direction: column; gap: .75rem; }
-    .bubble { max-width: 90%; padding: .65rem .85rem; border-radius: 1rem; font-size: .9rem; line-height: 1.45; }
-    .bubble.bot { background: var(--mist); }
-    .bubble.user { background: var(--forest); color: #fff; margin-left: auto; }
-    .chat-starters { display: flex; flex-wrap: wrap; gap: .4rem; padding: .75rem .75rem 0; border-top: 1px solid var(--line); }
-    .chip {
-      border: 1px solid var(--line); background: transparent; border-radius: 999px;
-      padding: .25rem .65rem; font-size: .7rem; font-weight: 600; color: var(--ink-soft); cursor: pointer;
-    }
-    .chat-form { display: flex; gap: .5rem; padding: .75rem; }
-    .chat-form input {
-      flex: 1; border: 1px solid var(--line); border-radius: 999px; padding: .65rem 1rem; font: inherit;
-    }
-
-    #cookies {
-      position: fixed; inset-inline: 0; bottom: 0; z-index: 90; padding: .75rem; display: none;
-    }
-    #cookies.open { display: block; }
-    .cookie-box {
-      max-width: 48rem; margin: 0 auto; border-radius: 1.5rem; border: 1px solid var(--line);
-      background: rgba(251,252,251,.97); padding: 1.25rem 1.5rem; box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-    }
-    .cookie-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
-    .prefs { margin-top: 1rem; background: var(--mist); border-radius: 1rem; padding: 1rem; font-size: .9rem; }
-    .prefs label { display: flex; gap: .75rem; margin: .5rem 0; align-items: flex-start; }
-
-    @keyframes drift {
-      0%, 100% { transform: translate3d(0,0,0) scale(1); }
-      50% { transform: translate3d(1.5%, -1.5%, 0) scale(1.03); }
-    }
-    @keyframes pulse-soft {
-      0%, 100% { opacity: .55; }
-      50% { opacity: .9; }
-    }
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .reveal { animation: rise .9s cubic-bezier(.22,1,.36,1) both; }
-    .d1 { animation-delay: .12s; }
-    .d2 { animation-delay: .24s; }
-    .d3 { animation-delay: .36s; }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .reveal, .hero-bg, .hero-dots { animation: none; }
-    }
-  </style>
+/* aliases + interactive widgets */
+:root {
+  --ink-soft: #5c6778;
+  --forest: var(--ink);
+  --forest-deep: #07090c;
+  --moss: #5c6778;
+  --sage: var(--beam);
+  --mist: #e8ebf0;
+  --mist-2: var(--paper);
+  --amber: var(--signal);
+  --amber-deep: #e04510;
+  --white: #fff;
+  --danger: #b42318;
+  --success: #1b7a4a;
+  --header-h: 4.25rem;
+}
+.display { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; }
+.btn-amber {
+  background: var(--signal);
+  color: #fff;
+  box-shadow: 0 10px 28px rgba(255, 90, 31, 0.28);
+}
+.btn-amber:hover { background: #e84e16; }
+.hero .btn-secondary {
+  color: #fff;
+  border-color: rgba(242, 244, 247, 0.4);
+}
+.hero .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(242, 244, 247, 0.7);
+}
+#mobile-nav {
+  display: none;
+  border-top: 1px solid var(--line);
+  background: rgba(242, 244, 247, 0.98);
+  padding: 1rem 0 1.25rem;
+}
+#mobile-nav.open { display: block; }
+#mobile-nav a, #mobile-nav button { display: block; width: 100%; margin: 0.35rem 0; text-decoration: none; font-weight: 700; }
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 80; display: none;
+  align-items: flex-end; justify-content: center;
+  background: rgba(14, 18, 24, 0.55); padding: 0;
+}
+.modal-backdrop.open { display: flex; }
+@media (min-width: 640px) {
+  .modal-backdrop { align-items: center; padding: 1.5rem; }
+}
+.modal {
+  position: relative;
+  width: min(36rem, 100%); max-height: 92vh; overflow: auto;
+  background: #fff; border-radius: 1.25rem 1.25rem 0 0; padding: 1.5rem;
+  box-shadow: var(--shadow); border: 1px solid var(--line);
+}
+@media (min-width: 640px) {
+  .modal { border-radius: 1.25rem; padding: 2rem; }
+}
+.field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+.field label { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+.field input, .field textarea, .field select {
+  width: 100%; border: 1px solid var(--line-strong); border-radius: 0.75rem;
+  background: #fff; padding: 0.85rem 1rem; font: inherit; color: var(--ink);
+}
+.field textarea { min-height: 110px; resize: vertical; }
+.form-row { display: grid; gap: 1rem; }
+@media (min-width: 560px) { .form-row { grid-template-columns: 1fr 1fr; } }
+.consent { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+.form-msg { font-size: 0.9rem; margin: 0 0 1rem; }
+.form-msg.ok { color: var(--success); }
+.form-msg.err { color: var(--danger); }
+#chat {
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 70;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem;
+}
+@media (min-width: 640px) { #chat { right: 1.5rem; bottom: 1.5rem; } }
+.chat-panel {
+  display: none; width: min(380px, calc(100vw - 2rem)); height: min(520px, 70vh);
+  flex-direction: column; overflow: hidden; border-radius: 1.15rem;
+  border: 1px solid var(--line); background: #fff; box-shadow: var(--shadow);
+}
+.chat-panel.open { display: flex; }
+.chat-head { background: var(--ink); color: #fff; padding: 0.85rem 1rem; display: flex; justify-content: space-between; align-items: center; }
+.chat-body { flex: 1; overflow: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; background: #fafbfc; }
+.bubble { max-width: 90%; padding: 0.65rem 0.85rem; border-radius: 0.85rem; font-size: 0.9rem; line-height: 1.45; }
+.bubble.bot { background: #fff; border: 1px solid var(--line); }
+.bubble.user { background: var(--ink); color: #fff; margin-left: auto; }
+.chat-starters { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0.75rem 0.75rem 0; border-top: 1px solid var(--line); }
+.chip {
+  border: 1px solid var(--line-strong); background: transparent; border-radius: 999px;
+  padding: 0.25rem 0.65rem; font-size: 0.7rem; font-weight: 600; color: var(--muted); cursor: pointer;
+}
+.chip:hover { border-color: var(--ink); color: var(--ink); }
+.chat-form { display: flex; gap: 0.5rem; padding: 0.75rem; }
+.chat-form input {
+  flex: 1; border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.65rem 1rem; font: inherit;
+}
+#cookies {
+  display: none; position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 90;
+  width: min(36rem, calc(100% - 2rem)); margin-inline: auto;
+}
+#cookies.open { display: block; }
+.cookie-box {
+  background: #fff; border: 1px solid var(--line); border-radius: 1rem;
+  box-shadow: var(--shadow); padding: 1.1rem;
+}
+.prefs { margin-top: 1rem; background: var(--mist); border-radius: 0.85rem; padding: 1rem; font-size: 0.9rem; }
+.prefs label { display: flex; gap: 0.75rem; margin: 0.5rem 0; align-items: flex-start; }
+.cookie-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 0.9rem; }
+.site-footer a:hover { color: var(--beam); }
+header.site-header { /* ensure sticky header class works */ }
+</style>
+  <link rel="preload" href="public/fonts/fonts-static.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="public/fonts/fonts-static.css" /></noscript>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://meridian-digital.fr/#organization",
+        "name": "Meridian Digital SAS",
+        "url": "https://meridian-digital.fr",
+        "logo": "https://meridian-digital.fr/public/icons/icon-512.png",
+        "email": "contact@meridian-digital.fr",
+        "telephone": "+33 1 84 80 00 00",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "12 rue de la Paix",
+          "addressLocality": "Paris",
+          "postalCode": "75002",
+          "addressCountry": "FR"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://meridian-digital.fr/#website",
+        "url": "https://meridian-digital.fr",
+        "name": "Meridian",
+        "inLanguage": "fr-FR",
+        "publisher": { "@id": "https://meridian-digital.fr/#organization" }
+      },
+      {
+        "@type": "ProfessionalService",
+        "name": "Meridian",
+        "description": "Création de sites PWA, SEO, SEA et Google Ads",
+        "url": "https://meridian-digital.fr",
+        "image": "https://meridian-digital.fr/public/og.jpg",
+        "telephone": "+33 1 84 80 00 00",
+        "priceRange": "€€€",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "12 rue de la Paix",
+          "addressLocality": "Paris",
+          "postalCode": "75002",
+          "addressCountry": "FR"
+        },
+        "areaServed": { "@type": "Country", "name": "France" },
+        "knowsAbout": ["SEO", "SEA", "Google Ads", "PWA", "Création de sites web"]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://meridian-digital.fr/" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Quelles formules propose Meridian ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Essentiel (audit + quick wins dès 1 490 €), Croissance (site/PWA + SEO + Google Ads dès 4 900 €) et Sur-mesure (multi-campagnes, sur devis)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Proposez-vous du SEO et Google Ads ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui : SEO technique et contenu, SEA / Google Ads (Search, Display, Remarketing) avec tracking après consentement cookies RGPD."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Le site est-il conforme RGPD ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui : bannière cookies granulaire, pages légales françaises et tags analytics/Ads conditionnés au consentement."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  
 </head>
 <body>
   <a class="skip" href="#contenu">Aller au contenu</a>
 
-  <header>
+  <header class="site-header" id="site-header">
     <div class="container nav">
       <a class="brand" href="#top">
         <span class="brand-mark" aria-hidden="true">M</span>
@@ -411,216 +1116,207 @@
 
   <main id="contenu">
     <section class="hero" id="top">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="hero-dots" aria-hidden="true"></div>
-      <div class="container hero-inner">
-        <p class="eyebrow reveal">Meridian</p>
-        <h1 class="display reveal d1">Valorisez votre présence Google</h1>
-        <p class="reveal d2">Création de sites PWA, SEO, SEA et Google Ads — pour être trouvé, choisi et converti. RDV et devis en ligne, conforme RGPD.</p>
-        <div class="hero-cta reveal d3">
-          <button type="button" class="btn btn-amber" data-open="rdv">Prendre rendez-vous</button>
+      <div class="hero-media" aria-hidden="true">
+        <img src="public/hero.svg" alt="" width="1600" height="900" decoding="async" fetchpriority="high" />
+      </div>
+      <div class="hero-beam" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="hero-brand">Meridian</p>
+        <h1>Valorisez votre présence Google</h1>
+        <p class="hero-lead">Création de sites PWA, SEO, SEA et Google Ads — pour être trouvé, choisi et converti.</p>
+        <div class="hero-actions">
+          <button type="button" class="btn btn-primary" data-open="rdv">Prendre rendez-vous</button>
           <button type="button" class="btn btn-secondary" data-open="devis">Demander un devis</button>
         </div>
       </div>
     </section>
 
-    <section class="section" id="activites">
+    <section class="section section-alt" id="activites">
       <div class="container">
         <p class="eyebrow">Activités</p>
-        <h2 class="display" style="font-size:clamp(2rem,5vw,3rem);margin:.75rem 0 0;max-width:18ch;">Quatre leviers pour briller sur Google</h2>
-        <p style="max-width:40rem;color:var(--ink-soft);font-size:1.1rem;">Création, référencement, publicité et optimisation — un dispositif clair pour être visible et convertir.</p>
-        <div class="grid-2" style="margin-top:3rem;">
-          <article class="activity">
-            <p style="color:var(--moss);font-weight:600;font-size:.9rem;">01</p>
-            <h3 class="display">Création site &amp; PWA</h3>
-            <p style="color:var(--ink-soft);">Sites ultra-design, rapides et installables — pensés pour convertir et briller sur Google.</p>
-            <ul>
-              <li>Sites vitrine &amp; tunnels de conversion</li>
-              <li>PWA installable (mobile &amp; desktop)</li>
-              <li>Performance Core Web Vitals</li>
-            </ul>
-          </article>
-          <article class="activity">
-            <p style="color:var(--moss);font-weight:600;font-size:.9rem;">02</p>
-            <h3 class="display">SEO &amp; mise en avant</h3>
-            <p style="color:var(--ink-soft);">Référencement naturel technique et éditorial pour apparaître là où vos clients cherchent.</p>
-            <ul>
-              <li>Audit technique &amp; sémantique</li>
-              <li>Contenu optimisé Google</li>
-              <li>Fiche Google Business &amp; local SEO</li>
-            </ul>
-          </article>
-          <article class="activity">
-            <p style="color:var(--moss);font-weight:600;font-size:.9rem;">03</p>
-            <h3 class="display">SEA &amp; Google Ads</h3>
-            <p style="color:var(--ink-soft);">Campagnes Search, Display et Remarketing pour une visibilité immédiate et mesurable.</p>
-            <ul>
-              <li>Structure de comptes Google Ads</li>
-              <li>Tracking conversions &amp; consentement</li>
-              <li>Optimisation CPA / ROAS</li>
-            </ul>
-          </article>
-          <article class="activity">
-            <p style="color:var(--moss);font-weight:600;font-size:.9rem;">04</p>
-            <h3 class="display">Suivi &amp; optimisation</h3>
-            <p style="color:var(--ink-soft);">Pilotage continu : rapports clairs, itérations et alignement SEO + SEA.</p>
-            <ul>
-              <li>Tableaux de bord Google Analytics</li>
-              <li>A/B tests landing &amp; annonces</li>
-              <li>Roadmap mensuelle d’amélioration</li>
-            </ul>
-          </article>
-        </div>
+        <h2>Quatre leviers pour briller sur Google</h2>
+        <p class="section-intro">Création, référencement, publicité et optimisation — un dispositif clair pour être visible et convertir.</p>
+        <ol class="activity-list">
+          <li class="activity-item">
+            <span class="activity-num" aria-hidden="true">01</span>
+            <div>
+              <h3>Création site &amp; PWA</h3>
+              <p>Sites ultra-design, rapides et installables — pensés pour convertir et briller sur Google. Vitrine, tunnels de conversion, PWA mobile &amp; desktop, Core Web Vitals.</p>
+            </div>
+          </li>
+          <li class="activity-item">
+            <span class="activity-num" aria-hidden="true">02</span>
+            <div>
+              <h3>SEO &amp; mise en avant</h3>
+              <p>Référencement naturel technique et éditorial pour apparaître là où vos clients cherchent. Audit, contenu optimisé, Google Business &amp; local SEO.</p>
+            </div>
+          </li>
+          <li class="activity-item">
+            <span class="activity-num" aria-hidden="true">03</span>
+            <div>
+              <h3>SEA &amp; Google Ads</h3>
+              <p>Campagnes Search, Display et Remarketing pour une visibilité immédiate et mesurable. Structure de comptes, tracking consentement, optimisation CPA / ROAS.</p>
+            </div>
+          </li>
+          <li class="activity-item">
+            <span class="activity-num" aria-hidden="true">04</span>
+            <div>
+              <h3>Suivi &amp; optimisation</h3>
+              <p>Pilotage continu : rapports clairs, itérations et alignement SEO + SEA. Analytics, A/B tests, roadmap mensuelle d’amélioration.</p>
+            </div>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <section class="section formulas" id="formules">
+    <section class="section" id="formules">
       <div class="container">
         <p class="eyebrow">Formules</p>
-        <h2 class="display" style="font-size:clamp(2rem,5vw,3rem);margin:.75rem 0 0;">Formules de valorisation Google</h2>
-        <p style="max-width:40rem;color:var(--ink-soft);font-size:1.1rem;">De l’audit express au dispositif multi-campagnes — chaque formule est ajustable sur devis.</p>
-        <div class="grid-3" style="margin-top:3rem;">
-          <article class="card">
-            <h3 class="display">Essentiel</h3>
-            <p style="color:var(--ink-soft);font-size:.95rem;">Audit Google + quick wins SEO/SEA pour débloquer votre visibilité rapidement.</p>
+        <h2>Formules de valorisation Google</h2>
+        <p class="section-intro">De l’audit express au dispositif multi-campagnes — chaque formule est ajustable sur devis.</p>
+        <div class="formulas">
+          <article class="formula">
+            <h3>Essentiel</h3>
+            <p class="muted">Audit Google + quick wins SEO/SEA pour débloquer votre visibilité rapidement.</p>
             <p class="price">à partir de 1 490 €</p>
-            <p style="color:var(--ink-soft);font-size:.9rem;">2 à 3 semaines</p>
+            <p class="price-note muted">2 à 3 semaines</p>
             <ul>
-              <li>✓ Audit SEO technique &amp; Ads</li>
-              <li>✓ Plan d’actions priorisées</li>
-              <li>✓ Optimisations on-page express</li>
-              <li>✓ Support e-mail 15 jours</li>
+              <li>Audit SEO technique &amp; Ads</li>
+              <li>Plan d’actions priorisées</li>
+              <li>Optimisations on-page express</li>
+              <li>Support e-mail 15 jours</li>
             </ul>
-            <button type="button" class="btn btn-primary" data-open="devis" data-formula="essentiel">Demander un devis</button>
+            <button type="button" class="btn btn-secondary" data-open="devis" data-formula="essentiel">Demander un devis</button>
           </article>
-          <article class="card featured">
-            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;">
-              <h3 class="display">Croissance</h3>
-              <span style="font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sage);font-weight:600;">Recommandé</span>
-            </div>
-            <p style="color:rgba(255,255,255,.75);font-size:.95rem;">Site ou PWA + SEO on-page + lancement Google Ads — le parcours complet.</p>
+          <article class="formula featured">
+            <span class="badge">Recommandé</span>
+            <h3>Croissance</h3>
+            <p class="muted">Site ou PWA + SEO on-page + lancement Google Ads — le parcours complet.</p>
             <p class="price">à partir de 4 900 €</p>
-            <p style="color:rgba(255,255,255,.7);font-size:.9rem;">4 à 8 semaines</p>
+            <p class="price-note muted">4 à 8 semaines</p>
             <ul>
-              <li>✓ Tout Essentiel inclus</li>
-              <li>✓ Création / refonte site PWA</li>
-              <li>✓ SEO technique &amp; contenu</li>
-              <li>✓ Campagne Google Ads initiale</li>
-              <li>✓ Reporting bi-mensuel</li>
+              <li>Tout Essentiel inclus</li>
+              <li>Création / refonte site PWA</li>
+              <li>SEO technique &amp; contenu</li>
+              <li>Campagne Google Ads initiale</li>
+              <li>Reporting bi-mensuel</li>
             </ul>
-            <button type="button" class="btn btn-amber" data-open="devis" data-formula="croissance">Demander un devis</button>
+            <button type="button" class="btn btn-primary" data-open="devis" data-formula="croissance">Demander un devis</button>
           </article>
-          <article class="card">
-            <h3 class="display">Sur-mesure</h3>
-            <p style="color:var(--ink-soft);font-size:.95rem;">Dispositif multi-sites ou multi-campagnes, avec équipe dédiée et SLA.</p>
+          <article class="formula">
+            <h3>Sur-mesure</h3>
+            <p class="muted">Dispositif multi-sites ou multi-campagnes, avec équipe dédiée et SLA.</p>
             <p class="price">sur devis</p>
-            <p style="color:var(--ink-soft);font-size:.9rem;">selon périmètre</p>
+            <p class="price-note muted">selon périmètre</p>
             <ul>
-              <li>✓ Équipe dédiée SEO + SEA</li>
-              <li>✓ Multi-comptes Google Ads</li>
-              <li>✓ PWA / produit digital avancé</li>
-              <li>✓ Conformité RGPD &amp; tags consent</li>
-              <li>✓ Reporting exécutif mensuel</li>
+              <li>Équipe dédiée SEO + SEA</li>
+              <li>Multi-comptes Google Ads</li>
+              <li>PWA / produit digital avancé</li>
+              <li>Conformité RGPD &amp; tags consent</li>
+              <li>Reporting exécutif mensuel</li>
             </ul>
-            <button type="button" class="btn btn-primary" data-open="devis" data-formula="sur-mesure">Demander un devis</button>
+            <button type="button" class="btn btn-secondary" data-open="devis" data-formula="sur-mesure">Demander un devis</button>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="methode">
+    <section class="section section-alt" id="methode">
       <div class="container">
         <p class="eyebrow">Méthode</p>
-        <h2 class="display" style="font-size:clamp(2rem,5vw,3rem);margin:.75rem 0 0;max-width:18ch;">De l’audit Google à la performance mesurée</h2>
-        <div class="grid-4" style="margin-top:3rem;">
-          <article>
-            <p class="display" style="font-size:3rem;color:var(--sage);margin:0;">01</p>
-            <h3 style="margin:.75rem 0 0;">Audit</h3>
-            <p style="color:var(--ink-soft);">Analyse de votre présence Google : site, SEO, Ads, concurrence et opportunités.</p>
+        <h2>De l’audit Google à la performance mesurée</h2>
+        <p class="section-intro">Un rythme clair, une idée par étape — de la découverte à la mesure.</p>
+        <div class="steps">
+          <article class="step">
+            <span class="step-num" aria-hidden="true">01</span>
+            <div>
+              <h3>Audit</h3>
+              <p>Analyse de votre présence Google : site, SEO, Ads, concurrence et opportunités.</p>
+            </div>
           </article>
-          <article>
-            <p class="display" style="font-size:3rem;color:var(--sage);margin:0;">02</p>
-            <h3 style="margin:.75rem 0 0;">Stratégie</h3>
-            <p style="color:var(--ink-soft);">Feuille de route SEO / SEA, priorités de création et objectifs de conversion.</p>
+          <article class="step">
+            <span class="step-num" aria-hidden="true">02</span>
+            <div>
+              <h3>Stratégie</h3>
+              <p>Feuille de route SEO / SEA, priorités de création et objectifs de conversion.</p>
+            </div>
           </article>
-          <article>
-            <p class="display" style="font-size:3rem;color:var(--sage);margin:0;">03</p>
-            <h3 style="margin:.75rem 0 0;">Création &amp; campagnes</h3>
-            <p style="color:var(--ink-soft);">Site PWA, contenus, structure Ads et mise en ligne avec tracking conforme.</p>
+          <article class="step">
+            <span class="step-num" aria-hidden="true">03</span>
+            <div>
+              <h3>Création &amp; campagnes</h3>
+              <p>Site PWA, contenus, structure Ads et mise en ligne avec tracking conforme.</p>
+            </div>
           </article>
-          <article>
-            <p class="display" style="font-size:3rem;color:var(--sage);margin:0;">04</p>
-            <h3 style="margin:.75rem 0 0;">Mesure</h3>
-            <p style="color:var(--ink-soft);">Optimisation continue des performances Google et reporting transparent.</p>
+          <article class="step">
+            <span class="step-num" aria-hidden="true">04</span>
+            <div>
+              <h3>Mesure</h3>
+              <p>Optimisation continue des performances Google et reporting transparent.</p>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" style="padding-top:0;">
+    <section class="section section-ink" id="conformite">
       <div class="container">
+        <p class="eyebrow">Conformité</p>
+        <h2>SEO, SEA et PWA — conformes FR &amp; UE</h2>
+        <p class="section-intro muted">Cadre légal et technique pour publier, mesurer et annoncer sans friction.</p>
         <div class="compliance">
-          <p class="eyebrow">Conformité</p>
-          <h2 class="display">SEO, SEA et PWA — conformes FR &amp; UE</h2>
-          <div class="grid-3" style="margin-top:2rem;">
-            <div>
-              <h3 style="margin:0;font-size:1.05rem;">RGPD &amp; ePrivacy</h3>
-              <p style="color:rgba(255,255,255,.75);font-size:.9rem;">Consentement cookies granulaire (analytics + Google Ads), bases légales et droits des personnes.</p>
-            </div>
-            <div>
-              <h3 style="margin:0;font-size:1.05rem;">SEO &amp; Google Ads ready</h3>
-              <p style="color:rgba(255,255,255,.75);font-size:.9rem;">Métadonnées, JSON-LD, pages de conversion et tags Ads après consentement.</p>
-            </div>
-            <div>
-              <h3 style="margin:0;font-size:1.05rem;">PWA &amp; accessibilité</h3>
-              <p style="color:rgba(255,255,255,.75);font-size:.9rem;">Site installable, contraste soigné, navigation clavier et lien d’évitement.</p>
-            </div>
-          </div>
+          <ul>
+            <li><strong>RGPD &amp; ePrivacy</strong> — consentement cookies granulaire (analytics + Google Ads), bases légales et droits des personnes.</li>
+            <li><strong>SEO &amp; Google Ads ready</strong> — métadonnées, JSON-LD, pages de conversion et tags Ads après consentement.</li>
+            <li><strong>PWA &amp; accessibilité</strong> — site installable, contraste soigné, navigation clavier et lien d’évitement.</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <section class="section" id="contact">
-      <div class="container" style="display:grid;gap:2.5rem;align-items:end;">
-        <div style="display:grid;gap:2.5rem;" class="contact-grid">
-          <div>
-            <p class="eyebrow">Contact</p>
-            <h2 class="display" style="font-size:clamp(2rem,5vw,3rem);margin:.75rem 0 0;">Parlons de votre prochain jalon</h2>
-            <p style="max-width:36rem;color:var(--ink-soft);font-size:1.1rem;">Audit Google, site PWA, SEO ou Ads : un premier échange clarifie le périmètre.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem;">
-              <button type="button" class="btn btn-primary" data-open="rdv">Réserver un créneau</button>
-              <button type="button" class="btn btn-secondary" data-open="devis">Obtenir un devis</button>
-            </div>
+      <div class="container contact-grid">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2>Parlons de votre prochain jalon</h2>
+          <p class="section-intro">Audit Google, site PWA, SEO ou Ads : un premier échange clarifie le périmètre.</p>
+          <div class="contact-actions">
+            <button type="button" class="btn btn-primary" data-open="rdv">Réserver un créneau</button>
+            <button type="button" class="btn btn-secondary" data-open="devis">Obtenir un devis</button>
           </div>
-          <aside style="border-radius:1.5rem;background:rgba(255,255,255,.7);padding:1.5rem;box-shadow:inset 0 0 0 1px var(--line);">
-            <p style="font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--moss);margin:0;">Coordonnées</p>
-            <p style="margin:1rem 0 0;"><a href="mailto:contact@meridian-digital.fr"><strong>contact@meridian-digital.fr</strong></a></p>
-            <p><a href="tel:+33184800000"><strong>01 84 80 00 00</strong></a></p>
-            <p style="color:var(--ink-soft);">12 rue de la Paix, 75002 Paris</p>
-            <p style="color:var(--ink-soft);font-size:.9rem;">Réponse sous 24 à 48 h ouvrées.</p>
-          </aside>
         </div>
+        <aside class="contact-panel">
+          <p class="eyebrow">Coordonnées</p>
+          <p><a href="mailto:contact@meridian-digital.fr"><strong>contact@meridian-digital.fr</strong></a></p>
+          <p><a href="tel:+33184800000"><strong>01 84 80 00 00</strong></a></p>
+          <p class="muted">12 rue de la Paix, 75002 Paris</p>
+          <p class="muted">Réponse sous 24 à 48 h ouvrées.</p>
+        </aside>
       </div>
     </section>
   </main>
 
-  <footer>
+  <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <p class="display" style="font-size:1.85rem;color:#fff;margin:0;">Meridian</p>
-        <p style="color:rgba(255,255,255,.72);max-width:22rem;">Valorisez votre présence Google. Création de sites PWA, SEO, SEA et Google Ads — conforme RGPD.</p>
+        <h2 style="font-size:1.85rem;">Meridian</h2>
+        <p>Valorisez votre présence Google. Création de sites PWA, SEO, SEA et Google Ads — conforme RGPD.</p>
       </div>
       <div>
-        <p style="font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);">Contact</p>
-        <p><a href="mailto:contact@meridian-digital.fr">contact@meridian-digital.fr</a></p>
-        <p><a href="tel:+33184800000">01 84 80 00 00</a></p>
-        <p>12 rue de la Paix<br />75002 Paris</p>
+        <h3>Contact</h3>
+        <ul class="footer-links">
+          <li><a href="mailto:contact@meridian-digital.fr">contact@meridian-digital.fr</a></li>
+          <li><a href="tel:+33184800000">01 84 80 00 00</a></li>
+          <li>12 rue de la Paix<br />75002 Paris</li>
+        </ul>
       </div>
       <div>
-        <p style="font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);">Légal</p>
-        <p><a href="mentions-legales.html">Mentions légales</a></p>
-        <p><a href="politique-confidentialite.html">Politique de confidentialité</a></p>
-        <p><a href="politique-cookies.html">Politique cookies</a></p>
+        <h3>Légal</h3>
+        <ul class="footer-links">
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="politique-confidentialite.html">Politique de confidentialité</a></li>
+          <li><a href="politique-cookies.html">Politique cookies</a></li>
+        </ul>
       </div>
     </div>
     <div class="container footer-bottom">
@@ -757,19 +1453,23 @@
         <button type="button" class="btn btn-primary" id="c-accept">Tout accepter</button>
         <button type="button" class="btn btn-secondary" id="c-reject">Refuser le non-essentiel</button>
         <button type="button" class="btn btn-secondary" id="c-custom">Personnaliser</button>
-        <button type="button" class="btn btn-amber" id="c-save" hidden>Enregistrer mes choix</button>
+        <button type="button" class="btn btn-primary" id="c-save" hidden>Enregistrer mes choix</button>
       </div>
     </div>
   </div>
 
-  <style>
-    @media (min-width: 768px) {
-      .contact-grid { grid-template-columns: 1.3fr 1fr !important; }
-    }
-  </style>
+  
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    const siteHeader = document.getElementById("site-header");
+    const onScrollHeader = () => {
+      if (!siteHeader) return;
+      siteHeader.classList.toggle("is-solid", window.scrollY > 16);
+    };
+    onScrollHeader();
+    window.addEventListener("scroll", onScrollHeader, { passive: true });
 
     /* Menu mobile */
     const menuBtn = document.getElementById("menu-toggle");
