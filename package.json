@@ -13,7 +13,10 @@
     "audit:og": "node scripts/audit-og-schema.cjs",
     "audit:sitewide": "node scripts/audit-sitewide.cjs",
     "audit:bundle": "node scripts/audit-bundle.cjs",
-    "audit:all": "npm run audit:og && npm run audit:axe && npm run audit:sitewide && npm run audit:bundle"
+    "audit:cwv": "node scripts/audit-cwv.cjs",
+    "audit:pagespeed-local": "node scripts/audit-cwv.cjs",
+    "audit:unlighthouse": "node scripts/audit-unlighthouse.cjs",
+    "audit:all": "npm run audit:og && npm run audit:axe && npm run audit:sitewide && npm run audit:cwv && npm run audit:bundle"
   },
   "dependencies": {
     "next": "16.2.11",
