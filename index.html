@@ -236,7 +236,8 @@ a { color: inherit; }
 }
 @media (min-width: 900px) {
   .nav-links, .nav-cta { display: flex; }
-  .menu-btn { display: none; }
+  .btn.menu-btn,
+  .menu-btn { display: none !important; }
 }
 .mobile-panel {
   display: none;
@@ -270,9 +271,14 @@ a { color: inherit; }
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  touch-action: manipulation;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
-.btn:hover { transform: translateY(-1px); }
+.btn:hover { transform: translateY(-2px); }
+.btn:active {
+  transform: scale(0.97) translateY(0);
+  box-shadow: none;
+}
 .btn-primary {
   background: var(--signal);
   color: #fff;
@@ -970,16 +976,32 @@ a { color: inherit; }
 .bubble { max-width: 90%; padding: 0.65rem 0.85rem; border-radius: 0.85rem; font-size: 0.9rem; line-height: 1.45; }
 .bubble.bot { background: #fff; border: 1px solid var(--line); }
 .bubble.user { background: var(--ink); color: #fff; margin-left: auto; }
-.chat-starters { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0.75rem 0.75rem 0; border-top: 1px solid var(--line); }
+.chat-starters { display: flex; flex-wrap: nowrap; gap: 0.4rem; padding: 0.75rem; border-top: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.chat-starters::-webkit-scrollbar { display: none; }
 .chip {
   border: 1px solid var(--line-strong); background: transparent; border-radius: 999px;
   padding: 0.25rem 0.65rem; font-size: 0.7rem; font-weight: 600; color: var(--muted); cursor: pointer;
+  white-space: nowrap; flex-shrink: 0; touch-action: manipulation;
+  transition: transform 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 .chip:hover { border-color: var(--ink); color: var(--ink); }
-.chat-form { display: flex; gap: 0.5rem; padding: 0.75rem; }
+.chip:active { transform: scale(0.97); }
+.chat-form { display: flex; gap: 0.5rem; padding: 0.75rem; border-top: 1px solid var(--line); }
 .chat-form input {
-  flex: 1; border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.65rem 1rem; font: inherit;
+  flex: 1; min-width: 0; border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.65rem 1rem; font: inherit;
 }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+#chat-toggle[hidden] { display: none !important; }
 #cookies {
   display: none; position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 90;
   width: min(36rem, calc(100% - 2rem)); margin-inline: auto;
@@ -1068,6 +1090,7 @@ body::before {
   .hero-brand { animation: none; }
   .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
   .lift-hover:hover, .brand:hover .brand-mark { transform: none; }
+  .btn:hover, .btn:active, .chip:active { transform: none; }
   .btn-primary::after, .btn-amber::after { display: none; }
 }
 </style>
@@ -1417,7 +1440,7 @@ body::before {
       <div class="chat-body" id="chat-body"></div>
       <div class="chat-starters" id="chat-starters"></div>
       <form class="chat-form" id="chat-form">
-        <label class="skip" for="chat-input">Votre message</label>
+        <label class="sr-only" for="chat-input">Votre message</label>
         <input id="chat-input" placeholder="Posez votre question…" autocomplete="off" />
         <button type="submit" class="btn btn-primary" style="min-height:2.5rem;padding:.5rem 1rem;">Envoyer</button>
       </form>
@@ -1653,12 +1676,15 @@ body::before {
         input.value = "";
       });
       document.getElementById("chat-toggle").addEventListener("click", () => {
-        const open = chatPanel.classList.toggle("open");
-        document.getElementById("chat-toggle").textContent = open ? "Masquer le chat" : "Discuter";
+        chatPanel.classList.add("open");
+        document.getElementById("chat-toggle").hidden = true;
+        document.getElementById("chat-close")?.focus();
       });
       document.getElementById("chat-close").addEventListener("click", () => {
         chatPanel.classList.remove("open");
-        document.getElementById("chat-toggle").textContent = "Discuter";
+        const toggle = document.getElementById("chat-toggle");
+        toggle.hidden = false;
+        toggle.focus();
       });
 
       const COOKIE_KEY = "meridian_cookie_consent_v1";

@@ -57,7 +57,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 sm:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <button type="button" className="btn btn-secondary" onClick={() => open("devis")}>
             Devis
           </button>
@@ -68,7 +68,7 @@ export function Header() {
 
         <button
           type="button"
-          className="btn btn-secondary !min-h-10 !px-3 lg:hidden"
+          className="menu-toggle inline-flex min-h-10 items-center justify-center rounded-full border border-[var(--line)] px-3 text-sm font-bold text-[var(--ink)] lg:!hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           onClick={() => setMenuOpen((v) => !v)}
