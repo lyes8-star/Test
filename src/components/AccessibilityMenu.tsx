@@ -79,7 +79,12 @@ export function AccessibilityMenu() {
 
   const close = useCallback(() => {
     setOpen(false);
-    fabRef.current?.focus();
+    const stickyA11y = document.getElementById("sticky-a11y");
+    if (document.body.classList.contains("has-sticky-bar") && stickyA11y) {
+      stickyA11y.focus();
+    } else {
+      fabRef.current?.focus();
+    }
   }, []);
 
   useEffect(() => {
