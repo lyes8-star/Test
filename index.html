@@ -2068,7 +2068,7 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
   </div>
 
 
-  <div id="sticky-bar" class="sticky-bar" hidden>
+  <div id="sticky-bar" class="sticky-bar">
     <div class="container sticky-bar-inner">
       <button type="button" class="sticky-fab sticky-fab-primary" data-open="rdv" aria-label="Rendez-vous">
         <span class="sticky-fab-icon" aria-hidden="true">
@@ -2320,18 +2320,17 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
       range.addEventListener("input", () => setPos(Number(range.value)));
     })();
 
-    /* Sticky mobile bar */
+    /* Sticky mobile bar — visible dès le chargement sur mobile */
     (function () {
       const bar = document.getElementById('sticky-bar');
       if (!bar) return;
-      const onScroll = () => {
-        const show = window.scrollY > window.innerHeight * 0.65 && window.innerWidth < 900;
+      const sync = () => {
+        const show = window.innerWidth < 900;
         bar.hidden = !show;
         document.body.classList.toggle('has-sticky-bar', show);
       };
-      onScroll();
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
+      sync();
+      window.addEventListener('resize', sync, { passive: true });
       document.getElementById('sticky-chat')?.addEventListener('click', () => {
         document.getElementById('chat-toggle')?.click();
       });
