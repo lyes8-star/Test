@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Site web après  example Crevia conforme">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Exemple de site apres accompagnement Crevia">
   <defs>
     <linearGradient id="afterHero" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#0E1218"/>
@@ -6,61 +7,56 @@
       <stop offset="100%" stop-color="#0E1218"/>
     </linearGradient>
     <linearGradient id="afterBeam" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="rgba(125,211,252,0)" />
-      <stop offset="45%" stop-color="rgba(125,211,252,0.25)" />
-      <stop offset="55%" stop-color="rgba(255,90,31,0.2)" />
-      <stop offset="100%" stop-color="rgba(255,90,31,0)" />
+      <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#7dd3fc" stop-opacity="0.25"/>
+      <stop offset="55%" stop-color="#ff5a1f" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ff5a1f" stop-opacity="0"/>
     </linearGradient>
   </defs>
-  <!-- Browser chrome -->
   <rect width="1600" height="900" fill="#F2F4F7"/>
   <rect x="0" y="0" width="1600" height="48" fill="#e8ebf0"/>
   <circle cx="22" cy="24" r="7" fill="#ff5f57"/>
   <circle cx="44" cy="24" r="7" fill="#febc2e"/>
   <circle cx="66" cy="24" r="7" fill="#28c840"/>
-  <rect x="120" y="12" width="720" height="24" rx="6" fill="#fff" stroke="rgba(14,18,24,0.1)"/>
-  <text x="140" y="29" fill="#5c6778" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="13">crevia.fr  Valorisez votre présence Google</text>
+  <rect x="120" y="12" width="720" height="24" rx="6" fill="#fff" stroke="#0e1218" stroke-opacity="0.1"/>
+  <text x="140" y="29" fill="#5c6778" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="13">crevia.fr - Valorisez votre presence Google</text>
 
-  <!-- Top contact bar -->
   <rect x="0" y="48" width="1600" height="36" fill="#0E1218"/>
-  <text x="64" y="71" fill="rgba(242,244,247,0.88)" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="12">01 84 80 00 00  ·  contact@crevia.fr  ·  Lun  Ven : 9h00  18h00</text>
+  <text x="64" y="71" fill="#f2f4f7" fill-opacity="0.88" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="12">01 84 80 00 00  -  contact@crevia.fr  -  Lun - Ven : 9h00 - 18h00</text>
 
-  <!-- Nav -->
   <rect x="0" y="84" width="1600" height="64" fill="#F2F4F7"/>
   <rect x="64" y="98" width="36" height="36" rx="8" fill="#0E1218"/>
   <text x="74" y="122" fill="#7DD3FC" font-family="Space Grotesk, system-ui, sans-serif" font-size="16" font-weight="700">C</text>
   <text x="112" y="122" fill="#0E1218" font-family="Space Grotesk, system-ui, sans-serif" font-size="20" font-weight="700">Crevia</text>
-  <text x="520" y="122" fill="#5c6778" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="14" font-weight="600">Activités · Réalisations · Formules · Autodiagnostic</text>
-  <rect x="1280" y="100" width="100" height="36" rx="18" fill="transparent" stroke="rgba(14,18,24,0.15)"/>
+  <text x="520" y="122" fill="#5c6778" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="14" font-weight="600">Activites - Realisations - Formules - Autodiagnostic</text>
+  <rect x="1280" y="100" width="100" height="36" rx="18" fill="none" stroke="#0e1218" stroke-opacity="0.15"/>
   <text x="1305" y="123" fill="#0E1218" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="13" font-weight="700">Devis</text>
   <rect x="1395" y="100" width="140" height="36" rx="18" fill="#FF5A1F"/>
   <text x="1418" y="123" fill="#fff" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="13" font-weight="700">Rendez-vous</text>
 
-  <!-- Hero -->
   <rect x="0" y="148" width="1600" height="420" fill="url(#afterHero)"/>
   <rect x="0" y="148" width="1600" height="420" fill="url(#afterBeam)"/>
   <text x="80" y="260" fill="#7DD3FC" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="13" font-weight="700" letter-spacing="3">CREVIA</text>
-  <text x="80" y="340" fill="#F2F4F7" font-family="Space Grotesk, system-ui, sans-serif" font-size="56" font-weight="700">Valorisez votre présence Google</text>
-  <text x="80" y="390" fill="rgba(242,244,247,0.78)" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="20">Site PWA · SEO · SEA · Ads  trouvé, choisi, converti.</text>
+  <text x="80" y="340" fill="#F2F4F7" font-family="Space Grotesk, system-ui, sans-serif" font-size="56" font-weight="700">Valorisez votre presence Google</text>
+  <text x="80" y="390" fill="#f2f4f7" fill-opacity="0.78" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="20">Site PWA - SEO - SEA - Ads : trouve, choisi, converti.</text>
   <rect x="80" y="430" width="200" height="48" rx="24" fill="#FF5A1F"/>
   <text x="112" y="460" fill="#fff" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="15" font-weight="700">Prendre rendez-vous</text>
-  <rect x="300" y="430" width="180" height="48" rx="24" fill="transparent" stroke="rgba(242,244,247,0.35)"/>
+  <rect x="300" y="430" width="180" height="48" rx="24" fill="none" stroke="#f2f4f7" stroke-opacity="0.35"/>
   <text x="335" y="460" fill="#F2F4F7" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="15" font-weight="700">Demander un devis</text>
 
-  <!-- Content strip -->
   <rect x="0" y="568" width="1600" height="332" fill="#F2F4F7"/>
-  <text x="80" y="620" fill="#FF5A1F" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="12" font-weight="700" letter-spacing="2">RÉSULTAT</text>
-  <text x="80" y="665" fill="#0E1218" font-family="Space Grotesk, system-ui, sans-serif" font-size="32" font-weight="700">Clair, rapide, accessible, prêt pour Google</text>
+  <text x="80" y="620" fill="#FF5A1F" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="12" font-weight="700" letter-spacing="2">RESULTAT</text>
+  <text x="80" y="665" fill="#0E1218" font-family="Space Grotesk, system-ui, sans-serif" font-size="32" font-weight="700">Clair, rapide, accessible, pret pour Google</text>
 
-  <rect x="80" y="700" width="440" height="140" rx="12" fill="#fff" stroke="rgba(14,18,24,0.1)"/>
-  <text x="110" y="750" fill="#0E1218" font-family="Space Grotesk, system-ui, sans-serif" font-size="22" font-weight="700">SEO &amp; local</text>
-  <text x="110" y="785" fill="#5c6778" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="15">Structure sémantique, Core Web Vitals, fiche Google.</text>
+  <rect x="80" y="700" width="440" height="140" rx="12" fill="#fff" stroke="#0e1218" stroke-opacity="0.1"/>
+  <text x="110" y="750" fill="#0E1218" font-family="Space Grotesk, system-ui, sans-serif" font-size="22" font-weight="700">SEO et local</text>
+  <text x="110" y="785" fill="#5c6778" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="15">Structure semantique, Core Web Vitals, fiche Google.</text>
 
-  <rect x="560" y="700" width="440" height="140" rx="12" fill="#fff" stroke="rgba(14,18,24,0.1)"/>
+  <rect x="560" y="700" width="440" height="140" rx="12" fill="#fff" stroke="#0e1218" stroke-opacity="0.1"/>
   <text x="590" y="750" fill="#0E1218" font-family="Space Grotesk, system-ui, sans-serif" font-size="22" font-weight="700">PWA installable</text>
-  <text x="590" y="785" fill="#5c6778" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="15">Rapide, mobile-first, conversion soignée.</text>
+  <text x="590" y="785" fill="#5c6778" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="15">Rapide, mobile-first, conversion soignee.</text>
 
   <rect x="1040" y="700" width="480" height="140" rx="12" fill="#0E1218"/>
-  <text x="1070" y="750" fill="#7DD3FC" font-family="Space Grotesk, system-ui, sans-serif" font-size="22" font-weight="700">RGPD · WCAG · Ads</text>
-  <text x="1070" y="785" fill="rgba(242,244,247,0.75)" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="15">Consentement, accessibilité, tracking propre.</text>
+  <text x="1070" y="750" fill="#7DD3FC" font-family="Space Grotesk, system-ui, sans-serif" font-size="22" font-weight="700">RGPD - WCAG - Ads</text>
+  <text x="1070" y="785" fill="#f2f4f7" fill-opacity="0.75" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="15">Consentement, accessibilite, tracking propre.</text>
 </svg>
