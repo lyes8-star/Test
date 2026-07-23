@@ -1232,7 +1232,7 @@ body::before {
 /* —— Menu accessibilité flottant (bas gauche) —— */
 .a11y-widget {
   position: fixed; left: 1rem; bottom: 5.25rem; z-index: 68;
-  display: flex; flex-direction: column; align-items: flex-start; gap: 0.65rem;
+  display: flex; flex-direction: column-reverse; align-items: flex-start; gap: 0.65rem;
 }
 @media (min-width: 900px) { .a11y-widget { bottom: 1.5rem; } }
 .a11y-fab {
@@ -2426,8 +2426,35 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
     } else {
       setTimeout(initDeferredWidgets, 200);
     }
+  </script>
 
-    /* Menu accessibilité flottant */
+  <div class="a11y-widget">
+    <button type="button" class="a11y-fab" id="a11y-fab" aria-expanded="false" aria-controls="a11y-panel" aria-haspopup="dialog">
+      <span class="a11y-fab-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="4.5" r="2.25" fill="currentColor"/><path d="M5 9.5h14M12 9.5v10M8.5 19.5h7M7.5 13.5H4.5M19.5 13.5h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span class="a11y-fab-label">Accessibilité</span>
+    </button>
+    <div class="a11y-panel" id="a11y-panel" role="dialog" aria-modal="true" aria-labelledby="a11y-panel-title" hidden>
+      <div class="a11y-panel-head">
+        <h2 class="a11y-panel-title" id="a11y-panel-title">Menu accessibilité</h2>
+        <button type="button" class="a11y-panel-close" aria-label="Fermer">✕</button>
+      </div>
+      <ul class="a11y-options">
+        <li><button type="button" class="a11y-option" data-a11y="contrast" aria-pressed="false">Contraste élevé</button></li>
+        <li><button type="button" class="a11y-option" data-a11y="text-lg" aria-pressed="false">Texte plus grand</button></li>
+        <li><button type="button" class="a11y-option" data-a11y="text-xl" aria-pressed="false">Texte encore plus grand</button></li>
+        <li><button type="button" class="a11y-option" data-a11y="motion" aria-pressed="false">Réduire les animations</button></li>
+      </ul>
+      <div class="a11y-panel-foot">
+        <a class="a11y-decl-link" href="accessibilite.html">Déclaration d’accessibilité</a>
+        <button type="button" class="btn btn-secondary a11y-reset" id="a11y-reset">Réinitialiser</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Menu accessibilité flottant — après le markup */
     (function initA11yMenu() {
       const KEY = "crevia_a11y_prefs";
       const CLASSES = ["a11y-contrast", "a11y-text-lg", "a11y-text-xl", "a11y-reduced-motion"];
@@ -2509,30 +2536,5 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
       });
     })();
   </script>
-
-  <div class="a11y-widget">
-    <button type="button" class="a11y-fab" id="a11y-fab" aria-expanded="false" aria-controls="a11y-panel" aria-haspopup="dialog">
-      <span class="a11y-fab-icon" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="4.5" r="2.25" fill="currentColor"/><path d="M5 9.5h14M12 9.5v10M8.5 19.5h7M7.5 13.5H4.5M19.5 13.5h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </span>
-      <span class="a11y-fab-label">Accessibilité</span>
-    </button>
-    <div class="a11y-panel" id="a11y-panel" role="dialog" aria-modal="true" aria-labelledby="a11y-panel-title" hidden>
-      <div class="a11y-panel-head">
-        <h2 class="a11y-panel-title" id="a11y-panel-title">Menu accessibilité</h2>
-        <button type="button" class="a11y-panel-close" aria-label="Fermer">✕</button>
-      </div>
-      <ul class="a11y-options">
-        <li><button type="button" class="a11y-option" data-a11y="contrast" aria-pressed="false">Contraste élevé</button></li>
-        <li><button type="button" class="a11y-option" data-a11y="text-lg" aria-pressed="false">Texte plus grand</button></li>
-        <li><button type="button" class="a11y-option" data-a11y="text-xl" aria-pressed="false">Texte encore plus grand</button></li>
-        <li><button type="button" class="a11y-option" data-a11y="motion" aria-pressed="false">Réduire les animations</button></li>
-      </ul>
-      <div class="a11y-panel-foot">
-        <a class="a11y-decl-link" href="accessibilite.html">Déclaration d’accessibilité</a>
-        <button type="button" class="btn btn-secondary a11y-reset" id="a11y-reset">Réinitialiser</button>
-      </div>
-    </div>
-  </div>
 </body>
 </html>

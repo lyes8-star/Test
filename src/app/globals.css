@@ -595,7 +595,7 @@ a:hover .brand-mark-live {
   bottom: 5.25rem;
   z-index: 68;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: flex-start;
   gap: 0.65rem;
 }
