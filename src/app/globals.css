@@ -797,36 +797,34 @@ a.top-contact-item:hover {
 
 /* Sticky mobile bar vs chat FAB */
 .sticky-bar-inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.25rem;
+  max-width: 26rem;
+  margin-inline: auto;
 }
 .sticky-fab {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 2.5rem;
-  min-width: 2.5rem;
-  padding: 0.35rem;
-  gap: 0;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: #fff;
+  gap: 0.2rem;
+  min-width: 0;
+  padding: 0.25rem 0.2rem;
+  border: 0;
+  border-radius: 0.55rem;
+  background: transparent;
   color: var(--ink);
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(14, 18, 24, 0.12);
+  font: inherit;
+  box-shadow: none;
 }
-.sticky-fab-primary {
-  background: var(--signal);
-  border-color: transparent;
-  color: #fff;
-}
-.sticky-fab-primary:hover {
-  background: #e84e16;
-}
-.sticky-fab:hover {
+.sticky-fab:hover .sticky-fab-icon {
   border-color: var(--ink);
+}
+.sticky-fab-primary:hover .sticky-fab-icon {
+  background: #e84e16;
+  border-color: transparent;
 }
 .sticky-fab:focus-visible {
   outline: 2px solid var(--signal);
@@ -835,19 +833,25 @@ a.top-contact-item:hover {
 .sticky-fab-icon {
   display: grid;
   place-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 4px 14px rgba(14, 18, 24, 0.1);
+}
+.sticky-fab-primary .sticky-fab-icon {
+  background: var(--signal);
+  border-color: transparent;
+  color: #fff;
 }
 .sticky-fab-label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
   white-space: nowrap;
-  border: 0;
 }
 
 .chat-fab {
@@ -890,13 +894,19 @@ a.top-contact-item:hover {
 }
 
 body.has-sticky-bar {
-  padding-bottom: 3.75rem;
+  padding-bottom: 5rem;
 }
 body.has-sticky-bar .chat-dock {
-  bottom: 3.75rem;
+  bottom: 5rem;
 }
 body.has-sticky-bar #chat-launcher {
   display: none !important;
+}
+body.has-sticky-bar .a11y-fab {
+  display: none !important;
+}
+body.has-sticky-bar .a11y-widget {
+  bottom: 5.75rem;
 }
 @media (min-width: 1024px) {
   body.has-sticky-bar {

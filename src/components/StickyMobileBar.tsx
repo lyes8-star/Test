@@ -55,6 +55,20 @@ function IconChat() {
   );
 }
 
+function IconA11y() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="4.5" r="2.25" fill="currentColor" />
+      <path
+        d="M5 9.5h14M12 9.5v10M8.5 19.5h7M7.5 13.5H4.5M19.5 13.5h-3"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function StickyMobileBar() {
   const { open } = useModal();
   const [show, setShow] = useState(false);
@@ -112,6 +126,18 @@ export function StickyMobileBar() {
             <IconChat />
           </span>
           <span className="sticky-fab-label">Chat</span>
+        </button>
+        <button
+          type="button"
+          id="sticky-a11y"
+          className="sticky-fab"
+          aria-label="Accessibilité"
+          onClick={() => document.getElementById("a11y-fab")?.click()}
+        >
+          <span className="sticky-fab-icon">
+            <IconA11y />
+          </span>
+          <span className="sticky-fab-label">Accès</span>
         </button>
       </div>
     </div>
