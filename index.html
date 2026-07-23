@@ -3014,7 +3014,9 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
       function closePanel() {
         panel.hidden = true;
         fab.setAttribute("aria-expanded", "false");
-        fab.focus();
+        const stickyA11y = document.getElementById("sticky-a11y");
+        if (document.body.classList.contains("has-sticky-bar") && stickyA11y) stickyA11y.focus();
+        else fab.focus();
         window.creviaSyncUiScrim?.();
       }
 
