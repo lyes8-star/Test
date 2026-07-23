@@ -37,6 +37,11 @@ const AccessibilityMenu = dynamic(
   { ssr: false },
 );
 
+const WelcomeGuide = dynamic(
+  () => import("@/components/WelcomeGuide").then((m) => m.WelcomeGuide),
+  { ssr: false },
+);
+
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <>
@@ -48,6 +53,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <Footer />
         <Chatbot />
         <CookieBanner />
+        <WelcomeGuide />
         <StickyMobileBar />
         <AccessibilityMenu />
       </ModalProvider>
