@@ -158,11 +158,9 @@ a.top-contact-item:hover { color: #fff; }
 .nav-links.is-open { display: flex; flex-direction: column; width: 100%; padding-bottom: 1rem; align-items: flex-start; }
 .nav-links a:hover { color: var(--ink); }
 .nav-links a[aria-current="page"] { color: var(--ink); }
-.nav-cta { display: none; gap: .6rem; align-items: center; }
 .menu-btn { display: inline-flex; }
 @media (min-width: 900px) {
   .nav-links { display: flex; flex-direction: row; width: auto; padding-bottom: 0; align-items: center; }
-  .nav-cta { display: flex; }
   .menu-btn { display: none; }
 }
 .pages-banner { display: none; }
@@ -214,11 +212,67 @@ a.top-contact-item:hover { color: #fff; }
 .site-footer { background: var(--ink); color: rgba(242,244,247,.78); padding: 2.5rem 0; margin-top: 3rem; }
 .site-footer a:hover { color: var(--beam); }
 
+/* Scrim a11y */
+.ui-scrim {
+  position: fixed; inset: 0; z-index: 67; display: none;
+  background: rgba(14, 18, 24, 0.55);
+  border: 0; padding: 0; cursor: pointer;
+}
+.ui-scrim.is-open { display: block; }
+
+/* Sticky mobile bar */
+.sticky-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 65;
+  background: rgba(242,244,247,0.94); border-top: 1px solid var(--line);
+  backdrop-filter: blur(12px); padding: 0.35rem 0 0.45rem;
+}
+.sticky-bar[hidden] { display: none !important; }
+.sticky-bar-inner {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.25rem;
+  max-width: 26rem; margin-inline: auto;
+}
+.sticky-fab {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.2rem; min-width: 0; padding: 0.25rem 0.2rem;
+  border: 0; border-radius: 0.55rem; background: transparent; color: var(--ink);
+  cursor: pointer; font: inherit; box-shadow: none; text-decoration: none;
+}
+.sticky-fab:hover .sticky-fab-icon { border-color: var(--ink); }
+.sticky-fab-primary:hover .sticky-fab-icon { background: #e84e16; border-color: transparent; }
+.sticky-fab:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.sticky-fab-icon {
+  display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 999px;
+  border: 1px solid var(--line); background: #fff; color: var(--ink);
+  box-shadow: 0 4px 14px rgba(14, 18, 24, 0.1);
+}
+.sticky-fab-primary .sticky-fab-icon {
+  background: var(--signal); border-color: transparent; color: #fff;
+}
+.sticky-fab-label {
+  font-size: 0.65rem; font-weight: 600; line-height: 1.1; letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+@media (min-width: 900px) { .sticky-bar { display: none !important; } }
+
+body.has-sticky-bar {
+  padding-bottom: 5rem;
+}
+body.has-sticky-bar .a11y-fab {
+  display: none !important;
+}
+body.has-sticky-bar .a11y-widget {
+  bottom: 5.75rem;
+}
+@media (min-width: 900px) {
+  body.has-sticky-bar { padding-bottom: 0; }
+}
+
 /* —— Menu accessibilité flottant —— */
 .a11y-widget {
-  position: fixed; left: 1rem; bottom: 1.5rem; z-index: 68;
+  position: fixed; left: 1rem; bottom: 5.25rem; z-index: 68;
   display: flex; flex-direction: column-reverse; align-items: flex-start; gap: .65rem;
 }
+@media (min-width: 900px) { .a11y-widget { bottom: 1.5rem; } }
 .a11y-fab {
   display: inline-flex; align-items: center; gap: .55rem;
   min-height: 2.85rem; padding: .55rem .95rem .55rem .65rem;
@@ -327,10 +381,6 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
         <a href="index.html#faq">FAQ</a>
         <a href="index.html#contact">Contact</a>
       </nav>
-      <div class="nav-cta">
-        <a class="btn btn-secondary" href="index.html#contact">Devis</a>
-        <a class="btn btn-primary" href="index.html#contact">Rendez-vous</a>
-      </div>
       <button type="button" class="btn btn-secondary menu-btn" id="menu-toggle" aria-expanded="false" aria-controls="audit-nav">Menu</button>
     </div>
   </header>
@@ -699,8 +749,74 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
 })();
   </script>
 
+  <div id="sticky-bar" class="sticky-bar">
+    <div class="container sticky-bar-inner">
+      <a class="sticky-fab sticky-fab-primary" href="index.html#contact" aria-label="Rendez-vous">
+        <span class="sticky-fab-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M8 3.5v3M16 3.5v3M3.5 10h17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="sticky-fab-label">RDV</span>
+      </a>
+      <a class="sticky-fab" href="index.html#contact" aria-label="Devis">
+        <span class="sticky-fab-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 3.5h7.5L19.5 8.5V20a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 20V5A1.5 1.5 0 0 1 7 3.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3.5V8h5M8.5 12.5h7M8.5 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="sticky-fab-label">Devis</span>
+      </a>
+      <a class="sticky-fab" href="index.html" aria-label="Chat">
+        <span class="sticky-fab-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 18.5 4 21l3-1.2A8.5 8.5 0 1 0 5 18.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 11h6M9 14.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="sticky-fab-label">Chat</span>
+      </a>
+      <button type="button" class="sticky-fab" id="sticky-a11y" aria-label="Accessibilité">
+        <span class="sticky-fab-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="4.5" r="2.25" fill="currentColor"/><path d="M5 9.5h14M12 9.5v10M8.5 19.5h7M7.5 13.5H4.5M19.5 13.5h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="sticky-fab-label">Accès</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="ui-scrim" class="ui-scrim" role="presentation" aria-hidden="true"></div>
+  <script>
+    (function () {
+      const bar = document.getElementById("sticky-bar");
+      const scrim = document.getElementById("ui-scrim");
+      function syncUiScrim() {
+        if (!scrim) return;
+        const a11yPanel = document.getElementById("a11y-panel");
+        const show = !!(a11yPanel && !a11yPanel.hidden);
+        scrim.classList.toggle("is-open", show);
+        scrim.setAttribute("aria-hidden", show ? "false" : "true");
+      }
+      window.creviaSyncUiScrim = syncUiScrim;
+      if (bar) {
+        const sync = () => {
+          const show = window.innerWidth < 900;
+          bar.hidden = !show;
+          document.body.classList.toggle("has-sticky-bar", show);
+        };
+        sync();
+        window.addEventListener("resize", sync, { passive: true });
+      }
+      document.getElementById("sticky-a11y")?.addEventListener("click", () => {
+        document.getElementById("a11y-fab")?.click();
+      });
+      scrim?.addEventListener("click", () => {
+        const panel = document.getElementById("a11y-panel");
+        const fab = document.getElementById("a11y-fab");
+        if (panel && !panel.hidden) {
+          panel.hidden = true;
+          fab?.setAttribute("aria-expanded", "false");
+        }
+        syncUiScrim();
+      });
+    })();
+  </script>
+
   <div class="a11y-widget">
-    <button type="button" class="a11y-fab" id="a11y-fab" aria-expanded="false" aria-controls="a11y-panel" aria-haspopup="dialog">
+    <button type="button" class="a11y-fab" id="a11y-fab" aria-label="Accessibilité" aria-expanded="false" aria-controls="a11y-panel" aria-haspopup="dialog">
       <span class="a11y-fab-icon" aria-hidden="true">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="4.5" r="2.25" fill="currentColor"/><path d="M5 9.5h14M12 9.5v10M8.5 19.5h7M7.5 13.5H4.5M19.5 13.5h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </span>
@@ -767,11 +883,15 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
       panel.hidden = false;
       fab.setAttribute("aria-expanded", "true");
       panel.querySelector(".a11y-option, .a11y-panel-close")?.focus();
+      window.creviaSyncUiScrim?.();
     }
     function closePanel() {
       panel.hidden = true;
       fab.setAttribute("aria-expanded", "false");
-      fab.focus();
+      const stickyA11y = document.getElementById("sticky-a11y");
+      if (document.body.classList.contains("has-sticky-bar") && stickyA11y) stickyA11y.focus();
+      else fab.focus();
+      window.creviaSyncUiScrim?.();
     }
     fab.addEventListener("click", () => (panel.hidden ? openPanel() : closePanel()));
     panel.querySelector(".a11y-panel-close")?.addEventListener("click", closePanel);
