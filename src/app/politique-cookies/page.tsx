@@ -50,7 +50,7 @@ export default function PolitiqueCookiesPage() {
             <h2 className="text-xl font-semibold">Gestion du consentement</h2>
             <p className="mt-2 text-[var(--ink-soft)] leading-relaxed">
               Au premier accès, une bannière permet d’accepter, refuser le non-essentiel ou personnaliser.
-              Le choix est stocké localement (`meridian_cookie_consent_v1`). Les tags publicitaires et
+              Le choix est stocké localement (`crevia_cookie_consent_v1`). Les tags publicitaires et
               analytiques ne doivent être chargés qu’après consentement.
             </p>
           </section>

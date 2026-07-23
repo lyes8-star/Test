@@ -16,7 +16,7 @@ export type AccessTokenRecord = {
 const DATA_DIR = path.join(process.cwd(), ".data", "audit-tokens");
 
 function hashToken(token: string) {
-  const secret = process.env.AUDIT_TOKEN_SECRET || "meridian-dev-secret";
+  const secret = process.env.AUDIT_TOKEN_SECRET || "crevia-dev-secret";
   return createHash("sha256").update(`${secret}:${token}`).digest("hex");
 }
 
@@ -71,4 +71,4 @@ export async function consumeScan(token: string): Promise<AccessTokenRecord | nu
   return record;
 }
 
-export const AUDIT_COOKIE = "meridian_audit_token";
+export const AUDIT_COOKIE = "crevia_audit_token";

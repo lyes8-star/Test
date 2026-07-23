@@ -29,7 +29,7 @@ type LeadDraft = {
 
 const INITIAL_BOT: Msg = {
   role: "bot",
-  text: "Bonjour, je suis l’assistant Meridian. Questions sur la création PWA, le SEO, Google Ads, les formules — ou laissez vos coordonnées pour être recontacté·e.",
+  text: "Bonjour, je suis l’assistant Crevia. Questions sur la création PWA, le SEO, Google Ads, les formules — ou laissez vos coordonnées pour être recontacté·e.",
   actions: ["lead", "rdv", "devis"],
 };
 
@@ -355,7 +355,7 @@ export function Chatbot() {
         >
           <header className="flex shrink-0 items-center justify-between gap-3 bg-[var(--ink)] px-4 py-3 text-white">
             <div>
-              <p className="text-sm font-semibold">Assistant Meridian</p>
+              <p className="text-sm font-semibold">Assistant Crevia</p>
               <p className="text-xs text-white/75">
                 {leadStep ? "Collecte de coordonnées · RGPD" : "FAQ + demande de rappel"}
               </p>

@@ -1,4 +1,4 @@
-# Meridian — Valorisation Google (SEO / SEA / PWA)
+# Crevia — Valorisation Google (SEO / SEA / PWA)
 
 Site Next.js ultra-design pour une agence française de **création web & valorisation Google** :
 SEO, SEA / Google Ads, sites PWA, prise de rendez-vous, devis et chatbot.
@@ -8,11 +8,12 @@ SEO, SEA / Google Ads, sites PWA, prise de rendez-vous, devis et chatbot.
 - Landing : activités, formules, méthode, conformité, contact
 - Modales **RDV** et **devis** avec consentement RGPD
 - **Chatbot** multi-tours : FAQ enrichie + collecte de coordonnées (consentement RGPD), actions RDV/devis/mailto
-- **Autodiagnostic payant** (`/autodiagnostic` Next, `autodiagnostic.html` sur Pages) : Stripe Checkout → jeton 7 j / 3 scans → rapport Lighthouse + axe + SEO/PWA/RGPD/SEA
+- **Autodiagnostic payant** (`/autodiagnostic` Next, `autodiagnostic.html` sur Pages) : Stripe Checkout → jeton 7 j / 3 scans → rapport Lighthouse Accessibility + axe WCAG 2.2 / RGAA + SEO/PWA/RGPD/SEA
 - **PWA** : manifest, service worker, icônes, installable
 - **SEO** : metadata, Open Graph, JSON-LD, `robots.ts`, `sitemap.ts`
 - **SEA ready** : catégorie cookies publicitaires ; tags Ads à brancher après consentement
 - **RGPD / droit FR** : mentions légales, confidentialité, cookies, bannière granulaire
+- **Accessibilité** : [`accessibilite.html`](accessibilite.html) / `/accessibilite` — déclaration WCAG 2.2 · RGAA 4.1 · EAA (UE 2019/882)
 
 ## Démarrage rapide (fichier `index.html`)
 
@@ -34,6 +35,9 @@ Ce dépôt est un **project site** : l’URL correcte est
 Page autodiagnostic statique :  
 [`https://lyes8-star.github.io/Test/autodiagnostic.html`](https://lyes8-star.github.io/Test/autodiagnostic.html)
 
+Déclaration d’accessibilité :  
+[`https://lyes8-star.github.io/Test/accessibilite.html`](https://lyes8-star.github.io/Test/accessibilite.html)
+
 Les liens dans `index.html` pointent vers `autodiagnostic.html` (chemins relatifs, compatibles avec le préfixe `/Test/`).
 
 Pages publie la branche configurée (souvent `main`) : merger la PR pour que le fichier soit servi, ou basculer temporairement la source Pages sur la branche feature.
@@ -43,9 +47,9 @@ Le scan Lighthouse/axe **ne tourne pas** sur GitHub Pages (pas de Node/Chrome). 
 1. Déployer l’app Next (ex. Vercel) avec `CHROME_PATH` + Stripe.
 2. Dans [`autodiagnostic.html`](autodiagnostic.html), renseigner :
    ```html
-   <meta name="meridian-api" content="https://votre-app.vercel.app" />
+   <meta name="crevia-api" content="https://votre-app.vercel.app" />
    ```
-   Alternatives : `?api=https://votre-app.vercel.app` ou `localStorage.meridian_api_base`.
+   Alternatives : `?api=https://votre-app.vercel.app` ou `localStorage.crevia_api_base`.
 
 Sans API configurée, la page affiche un mode dégradé (message + liens RDV/devis).
 
@@ -68,7 +72,7 @@ Prérequis **autodiagnostic** : Google Chrome / Chromium (`CHROME_PATH`, défaut
 
 | Variable | Description |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | URL canonique (défaut `https://meridian-digital.fr`) |
+| `NEXT_PUBLIC_SITE_URL` | URL canonique (défaut `https://crevia.fr`) |
 | `STRIPE_SECRET_KEY` | Clé secrète Stripe (Checkout). Absent → **mode démo** (déblocage sans paiement) |
 | `STRIPE_WEBHOOK_SECRET` | Secret webhook `checkout.session.completed` |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Clé publiable (optionnel si redirect Checkout) |
@@ -83,7 +87,7 @@ Webhook Stripe : `POST /api/webhooks/stripe` (événements `checkout.session.com
 ```bash
 npm run test:audit-http   # heuristiques HTML/RGPD
 npm run dev               # puis /autodiagnostic (App Router)
-# ou ouvrir autodiagnostic.html avec meta meridian-api → http://localhost:3000
+# ou ouvrir autodiagnostic.html avec meta crevia-api → http://localhost:3000
 ```
 
 Sans clés Stripe, le checkout débloque immédiatement un jeton (dev/smoke). En production, configurez Stripe Test puis Live.
@@ -108,12 +112,12 @@ npm run audit:all
 Rapports dans `audits/`. Optimisations : fonts locales, `next/dynamic` (chat/cookies), `content-visibility`, idle init widgets.
 
 Les routes `POST /api/rdv`, `POST /api/devis` et `POST /api/chat-lead` valident les données (Zod) et journalisent côté serveur.
-Le chat static enregistre aussi les leads dans `localStorage` (`meridian_chat_leads`).
+Le chat static enregistre aussi les leads dans `localStorage` (`crevia_chat_leads`).
 Pour la production : brancher Resend, SMTP ou un CRM dans ces handlers (e-mail transactionnel non branché pour l’instant).
 
 ## Tracking Google Ads / Analytics (consentement)
 
-1. Écouter l’événement `meridian:consent` (détail : `{ analytics, advertising }`).
+1. Écouter l’événement `crevia:consent` (détail : `{ analytics, advertising }`).
 2. Charger gtag / Google Ads **uniquement** si `analytics` ou `advertising` est `true`.
 3. Prévoir les paramètres UTM sur les landing (`utm_source`, `utm_medium`, `utm_campaign`).
 

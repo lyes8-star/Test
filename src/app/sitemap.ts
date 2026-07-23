@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "",
     "/autodiagnostic",
+    "/accessibilite",
     "/mentions-legales",
     "/politique-confidentialite",
     "/politique-cookies",

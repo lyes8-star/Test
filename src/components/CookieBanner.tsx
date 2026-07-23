@@ -10,19 +10,19 @@ type Consent = {
   decidedAt: string;
 };
 
-const STORAGE_KEY = "meridian_cookie_consent_v1";
+const STORAGE_KEY = "crevia_cookie_consent_v1";
 
 function saveConsent(consent: Consent) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
-  window.dispatchEvent(new CustomEvent("meridian:consent", { detail: consent }));
+  window.dispatchEvent(new CustomEvent("crevia:consent", { detail: consent }));
 }
 
 function subscribe(onStoreChange: () => void) {
   window.addEventListener("storage", onStoreChange);
-  window.addEventListener("meridian:consent", onStoreChange);
+  window.addEventListener("crevia:consent", onStoreChange);
   return () => {
     window.removeEventListener("storage", onStoreChange);
-    window.removeEventListener("meridian:consent", onStoreChange);
+    window.removeEventListener("crevia:consent", onStoreChange);
   };
 }
 

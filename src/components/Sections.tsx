@@ -260,7 +260,11 @@ export function Compliance() {
           </li>
           <li>
             <strong className="text-white">PWA & accessibilité</strong> — site installable, contraste
-            soigné, navigation clavier et lien d’évitement.
+            soigné, navigation clavier, lien d’évitement ; référentiels{" "}
+            <a className="underline text-white" href="/accessibilite">
+              WCAG 2.2 · RGAA 4.1 · EAA
+            </a>
+            .
           </li>
         </ul>
       </div>
@@ -341,7 +345,7 @@ export function AuditTeaser() {
           style={{ ["--reveal-delay" as string]: "80ms" }}
         >
           Outil payant ({auditProduct.priceLabel}) : Lighthouse, axe-core et contrôles RGPD / PWA / SEO /
-          SEA — rapport de fails exigents, puis RDV Meridian.
+          SEA — rapport de fails exigents, puis RDV Crevia.
         </p>
         <a
           href="/autodiagnostic"

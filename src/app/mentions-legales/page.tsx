@@ -80,6 +80,10 @@ export default function MentionsLegalesPage() {
               <Link className="underline" href="/politique-cookies">
                 politique cookies
               </Link>
+              . Accessibilité :{" "}
+              <Link className="underline" href="/accessibilite">
+                déclaration WCAG 2.2 / RGAA / EAA
+              </Link>
               .
             </p>
           </section>

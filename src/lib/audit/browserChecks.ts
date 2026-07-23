@@ -234,7 +234,7 @@ export async function runBrowserChecks(url: string): Promise<BrowserAuditResult>
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const axe = (window as any).axe;
       return axe.run(document, {
-        runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21aa"] },
+        runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"] },
       });
     })) as {
       violations: Array<{
@@ -281,12 +281,14 @@ export async function runBrowserChecks(url: string): Promise<BrowserAuditResult>
         severity,
         title: v.help,
         detail: `${v.nodes.length} nœud(s) — ${v.description}`,
-        recommendation: "Corrigez selon WCAG 2.1 AA (contraste, labels, focus, structure).",
+        recommendation:
+          "Corrigez selon WCAG 2.2 AA et le RGAA 4.1 (contraste, labels, focus, structure, taille des cibles).",
         metric: `${v.nodes.length} nœud(s)`,
-        standard: wcagTags.length ? `WCAG (${wcagTags.join(", ")})` : "WCAG 2.1 AA",
-        standardUrl: v.helpUrl || STANDARD_URLS.wcag,
+        standard: wcagTags.length
+          ? `WCAG 2.2 / RGAA 4.1 (${wcagTags.join(", ")})`
+          : "WCAG 2.2 AA / RGAA 4.1 (axe-core)",
+        standardUrl: v.helpUrl || STANDARD_URLS.wcag22,
         evidence: wcagTags,
-        informational: true,
       });
     }
 
@@ -297,12 +299,11 @@ export async function runBrowserChecks(url: string): Promise<BrowserAuditResult>
         severity: byImpact.critical.length || byImpact.serious.length ? "critique" : "majeur",
         title: `${axeViolations} violation(s) axe-core`,
         detail: `critical=${byImpact.critical.length}, serious=${byImpact.serious.length}, moderate=${byImpact.moderate.length}, minor=${byImpact.minor.length}.`,
-        recommendation: "Traitez d’abord critical/serious (impact utilisateur).",
+        recommendation: "Traitez d’abord critical/serious (impact utilisateur) — alignement RGAA / WCAG 2.2.",
         metric: String(axeViolations),
         threshold: "0",
-        standard: "axe-core / WCAG 2.1 AA",
+        standard: "axe-core / WCAG 2.2 AA / RGAA 4.1",
         standardUrl: STANDARD_URLS.axe,
-        informational: true,
       });
     }
 
@@ -399,13 +400,13 @@ export async function runBrowserChecks(url: string): Promise<BrowserAuditResult>
           id: "lh-a11y-score",
           pillar: "a11y",
           severity: lighthouseScores.accessibility < 70 ? "majeur" : "mineur",
-          title: `Score Lighthouse Accessibilité : ${lighthouseScores.accessibility}/100`,
-          detail: "Complément lab à axe-core.",
-          recommendation: "Corrigez les audits a11y Lighthouse restants.",
+          title: `Score Google Lighthouse Accessibilité : ${lighthouseScores.accessibility}/100`,
+          detail: "Complément lab Google Lighthouse à axe-core (WCAG 2.2 / RGAA).",
+          recommendation: "Corrigez les audits a11y Lighthouse restants jusqu’à ≥ 95.",
           metric: `${lighthouseScores.accessibility}/100`,
           threshold: "≥ 95",
-          standard: "Lighthouse Accessibility",
-          standardUrl: STANDARD_URLS.lighthouse,
+          standard: "Google Lighthouse Accessibility",
+          standardUrl: STANDARD_URLS.lighthouseA11y,
           informational: true,
         });
       }

@@ -111,14 +111,29 @@ export async function runSiteAudit(rawUrl: string): Promise<SiteAuditReport> {
           ? "Lighthouse SEO (lab) — findings listés sans double pénalité"
           : "Findings SEO HTTP (cap −35)";
     } else if (id === "a11y") {
-      score =
-        browser.lighthouseScores.accessibility != null
-          ? browser.lighthouseScores.accessibility
-          : cappedFindingScore(list, 40);
-      scoreSource =
-        browser.lighthouseScores.accessibility != null
-          ? "Lighthouse Accessibility — violations axe listées (informational)"
-          : "Findings a11y (cap −40)";
+      const lh = browser.lighthouseScores.accessibility;
+      const axePenaltyList = list.filter(
+        (f) => !f.informational && (f.id === "axe-summary" || f.id.startsWith("axe-") || f.id.startsWith("skip-") || f.id === "main-landmark" || f.id === "a11y-statement-link" || f.id === "html-lang"),
+      );
+      // Avoid double-counting every axe rule + summary: use summary + HTTP structural checks
+      const structural = list.filter(
+        (f) =>
+          !f.informational &&
+          (f.id === "axe-summary" ||
+            f.id === "skip-link" ||
+            f.id === "main-landmark" ||
+            f.id === "a11y-statement-link" ||
+            f.id === "html-lang"),
+      );
+      const axeBlend = cappedFindingScore(structural.length ? structural : axePenaltyList, 45);
+      if (lh != null) {
+        score = Math.round(lh * 0.65 + axeBlend * 0.35);
+        scoreSource =
+          "Google Lighthouse Accessibility 65% + axe-core / RGAA-HTTP 35% (WCAG 2.2)";
+      } else {
+        score = cappedFindingScore(list, 40);
+        scoreSource = "Findings a11y axe + HTTP (cap −40) — WCAG 2.2 / RGAA 4.1";
+      }
     } else if (id === "pwa") {
       score =
         browser.lighthouseScores.pwa != null
@@ -158,14 +173,15 @@ export async function runSiteAudit(rawUrl: string): Promise<SiteAuditReport> {
     }),
     cwv: browser.cwv,
     methodology: [
-      "Lighthouse lab mobile (Performance, SEO, Accessibility, Best Practices) — Chrome.",
+      "Google Lighthouse lab mobile (Performance, Accessibility, SEO, Best Practices).",
       "Core Web Vitals lab : LCP ≤ 2,5 s · CLS ≤ 0,1 · INP/TBT ≤ 200 ms (seuils Google « Good », web.dev/vitals).",
-      "axe-core (WCAG 2A / 2AA / 2.1 AA) avec helpUrl par règle.",
+      "axe-core (WCAG 2A / 2AA / 2.1 AA / 2.2 AA) avec helpUrl — alignement RGAA 4.1.",
+      "HTTP a11y : lang, lien d’évitement, <main>, déclaration d’accessibilité (loi 2005-102 / EAA).",
       "Interception réseau Puppeteer avant consentement (domaines analytics/ads).",
-      "Fetch HTTP : en-têtes sécurité OWASP, SEO structuré, JSON-LD parsé, robots.txt + sitemap XML.",
+      "Fetch HTTP : en-têtes sécurité OWASP, SEO structuré, JSON-LD, robots.txt + sitemap XML.",
       "Pages légales suivies (privacy / cookies / mentions) pour contrôles RGPD / LCEN — pas un avis juridique.",
     ],
     disclaimer:
-      "Diagnostic technique automatisé basé sur Lighthouse, axe-core et mesures HTTP. Les seuils CWV citent Google web.dev ; l’accessibilité cite WCAG 2.1 / axe-core ; le consentement cite les lignes directrices CNIL. Ceci n’est pas une certification RGPD ni un audit accessibilité humain.",
+      "Diagnostic technique automatisé. Normes citées : Google Lighthouse Accessibility & Core Web Vitals ; WCAG 2.2 AA (W3C) ; RGAA 4.1 (France) ; directive (UE) 2019/882 (EAA) ; CNIL / RGPD pour le consentement. Ceci n’est pas une certification RGPD, ni un audit accessibilité humain / attestation RGAA.",
   };
 }

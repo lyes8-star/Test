@@ -1,13 +1,13 @@
 export const siteConfig = {
-  name: "Meridian",
-  legalName: "Meridian Digital SAS",
+  name: "Crevia",
+  legalName: "Crevia SAS",
   tagline: "Valorisez votre présence Google",
   description:
     "Agence française de création de sites PWA et valorisation Google : SEO, SEA, Google Ads, mise en avant locale et nationale. Prise de rendez-vous et devis en ligne.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://meridian-digital.fr",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://crevia.fr",
   locale: "fr_FR",
   lang: "fr",
-  email: "contact@meridian-digital.fr",
+  email: "contact@crevia.fr",
   phone: "+33 1 84 80 00 00",
   phoneDisplay: "01 84 80 00 00",
   address: {
@@ -19,21 +19,21 @@ export const siteConfig = {
   rcs: "RCS Paris 000 000 000",
   tva: "FR00 000000000",
   capital: "10 000 €",
-  director: "Direction Meridian",
+  director: "Direction Crevia",
   hosting: {
     name: "Vercel Inc.",
     address: "440 N Barranca Ave #4133, Covina, CA 91723, États-Unis",
   },
-  dpo: "dpo@meridian-digital.fr",
+  dpo: "dpo@crevia.fr",
   social: {
-    linkedin: "https://www.linkedin.com/company/meridian-digital",
+    linkedin: "https://www.linkedin.com/company/crevia",
   },
 } as const;
 
 /** Produit autodiagnostic (Stripe Checkout one-shot). */
 export const auditProduct = {
   id: "autodiagnostic",
-  name: "Autodiagnostic site Meridian",
+  name: "Autodiagnostic site Crevia",
   priceCents: Number(process.env.AUDIT_PRICE_CENTS || 4900),
   currency: "eur",
   priceLabel: "49 € TTC",
@@ -42,7 +42,7 @@ export const auditProduct = {
   pillars: [
     "SEO",
     "PWA / Web App",
-    "Accessibilité",
+    "Accessibilité (WCAG 2.2 · RGAA · Lighthouse)",
     "Google / SEA",
     "RGPD FR & UE",
     "Performance",
@@ -215,7 +215,7 @@ export const testimonials = [
   {
     id: "t1",
     quote:
-      "Meridian a clarifié notre présence Google en six semaines. On sait enfin ce qui convertit — et pourquoi.",
+      "Crevia a clarifié notre présence Google en six semaines. On sait enfin ce qui convertit — et pourquoi.",
     name: "Camille Renard",
     role: "Directrice marketing, atelier lyonnais",
   },
@@ -238,7 +238,7 @@ export const testimonials = [
 export const faqItems = [
   {
     id: "faq-formules",
-    question: "Quelles formules propose Meridian ?",
+    question: "Quelles formules propose Crevia ?",
     answer:
       "Essentiel (audit + quick wins dès 1 490 €), Croissance (site/PWA + SEO + Google Ads dès 4 900 €) et Sur-mesure (multi-campagnes, sur devis).",
   },
@@ -250,9 +250,9 @@ export const faqItems = [
   },
   {
     id: "faq-rgpd",
-    question: "Le site et vos dispositifs sont-ils conformes RGPD ?",
+    question: "Le site est-il conforme RGPD et accessibilité (FR / UE) ?",
     answer:
-      "Oui : bannière cookies granulaire, pages légales françaises et tags analytics/Ads conditionnés au consentement. DPO : dpo@meridian-digital.fr.",
+      "Oui côté RGPD : bannière cookies granulaire, pages légales françaises et tags analytics/Ads conditionnés au consentement. DPO : dpo@crevia.fr. Accessibilité : déclaration WCAG 2.2 / RGAA 4.1 / EAA (diagnostic automatisé, pas une certification humaine).",
   },
   {
     id: "faq-delais",

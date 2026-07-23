@@ -19,8 +19,8 @@ const STEPS = [
   "robots.txt + sitemap XML",
   "Pages légales RGPD / LCEN",
   "Réseau pré-consentement (trackers)",
-  "axe-core WCAG 2.1 AA",
-  "Lighthouse + Core Web Vitals (LCP/CLS/INP)",
+  "axe-core WCAG 2.2 AA / RGAA",
+  "Lighthouse Accessibility + Core Web Vitals (LCP/CLS/INP)",
 ] as const;
 
 export function AuditTool({
