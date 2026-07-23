@@ -122,6 +122,7 @@ export function AccessibilityMenu() {
         ref={fabRef}
         type="button"
         className="a11y-fab"
+        aria-label="Accessibilité"
         aria-expanded={open}
         aria-controls={panelId}
         aria-haspopup="dialog"

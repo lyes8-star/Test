@@ -346,7 +346,7 @@ export function Chatbot() {
     : "Posez votre question…";
 
   return (
-    <div className="fixed bottom-4 right-4 z-[70] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+    <div className="chat-dock fixed bottom-4 right-4 z-[70] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       {open ? (
         <section
           id="chat-panel"
