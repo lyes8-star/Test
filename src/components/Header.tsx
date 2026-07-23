@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { siteConfig } from "@/lib/site";
 import { useModal } from "@/components/ModalProvider";
+import { TopContactBar } from "@/components/TopContactBar";
 
 const links = [
   { href: "/#activites", id: "activites", label: "Activités" },
@@ -50,9 +51,10 @@ export function Header() {
       className={`sticky top-0 z-50 transition-[background,border-color,backdrop-filter] duration-300 ${
         scrolled
           ? "border-b border-[var(--line)] bg-[rgba(242,244,247,0.92)] backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent"
+          : "border-b border-transparent bg-[rgba(242,244,247,0.72)] backdrop-blur-md"
       }`}
     >
+      <TopContactBar />
       <div className="container flex h-[var(--header-h)] items-center justify-between gap-4">
         <Link href="/" className="group flex items-center gap-3">
           <span
