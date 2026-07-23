@@ -128,7 +128,70 @@ a { color: inherit; text-decoration: none; }
 .find a { text-decoration: underline; text-underline-offset: 2px; }
 .site-footer { background: var(--ink); color: rgba(242,244,247,.78); padding: 2.5rem 0; margin-top: 3rem; }
 .site-footer a:hover { color: var(--beam); }
+
+/* —— Menu accessibilité flottant —— */
+.a11y-widget {
+  position: fixed; left: 1rem; bottom: 1.5rem; z-index: 68;
+  display: flex; flex-direction: column; align-items: flex-start; gap: .65rem;
+}
+.a11y-fab {
+  display: inline-flex; align-items: center; gap: .55rem;
+  min-height: 2.85rem; padding: .55rem .95rem .55rem .65rem;
+  border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink);
+  font: inherit; font-weight: 600; font-size: .88rem; cursor: pointer;
+  box-shadow: 0 12px 32px rgba(14,18,24,.14);
+}
+.a11y-fab:hover { border-color: var(--ink); }
+.a11y-fab:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.a11y-fab-icon {
+  display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px;
+  background: var(--ink); color: var(--beam);
+}
+.a11y-panel {
+  width: min(20.5rem, calc(100vw - 2rem)); padding: 1rem 1rem 1.1rem;
+  border-radius: .9rem; border: 1px solid var(--line); background: #fff;
+  box-shadow: 0 20px 48px rgba(14,18,24,.18); color: var(--ink);
+}
+.a11y-panel[hidden] { display: none !important; }
+.a11y-panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem; margin-bottom: .85rem; }
+.a11y-panel-title { margin: 0; font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; }
+.a11y-panel-close {
+  min-height: 2.25rem; min-width: 2.25rem; border-radius: .55rem;
+  border: 1px solid var(--line); background: transparent; cursor: pointer; font: inherit;
+}
+.a11y-options { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; }
+.a11y-option {
+  width: 100%; text-align: left; min-height: 2.6rem; padding: .55rem .75rem;
+  border-radius: .65rem; border: 1px solid var(--line); background: var(--paper);
+  color: var(--ink); font: inherit; font-weight: 600; font-size: .9rem; cursor: pointer;
+}
+.a11y-option.is-on { border-color: var(--ink); background: var(--ink); color: #fff; }
+.a11y-panel-foot { margin-top: .9rem; display: grid; gap: .65rem; }
+.a11y-decl-link { font-size: .88rem; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.a11y-reset { width: 100%; }
+html.a11y-text-lg { font-size: 112.5%; }
+html.a11y-text-xl { font-size: 125%; }
+html.a11y-contrast {
+  --ink: #000; --muted: #1a1a1a; --paper: #fff; --line: rgba(0,0,0,.35);
+  --signal: #c2410c; --beam: #0369a1;
+}
+html.a11y-contrast body { background: #fff; color: #000; }
+html.a11y-reduced-motion, html.a11y-reduced-motion * {
+  animation: none !important; transition: none !important; scroll-behavior: auto !important;
+}
   </style>
+  <script>
+    (function () {
+      try {
+        var p = JSON.parse(localStorage.getItem("crevia_a11y_prefs") || "{}");
+        var r = document.documentElement;
+        if (p.contrast) r.classList.add("a11y-contrast");
+        if (p.text === "lg") r.classList.add("a11y-text-lg");
+        if (p.text === "xl") r.classList.add("a11y-text-xl");
+        if (p.reducedMotion) r.classList.add("a11y-reduced-motion");
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <a class="skip" href="#contenu">Aller au contenu</a>
@@ -518,6 +581,105 @@ a { color: inherit; text-decoration: none; }
       '<p style="margin-top:1.5rem"><a class="btn btn-primary" href="index.html#contact">Prendre rendez-vous</a></p>';
   }
 })();
+  </script>
+
+  <div class="a11y-widget">
+    <button type="button" class="a11y-fab" id="a11y-fab" aria-expanded="false" aria-controls="a11y-panel" aria-haspopup="dialog">
+      <span class="a11y-fab-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="4.5" r="2.25" fill="currentColor"/><path d="M5 9.5h14M12 9.5v10M8.5 19.5h7M7.5 13.5H4.5M19.5 13.5h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span class="a11y-fab-label">Accessibilité</span>
+    </button>
+    <div class="a11y-panel" id="a11y-panel" role="dialog" aria-modal="true" aria-labelledby="a11y-panel-title" hidden>
+      <div class="a11y-panel-head">
+        <h2 class="a11y-panel-title" id="a11y-panel-title">Menu accessibilité</h2>
+        <button type="button" class="a11y-panel-close" aria-label="Fermer">✕</button>
+      </div>
+      <ul class="a11y-options">
+        <li><button type="button" class="a11y-option" data-a11y="contrast" aria-pressed="false">Contraste élevé</button></li>
+        <li><button type="button" class="a11y-option" data-a11y="text-lg" aria-pressed="false">Texte plus grand</button></li>
+        <li><button type="button" class="a11y-option" data-a11y="text-xl" aria-pressed="false">Texte encore plus grand</button></li>
+        <li><button type="button" class="a11y-option" data-a11y="motion" aria-pressed="false">Réduire les animations</button></li>
+      </ul>
+      <div class="a11y-panel-foot">
+        <a class="a11y-decl-link" href="accessibilite.html">Déclaration d’accessibilité</a>
+        <button type="button" class="btn btn-secondary a11y-reset" id="a11y-reset">Réinitialiser</button>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function () {
+    const KEY = "crevia_a11y_prefs";
+    const CLASSES = ["a11y-contrast", "a11y-text-lg", "a11y-text-xl", "a11y-reduced-motion"];
+    const fab = document.getElementById("a11y-fab");
+    const panel = document.getElementById("a11y-panel");
+    if (!fab || !panel) return;
+    function read() {
+      try {
+        const p = JSON.parse(localStorage.getItem(KEY) || "{}");
+        return {
+          contrast: !!p.contrast,
+          text: p.text === "lg" || p.text === "xl" ? p.text : "normal",
+          reducedMotion: !!p.reducedMotion,
+        };
+      } catch (e) {
+        return { contrast: false, text: "normal", reducedMotion: false };
+      }
+    }
+    function apply(prefs) {
+      const root = document.documentElement;
+      CLASSES.forEach((c) => root.classList.remove(c));
+      if (prefs.contrast) root.classList.add("a11y-contrast");
+      if (prefs.text === "lg") root.classList.add("a11y-text-lg");
+      if (prefs.text === "xl") root.classList.add("a11y-text-xl");
+      if (prefs.reducedMotion) root.classList.add("a11y-reduced-motion");
+      panel.querySelectorAll("[data-a11y]").forEach((btn) => {
+        const key = btn.getAttribute("data-a11y");
+        let on = false;
+        if (key === "contrast") on = prefs.contrast;
+        if (key === "text-lg") on = prefs.text === "lg";
+        if (key === "text-xl") on = prefs.text === "xl";
+        if (key === "motion") on = prefs.reducedMotion;
+        btn.classList.toggle("is-on", on);
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      try { localStorage.setItem(KEY, JSON.stringify(prefs)); } catch (e) {}
+    }
+    let prefs = read();
+    apply(prefs);
+    function openPanel() {
+      panel.hidden = false;
+      fab.setAttribute("aria-expanded", "true");
+      panel.querySelector(".a11y-option, .a11y-panel-close")?.focus();
+    }
+    function closePanel() {
+      panel.hidden = true;
+      fab.setAttribute("aria-expanded", "false");
+      fab.focus();
+    }
+    fab.addEventListener("click", () => (panel.hidden ? openPanel() : closePanel()));
+    panel.querySelector(".a11y-panel-close")?.addEventListener("click", closePanel);
+    document.getElementById("a11y-reset")?.addEventListener("click", () => {
+      prefs = { contrast: false, text: "normal", reducedMotion: false };
+      apply(prefs);
+    });
+    panel.querySelectorAll("[data-a11y]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-a11y");
+        if (key === "contrast") prefs.contrast = !prefs.contrast;
+        if (key === "text-lg") prefs.text = prefs.text === "lg" ? "normal" : "lg";
+        if (key === "text-xl") prefs.text = prefs.text === "xl" ? "normal" : "xl";
+        if (key === "motion") prefs.reducedMotion = !prefs.reducedMotion;
+        apply(prefs);
+      });
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !panel.hidden) {
+        e.preventDefault();
+        closePanel();
+      }
+    });
+  })();
   </script>
 </body>
 </html>

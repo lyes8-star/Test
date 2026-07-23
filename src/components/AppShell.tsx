@@ -31,6 +31,11 @@ const ConsentScripts = dynamic(
   { ssr: false },
 );
 
+const AccessibilityMenu = dynamic(
+  () => import("@/components/AccessibilityMenu").then((m) => m.AccessibilityMenu),
+  { ssr: false },
+);
+
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <>
@@ -43,6 +48,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <Chatbot />
         <CookieBanner />
         <StickyMobileBar />
+        <AccessibilityMenu />
       </ModalProvider>
       <ScrollReveal />
       <ServiceWorkerRegister />

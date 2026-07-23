@@ -126,6 +126,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={`${display.variable} ${body.variable} h-full`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var p=JSON.parse(localStorage.getItem("crevia_a11y_prefs")||"{}");var r=document.documentElement;if(p.contrast)r.classList.add("a11y-contrast");if(p.text==="lg")r.classList.add("a11y-text-lg");if(p.text==="xl")r.classList.add("a11y-text-xl");if(p.reducedMotion)r.classList.add("a11y-reduced-motion");}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="min-h-full antialiased">
         <a href="#contenu" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2">
           Aller au contenu
