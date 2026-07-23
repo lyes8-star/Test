@@ -1,4 +1,4 @@
-import { siteConfig } from "@/lib/site";
+import { formatAddress, mapsUrls, siteConfig } from "@/lib/site";
 
 function IconPhone() {
   return (
@@ -46,7 +46,8 @@ function IconPin() {
 
 export function TopContactBar() {
   const phoneHref = `tel:${siteConfig.phone.replace(/\s/g, "")}`;
-  const addressLine = `${siteConfig.address.street}, ${siteConfig.address.city}`;
+  const addressLine = formatAddress();
+  const maps = mapsUrls();
 
   return (
     <div className="top-contact" role="region" aria-label="Coordonnées">
@@ -63,9 +64,21 @@ export function TopContactBar() {
           <IconClock />
           <span>{siteConfig.hours}</span>
         </span>
-        <span className="top-contact-item top-contact-address">
+        <span className="top-contact-item top-contact-address address-map-trigger" tabIndex={0}>
           <IconPin />
           <span>{addressLine}</span>
+          <span className="address-map-popup" role="tooltip">
+            <iframe
+              title="Carte Google Maps — Crevia"
+              src={maps.embed}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+            <a className="address-map-open" href={maps.link} target="_blank" rel="noopener noreferrer">
+              Ouvrir dans Google Maps
+            </a>
+          </span>
         </span>
       </div>
     </div>

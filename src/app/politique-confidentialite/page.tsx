@@ -24,7 +24,8 @@ export default function PolitiqueConfidentialitePage() {
           <section>
             <h2 className="text-xl font-semibold">Responsable de traitement</h2>
             <p className="mt-2 text-[var(--ink-soft)] leading-relaxed">
-              {siteConfig.legalName} — {siteConfig.address.street}, {siteConfig.address.city}.
+              {siteConfig.legalName} — {siteConfig.address.street},{" "}
+              {siteConfig.address.postalCode} {siteConfig.address.city}.
               <br />
               Contact :{" "}
               <a className="underline" href={`mailto:${siteConfig.email}`}>

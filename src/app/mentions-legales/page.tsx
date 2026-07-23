@@ -24,7 +24,8 @@ export default function MentionsLegalesPage() {
             <p className="mt-2 text-[var(--ink-soft)] leading-relaxed">
               {siteConfig.legalName}
               <br />
-              {siteConfig.address.street}, {siteConfig.address.city}, {siteConfig.address.country}
+              {siteConfig.address.street}, {siteConfig.address.postalCode}{" "}
+              {siteConfig.address.city}, {siteConfig.address.country}
               <br />
               SIRET : {siteConfig.siret} — {siteConfig.rcs}
               <br />
