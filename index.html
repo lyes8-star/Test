@@ -587,24 +587,25 @@ a.top-contact-item:hover { color: #fff; }
     padding-right: 0;
   }
 }
-.formula.featured {
+.formula.is-selected {
   background: var(--ink);
   color: var(--paper);
   border: none;
   margin: 0 -1rem;
   padding: 1.85rem 1rem;
   border-radius: var(--radius);
+  box-shadow: 0 0 0 2px var(--signal), 0 18px 40px rgba(14, 18, 24, 0.18);
+  z-index: 1;
 }
 @media (min-width: 900px) {
-  .formula.featured {
+  .formula.is-selected {
     margin: 0;
     padding: 2.25rem 1.6rem;
-    border-radius: var(--radius);
   }
 }
-.formula.featured .muted,
-.formula.featured .price-note { color: rgba(242, 244, 247, 0.68); }
-.formula.featured .badge {
+.formula.is-selected .muted,
+.formula.is-selected .price-note { color: rgba(242, 244, 247, 0.68); }
+.formula .badge {
   background: var(--signal);
   color: #fff;
 }
@@ -642,11 +643,11 @@ a.top-contact-item:hover { color: #fff; }
   opacity: 0.92;
 }
 .formula .btn { margin-top: auto; width: fit-content; }
-.formula.featured .btn-secondary {
+.formula.is-selected .btn-secondary {
   color: var(--paper);
   border-color: rgba(242, 244, 247, 0.35);
 }
-.formula.featured .btn-secondary:hover {
+.formula.is-selected .btn-secondary:hover {
   background: var(--paper);
   color: var(--ink);
   border-color: var(--paper);
@@ -1231,18 +1232,16 @@ body::before {
   content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 3; border-radius: inherit;
   box-shadow: inset 0 0 0 1px rgba(125, 211, 252, calc(var(--reveal-p) * 0.55));
 }
-.formula { cursor: pointer; position: relative; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+.formula { cursor: pointer; position: relative; transition: box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease, color 0.3s ease, margin 0.3s ease, padding 0.3s ease; }
 .formula:focus-visible { outline: 2px solid var(--beam); outline-offset: 3px; }
-.formula.is-selected {
-  box-shadow: 0 0 0 2px var(--signal), 0 18px 40px rgba(14, 18, 24, 0.1); z-index: 1;
-}
-.formula.is-selected:not(.featured) { background: rgba(255, 255, 255, 0.72); border-radius: 0.75rem; }
 .formula-check {
   width: 1.75rem; height: 1.75rem; border-radius: 999px; border: 1px solid var(--line-strong);
   display: grid; place-items: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
-.formula.is-selected .formula-check { background: var(--signal); border-color: var(--signal); color: #fff; }
-.formula.featured .formula-check { border-color: rgba(255,255,255,0.35); color: #fff; }
+.formula.is-selected .formula-check {
+  background: var(--signal); border-color: rgba(255, 255, 255, 0.35); color: #fff;
+}
 .formula-card-top { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; margin-bottom: 0.35rem; }
 .formula-sticky-bar {
   margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
@@ -1556,7 +1555,7 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
             </ul>
             <button type="button" class="btn btn-secondary" data-open="devis" data-formula="essentiel">Demander un devis</button>
           </div>
-          <div class="formula featured reveal-on-scroll lift-hover is-selected" role="radio" aria-checked="true" tabindex="0" data-formula-id="croissance" id="formula-card-croissance" style="--reveal-delay:210ms">
+          <div class="formula reveal-on-scroll lift-hover is-selected" role="radio" aria-checked="true" tabindex="0" data-formula-id="croissance" id="formula-card-croissance" style="--reveal-delay:210ms">
             <div class="formula-card-top">
               <span class="badge">Recommandé</span>
               <span class="formula-check" aria-hidden="true">✓</span>
@@ -2025,6 +2024,11 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
           card.tabIndex = on ? 0 : -1;
           const check = card.querySelector('.formula-check');
           if (check) check.textContent = on ? '✓' : '';
+          const btn = card.querySelector('button[data-open="devis"]');
+          if (btn) {
+            btn.classList.toggle('btn-primary', on);
+            btn.classList.toggle('btn-secondary', !on);
+          }
         });
         const m = meta[id] || meta.croissance;
         if (label) label.textContent = m.name;
