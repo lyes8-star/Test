@@ -1,4 +1,5 @@
 import { Hero } from "@/components/Hero";
+import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 import {
   Activities,
   AuditTeaser,
@@ -15,6 +16,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <BeforeAfterSlider />
       <Activities />
       <Cases />
       <Formulas />
