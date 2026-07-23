@@ -741,6 +741,49 @@ a.top-contact-item:hover {
 .a11y-fab-label {
   padding-right: 0.15rem;
 }
+@media (max-width: 1023px) {
+  .a11y-fab {
+    min-height: 2.5rem;
+    min-width: 2.5rem;
+    padding: 0.35rem;
+    gap: 0;
+    justify-content: center;
+  }
+  .a11y-fab-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .a11y-fab-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
+/* Sticky mobile bar vs chat FAB */
+body.has-sticky-bar {
+  padding-bottom: 4.75rem;
+}
+body.has-sticky-bar .chat-dock {
+  bottom: 4.75rem;
+}
+body.has-sticky-bar #chat-launcher {
+  display: none !important;
+}
+@media (min-width: 1024px) {
+  body.has-sticky-bar {
+    padding-bottom: 0;
+  }
+  body.has-sticky-bar .chat-dock {
+    bottom: 1.5rem;
+  }
+}
 .a11y-panel {
   width: min(20.5rem, calc(100vw - 2rem));
   padding: 1rem 1rem 1.1rem;

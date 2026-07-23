@@ -1287,12 +1287,28 @@ body::before {
 .sticky-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 65;
   background: rgba(242,244,247,0.94); border-top: 1px solid var(--line);
-  backdrop-filter: blur(12px); padding: 0.75rem 0;
+  backdrop-filter: blur(12px); padding: 0.5rem 0;
 }
 .sticky-bar[hidden] { display: none !important; }
-.sticky-bar-inner { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
-.sticky-bar .btn { min-height: 2.75rem; padding: 0.55rem 0.5rem; font-size: 0.9rem; }
+.sticky-bar-inner { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.4rem; }
+.sticky-bar .btn { min-height: 2.5rem; padding: 0.4rem 0.4rem; font-size: 0.85rem; }
 @media (min-width: 900px) { .sticky-bar { display: none !important; } }
+
+/* Chat FAB vs sticky bar: hide launcher, lift panel */
+body.has-sticky-bar {
+  padding-bottom: 4.75rem;
+}
+body.has-sticky-bar #chat {
+  bottom: 4.75rem;
+}
+body.has-sticky-bar #chat-toggle {
+  display: none !important;
+}
+@media (min-width: 900px) {
+  body.has-sticky-bar { padding-bottom: 0; }
+  body.has-sticky-bar #chat { bottom: 1.5rem; }
+}
+
 .nav-links a[aria-current="true"] { color: var(--ink); }
 .nav-links a[aria-current="true"]::after { transform: scaleX(1); }
 .magnetic-cta { will-change: transform; transition: transform 0.12s ease-out; }
@@ -1312,6 +1328,17 @@ body::before {
   border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink);
   font: inherit; font-weight: 600; font-size: 0.88rem; cursor: pointer;
   box-shadow: 0 12px 32px rgba(14, 18, 24, 0.14);
+}
+@media (max-width: 899px) {
+  .a11y-fab {
+    min-height: 2.5rem; min-width: 2.5rem; padding: 0.35rem; gap: 0;
+    justify-content: center;
+  }
+  .a11y-fab-label {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+  .a11y-fab-icon { width: 1.75rem; height: 1.75rem; }
 }
 .a11y-fab:hover { border-color: var(--ink); }
 .a11y-fab:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
@@ -1980,10 +2007,13 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
       const bar = document.getElementById('sticky-bar');
       if (!bar) return;
       const onScroll = () => {
-        bar.hidden = !(window.scrollY > window.innerHeight * 0.65);
+        const show = window.scrollY > window.innerHeight * 0.65 && window.innerWidth < 900;
+        bar.hidden = !show;
+        document.body.classList.toggle('has-sticky-bar', show);
       };
       onScroll();
       window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
       document.getElementById('sticky-chat')?.addEventListener('click', () => {
         document.getElementById('chat-toggle')?.click();
       });
@@ -2528,7 +2558,7 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
   </script>
 
   <div class="a11y-widget">
-    <button type="button" class="a11y-fab" id="a11y-fab" aria-expanded="false" aria-controls="a11y-panel" aria-haspopup="dialog">
+    <button type="button" class="a11y-fab" id="a11y-fab" aria-label="Accessibilité" aria-expanded="false" aria-controls="a11y-panel" aria-haspopup="dialog">
       <span class="a11y-fab-icon" aria-hidden="true">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="4.5" r="2.25" fill="currentColor"/><path d="M5 9.5h14M12 9.5v10M8.5 19.5h7M7.5 13.5H4.5M19.5 13.5h-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </span>
