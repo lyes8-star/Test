@@ -75,9 +75,6 @@ export function TopContactBar() {
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
             />
-            <a className="address-map-open" href={maps.link} target="_blank" rel="noopener noreferrer">
-              Ouvrir dans Google Maps
-            </a>
           </span>
         </span>
       </div>
