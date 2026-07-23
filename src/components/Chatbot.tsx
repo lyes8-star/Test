@@ -474,12 +474,29 @@ export function Chatbot() {
         <button
           id="chat-launcher"
           type="button"
-          className="btn btn-primary shadow-[var(--shadow)]"
+          className="btn btn-primary chat-fab shadow-[var(--shadow)]"
           onClick={() => setOpen(true)}
+          aria-label="Une question ?"
           aria-expanded={false}
           aria-controls="chat-panel"
         >
-          Une question ?
+          <span className="chat-fab-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M5 18.5 4 21l3-1.2A8.5 8.5 0 1 0 5 18.5Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M9 11h6M9 14.5h4"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </span>
+          <span className="chat-fab-label">Une question ?</span>
         </button>
       )}
     </div>
