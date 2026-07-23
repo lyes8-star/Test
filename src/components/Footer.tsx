@@ -66,10 +66,8 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="container flex flex-col gap-2 py-5 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {siteConfig.legalName}. Tous droits réservés.
-            <span className="block sm:inline sm:before:content-['_|_']">
-              Toute reproduction non autorisée est interdite.
-            </span>
+            © {new Date().getFullYear()} {siteConfig.legalName}. Tous droits réservés. Toute
+            reproduction non autorisée est interdite.
           </p>
           <p>Site PWA · SEO / SEA · RGPD · WCAG / RGAA / EAA</p>
         </div>
