@@ -8,7 +8,7 @@ SEO, SEA / Google Ads, sites PWA, prise de rendez-vous, devis et chatbot.
 - Landing : activités, formules, méthode, conformité, contact
 - Modales **RDV** et **devis** avec consentement RGPD
 - **Chatbot** multi-tours : FAQ enrichie + collecte de coordonnées (consentement RGPD), actions RDV/devis/mailto
-- **Autodiagnostic payant** (`/autodiagnostic`) : Stripe Checkout → jeton 7 j / 3 scans → rapport Lighthouse + axe + SEO/PWA/RGPD/SEA
+- **Autodiagnostic payant** (`/autodiagnostic` Next, `autodiagnostic.html` sur Pages) : Stripe Checkout → jeton 7 j / 3 scans → rapport Lighthouse + axe + SEO/PWA/RGPD/SEA
 - **PWA** : manifest, service worker, icônes, installable
 - **SEO** : metadata, Open Graph, JSON-LD, `robots.ts`, `sitemap.ts`
 - **SEA ready** : catégorie cookies publicitaires ; tags Ads à brancher après consentement
@@ -24,6 +24,30 @@ C’est l’entrée du site : landing, RDV, devis, chatbot, cookies RGPD — san
 npx serve .
 # puis ouvrir http://localhost:3000
 ```
+
+### GitHub Pages
+
+Ce dépôt est un **project site** : l’URL correcte est  
+[`https://lyes8-star.github.io/Test/`](https://lyes8-star.github.io/Test/)  
+(et non `https://lyes8-star.github.io/` sans `/Test/`).
+
+Page autodiagnostic statique :  
+[`https://lyes8-star.github.io/Test/autodiagnostic.html`](https://lyes8-star.github.io/Test/autodiagnostic.html)
+
+Les liens dans `index.html` pointent vers `autodiagnostic.html` (chemins relatifs, compatibles avec le préfixe `/Test/`).
+
+Pages publie la branche configurée (souvent `main`) : merger la PR pour que le fichier soit servi, ou basculer temporairement la source Pages sur la branche feature.
+
+Le scan Lighthouse/axe **ne tourne pas** sur GitHub Pages (pas de Node/Chrome). La page statique appelle une API Next déployée ailleurs :
+
+1. Déployer l’app Next (ex. Vercel) avec `CHROME_PATH` + Stripe.
+2. Dans [`autodiagnostic.html`](autodiagnostic.html), renseigner :
+   ```html
+   <meta name="meridian-api" content="https://votre-app.vercel.app" />
+   ```
+   Alternatives : `?api=https://votre-app.vercel.app` ou `localStorage.meridian_api_base`.
+
+Sans API configurée, la page affiche un mode dégradé (message + liens RDV/devis).
 
 ## Version Next.js (App Router)
 
@@ -58,10 +82,13 @@ Webhook Stripe : `POST /api/webhooks/stripe` (événements `checkout.session.com
 
 ```bash
 npm run test:audit-http   # heuristiques HTML/RGPD
-npm run dev               # puis /autodiagnostic
+npm run dev               # puis /autodiagnostic (App Router)
+# ou ouvrir autodiagnostic.html avec meta meridian-api → http://localhost:3000
 ```
 
 Sans clés Stripe, le checkout débloque immédiatement un jeton (dev/smoke). En production, configurez Stripe Test puis Live.
+
+Sur GitHub Pages, utiliser uniquement [`autodiagnostic.html`](autodiagnostic.html) + URL API Next (voir section ci-dessus).
 
 ## Audits (Lighthouse, Axe, OG/Schema, CWV, Bundle)
 
