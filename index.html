@@ -1168,6 +1168,57 @@ img,
 .welcome-guide-option:hover { border-color: var(--ink); background: rgba(242, 244, 247, 0.65); }
 .welcome-guide-option:focus-visible { outline: 2px solid var(--beam); outline-offset: 2px; }
 .welcome-guide-option-icon { flex-shrink: 0; color: var(--ink); display: grid; place-items: center; }
+.ba-section { padding-bottom: 0; }
+.ba-compare-wrap { width: 100%; margin-top: 2.5rem; }
+.ba-compare {
+  --pos: 50%;
+  position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
+  background: var(--ink); touch-action: none; user-select: none; cursor: ew-resize;
+}
+.ba-compare-img {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  pointer-events: none; user-select: none; -webkit-user-drag: none;
+}
+.ba-compare-after { position: absolute; inset: 0; }
+.ba-compare-before-clip {
+  position: absolute; inset: 0;
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+.ba-compare-before { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+.ba-compare-handle {
+  position: absolute; top: 0; bottom: 0; left: var(--pos); z-index: 2; width: 0; pointer-events: none;
+}
+.ba-compare-handle-line {
+  position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: #fff;
+  box-shadow: 0 0 0 1px rgba(14, 18, 24, 0.25);
+}
+.ba-compare-handle-knob {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 2.75rem; height: 2.75rem; border-radius: 999px; background: #fff; color: var(--ink);
+  display: grid; place-items: center; font-size: 0.95rem; font-weight: 700;
+  box-shadow: 0 8px 28px rgba(14, 18, 24, 0.28); border: 2px solid var(--signal);
+}
+.ba-compare-label {
+  position: absolute; z-index: 3; top: 1rem; padding: 0.35rem 0.75rem; border-radius: 999px;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; pointer-events: none;
+}
+.ba-compare-label-before { left: 1rem; background: rgba(14, 18, 24, 0.78); color: #fff; }
+.ba-compare-label-after { right: 1rem; background: var(--signal); color: #fff; }
+.ba-compare-range {
+  position: absolute; inset: 0; z-index: 4; width: 100%; height: 100%; margin: 0;
+  opacity: 0; cursor: ew-resize; appearance: none; -webkit-appearance: none; pointer-events: none;
+}
+.ba-compare-range:focus,
+.ba-compare-range:focus-visible {
+  pointer-events: auto; opacity: 0.01; outline: 3px solid var(--beam); outline-offset: -3px;
+}
+.ba-compare-sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+@media (min-width: 900px) {
+  .ba-compare { max-height: min(70vh, 52rem); }
+}
 .site-footer a:hover { color: var(--beam); }
 header.site-header { /* ensure sticky header class works */ }
 
@@ -1522,6 +1573,30 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
         <div class="hero-actions">
           <button type="button" class="btn btn-primary magnetic-cta" id="hero-rdv" data-open="rdv">Prendre rendez-vous</button>
           <button type="button" class="btn btn-secondary" data-open="devis">Demander un devis</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt ba-section" id="avant-apres">
+      <div class="container">
+        <p class="eyebrow reveal-on-scroll">Avant / Après</p>
+        <h2 class="reveal-on-scroll">Du site hors normes au résultat Crevia</h2>
+        <p class="section-intro reveal-on-scroll" style="--reveal-delay:80ms">Glissez le curseur : à gauche l’existant illisible, à droite une présence Google claire, accessible et prête à convertir.</p>
+      </div>
+      <div class="ba-compare-wrap reveal-on-scroll" style="--reveal-delay:140ms">
+        <div class="ba-compare" id="ba-compare" style="--pos:50%">
+          <img class="ba-compare-img ba-compare-after" src="public/compare/after.svg" alt="Exemple de site après accompagnement Crevia : clair, rapide, prêt pour Google" width="1600" height="900" draggable="false" />
+          <div class="ba-compare-before-clip" aria-hidden="true">
+            <img class="ba-compare-img ba-compare-before" src="public/compare/before.svg" alt="" width="1600" height="900" draggable="false" />
+          </div>
+          <div class="ba-compare-handle" aria-hidden="true">
+            <span class="ba-compare-handle-line"></span>
+            <span class="ba-compare-handle-knob">↔</span>
+          </div>
+          <span class="ba-compare-label ba-compare-label-before">Avant</span>
+          <span class="ba-compare-label ba-compare-label-after">Après</span>
+          <label class="ba-compare-sr-only" for="ba-range">Comparer avant et après</label>
+          <input id="ba-range" class="ba-compare-range" type="range" min="0" max="100" value="50" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" />
         </div>
       </div>
     </section>
