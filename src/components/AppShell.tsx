@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { ModalProvider } from "@/components/ModalProvider";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { StickyMobileBar } from "@/components/StickyMobileBar";
+import { MediaCopyGuard } from "@/components/MediaCopyGuard";
 
 const Chatbot = dynamic(
   () => import("@/components/Chatbot").then((m) => m.Chatbot),
@@ -51,6 +52,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <AccessibilityMenu />
       </ModalProvider>
       <ScrollReveal />
+      <MediaCopyGuard />
       <ServiceWorkerRegister />
       <ConsentScripts />
     </>

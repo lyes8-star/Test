@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Autodiagnostic site — Crevia | SEO · PWA · RGPD · CWV</title>
   <meta name="description" content="Autodiagnostic exigence Google, PWA, SEO, SEA, RGPD FR/UE et accessibilité. Paiement Stripe, rapport de fails actionnable." />
+  <meta name="copyright" content="Crevia SAS — tous droits réservés. Toute reproduction non autorisée est interdite." />
   <meta name="theme-color" content="#0E1218" />
   <link rel="canonical" href="https://lyes8-star.github.io/Test/autodiagnostic.html" />
   <!-- Déployez Next (Vercel) puis renseignez l’URL API pour le scan réel sur GitHub Pages -->
@@ -23,6 +24,11 @@
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+img {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
 body {
   margin: 0; min-height: 100vh; color: var(--ink);
   font-family: var(--font-body), system-ui, sans-serif;
@@ -401,6 +407,9 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
         <a href="politique-cookies.html">Cookies</a>
       </p>
     </div>
+    <div class="container" style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);font-size:.8rem;color:rgba(242,244,247,.55)">
+      <p style="margin:0">© Crevia — tous droits réservés. Toute reproduction non autorisée est interdite.</p>
+    </div>
   </footer>
 
   <script>
@@ -774,6 +783,19 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
       }
     });
   })();
+  </script>
+  <script>
+    (function () {
+      function isMedia(t) {
+        return t instanceof Element && t.closest("img, picture, .case-media-img, .hero-media, .case-media-frame");
+      }
+      document.addEventListener("contextmenu", function (e) {
+        if (isMedia(e.target)) e.preventDefault();
+      });
+      document.addEventListener("dragstart", function (e) {
+        if (isMedia(e.target)) e.preventDefault();
+      });
+    })();
   </script>
 </body>
 </html>

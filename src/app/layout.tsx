@@ -30,6 +30,9 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.legalName }],
   creator: siteConfig.legalName,
   publisher: siteConfig.legalName,
+  other: {
+    copyright: siteConfig.copyrightLine,
+  },
   keywords: [
     "valorisation Google",
     "création site PWA",

@@ -26,6 +26,14 @@
   --amber-deep: var(--signal-deep);
 }
 
+img,
+.case-media-img,
+.hero-media img {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
 @theme inline {
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);

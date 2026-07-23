@@ -6,6 +6,7 @@
   <title>Crevia — Valorisez votre présence Google | SEO · SEA · PWA · Ads</title>
   <meta name="description" content="Agence française de création de sites PWA et valorisation Google : SEO, SEA, Google Ads. Prise de rendez-vous et devis en ligne." />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="copyright" content="Crevia SAS — tous droits réservés. Toute reproduction non autorisée est interdite." />
   <meta name="theme-color" content="#0E1218" />
   <link rel="canonical" href="https://crevia.fr/" />
   <meta property="og:title" content="Crevia — Valorisez votre présence Google" />
@@ -397,6 +398,15 @@ a.top-contact-item:hover { color: #fff; }
     radial-gradient(ellipse 70% 55% at 72% 28%, rgba(125, 211, 252, 0.22), transparent 55%),
     linear-gradient(165deg, #0e1218 0%, #161c26 48%, #0e1218 100%);
 }
+img,
+.case-media-img,
+.hero-media img {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
 .hero-media img {
   width: 100%;
   height: 100%;
@@ -1795,7 +1805,7 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
       </div>
     </div>
     <div class="container footer-bottom">
-      <p>© <span id="year"></span> Crevia SAS. Tous droits réservés.</p>
+      <p>© <span id="year"></span> Crevia SAS. Tous droits réservés. Toute reproduction non autorisée est interdite.</p>
       <p>Site PWA · SEO / SEA · RGPD · WCAG / RGAA / EAA</p>
     </div>
   </footer>
@@ -2662,6 +2672,19 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
           e.preventDefault();
           closePanel();
         }
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      function isMedia(t) {
+        return t instanceof Element && t.closest("img, picture, .case-media-img, .hero-media, .case-media-frame");
+      }
+      document.addEventListener("contextmenu", function (e) {
+        if (isMedia(e.target)) e.preventDefault();
+      });
+      document.addEventListener("dragstart", function (e) {
+        if (isMedia(e.target)) e.preventDefault();
       });
     })();
   </script>
