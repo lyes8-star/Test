@@ -1,8 +1,9 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useModal } from "@/components/ModalProvider";
+import { UiScrim } from "@/components/UiScrim";
 import { siteConfig } from "@/lib/site";
 import {
   FAQ_STARTERS,
@@ -70,6 +71,20 @@ export function Chatbot() {
   useEffect(() => {
     if (open) closeRef.current?.focus();
   }, [open]);
+
+  const close = useCallback(() => setOpen(false), []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        close();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open, close]);
 
   const mailtoHref = useMemo(() => {
     if (!lastLead) return `mailto:${siteConfig.email}`;
@@ -346,7 +361,9 @@ export function Chatbot() {
     : "Posez votre question…";
 
   return (
-    <div className="chat-dock fixed bottom-4 right-4 z-[70] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+    <>
+      <UiScrim open={open} onClose={close} />
+      <div className="chat-dock fixed bottom-4 right-4 z-[70] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       {open ? (
         <section
           id="chat-panel"
@@ -364,7 +381,7 @@ export function Chatbot() {
               ref={closeRef}
               type="button"
               className="rounded-full bg-white/15 px-3 py-1.5 text-sm font-semibold transition-transform active:scale-[0.97]"
-              onClick={() => setOpen(false)}
+              onClick={close}
             >
               Fermer
             </button>
@@ -466,5 +483,6 @@ export function Chatbot() {
         </button>
       )}
     </div>
+    </>
   );
 }
