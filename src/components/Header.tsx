@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { siteConfig } from "@/lib/site";
-import { useModal } from "@/components/ModalProvider";
 import { TopContactBar } from "@/components/TopContactBar";
 
 const links = [
@@ -16,7 +15,6 @@ const links = [
 ];
 
 export function Header() {
-  const { open } = useModal();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("");
@@ -95,15 +93,6 @@ export function Header() {
           )}
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <button type="button" className="btn btn-secondary min-h-11" onClick={() => open("devis")}>
-            Devis
-          </button>
-          <button type="button" className="btn btn-primary min-h-11" onClick={() => open("rdv")}>
-            Rendez-vous
-          </button>
-        </div>
-
         <button
           type="button"
           className="menu-toggle inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--line)] px-3 text-sm font-bold text-[var(--ink)] lg:!hidden"
@@ -139,28 +128,6 @@ export function Header() {
                 </a>
               ),
             )}
-            <div className="mt-2 grid gap-2">
-              <button
-                type="button"
-                className="btn btn-secondary min-h-11"
-                onClick={() => {
-                  setMenuOpen(false);
-                  open("devis");
-                }}
-              >
-                Demander un devis
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary min-h-11"
-                onClick={() => {
-                  setMenuOpen(false);
-                  open("rdv");
-                }}
-              >
-                Prendre rendez-vous
-              </button>
-            </div>
           </nav>
         </div>
       ) : null}
