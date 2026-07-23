@@ -14,11 +14,13 @@ type SessionState = {
 };
 
 const STEPS = [
-  "Contrôles HTTP / SEO",
-  "PWA & Web App",
-  "Accessibilité (axe)",
-  "Google / SEA & RGPD",
-  "Lighthouse performance",
+  "Fetch HTTP + en-têtes sécurité (OWASP)",
+  "Parse SEO / Open Graph / JSON-LD",
+  "robots.txt + sitemap XML",
+  "Pages légales RGPD / LCEN",
+  "Réseau pré-consentement (trackers)",
+  "axe-core WCAG 2.1 AA",
+  "Lighthouse + Core Web Vitals (LCP/CLS/INP)",
 ] as const;
 
 export function AuditTool({
