@@ -1039,6 +1039,13 @@ img,
   background: rgba(14, 18, 24, 0.55); padding: 0;
 }
 .modal-backdrop.open { display: flex; }
+/* Scrim partagé chat / accessibilité (sous les panels, au-dessus du contenu) */
+.ui-scrim {
+  position: fixed; inset: 0; z-index: 67; display: none;
+  background: rgba(14, 18, 24, 0.55);
+  border: 0; padding: 0; cursor: pointer;
+}
+.ui-scrim.is-open { display: block; }
 @media (min-width: 640px) {
   .modal-backdrop { align-items: center; padding: 1.5rem; }
 }
@@ -2029,6 +2036,53 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
     </div>
   </div>
 
+  <!-- Scrim partagé : chat + menu accessibilité -->
+  <div id="ui-scrim" class="ui-scrim" role="presentation" aria-hidden="true"></div>
+  <script>
+    (function () {
+      const scrim = document.getElementById("ui-scrim");
+      if (!scrim) return;
+      function syncUiScrim() {
+        const chatOpen = document.getElementById("chat-panel")?.classList.contains("open");
+        const a11yPanel = document.getElementById("a11y-panel");
+        const a11yOpen = a11yPanel && !a11yPanel.hidden;
+        const show = !!(chatOpen || a11yOpen);
+        scrim.classList.toggle("is-open", show);
+        scrim.setAttribute("aria-hidden", show ? "false" : "true");
+      }
+      window.creviaSyncUiScrim = syncUiScrim;
+      scrim.addEventListener("click", () => {
+        const chatPanel = document.getElementById("chat-panel");
+        if (chatPanel?.classList.contains("open")) {
+          chatPanel.classList.remove("open");
+          const toggle = document.getElementById("chat-toggle");
+          if (toggle) toggle.hidden = false;
+        }
+        const panel = document.getElementById("a11y-panel");
+        const fab = document.getElementById("a11y-fab");
+        if (panel && !panel.hidden) {
+          panel.hidden = true;
+          fab?.setAttribute("aria-expanded", "false");
+        }
+        syncUiScrim();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape") return;
+        const chatPanel = document.getElementById("chat-panel");
+        if (chatPanel?.classList.contains("open")) {
+          e.preventDefault();
+          chatPanel.classList.remove("open");
+          const toggle = document.getElementById("chat-toggle");
+          if (toggle) {
+            toggle.hidden = false;
+            toggle.focus();
+          }
+          syncUiScrim();
+        }
+      });
+    })();
+  </script>
+
   <!-- Chatbot -->
   <div id="chat">
     <div class="chat-panel" id="chat-panel" aria-label="Assistant conversationnel">
@@ -2709,12 +2763,14 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
         chatPanel.classList.add("open");
         document.getElementById("chat-toggle").hidden = true;
         document.getElementById("chat-close")?.focus();
+        window.creviaSyncUiScrim?.();
       });
       document.getElementById("chat-close").addEventListener("click", () => {
         chatPanel.classList.remove("open");
         const toggle = document.getElementById("chat-toggle");
         toggle.hidden = false;
         toggle.focus();
+        window.creviaSyncUiScrim?.();
       });
 
       const COOKIE_KEY = "crevia_cookie_consent_v1";
@@ -2877,11 +2933,13 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
         panel.hidden = false;
         fab.setAttribute("aria-expanded", "true");
         panel.querySelector(".a11y-option, .a11y-panel-close")?.focus();
+        window.creviaSyncUiScrim?.();
       }
       function closePanel() {
         panel.hidden = true;
         fab.setAttribute("aria-expanded", "false");
         fab.focus();
+        window.creviaSyncUiScrim?.();
       }
 
       fab.addEventListener("click", () => {

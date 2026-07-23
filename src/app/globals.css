@@ -704,6 +704,21 @@ a.top-contact-item:hover {
   }
 }
 
+/* Scrim partagé chat / accessibilité (sous les panels, au-dessus du contenu) */
+.ui-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 67;
+  display: none;
+  background: rgba(14, 18, 24, 0.55);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.ui-scrim.is-open {
+  display: block;
+}
+
 /* —— Menu accessibilité flottant (bas gauche) —— */
 .a11y-widget {
   position: fixed;

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { UiScrim } from "@/components/UiScrim";
 
 const STORAGE_KEY = "crevia_a11y_prefs";
 
@@ -117,7 +118,9 @@ export function AccessibilityMenu() {
   }, [open, close]);
 
   return (
-    <div className="a11y-widget">
+    <>
+      <UiScrim open={open} onClose={close} />
+      <div className="a11y-widget">
       <button
         ref={fabRef}
         type="button"
@@ -222,5 +225,6 @@ export function AccessibilityMenu() {
         </div>
       ) : null}
     </div>
+    </>
   );
 }
