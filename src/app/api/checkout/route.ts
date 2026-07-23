@@ -27,8 +27,16 @@ export async function POST(request: Request) {
       );
     }
 
-    const origin = siteOrigin().replace(/\/$/, "");
-    const successBase = `${origin}/autodiagnostic`;
+    const origin =
+      request.headers.get("origin") ||
+      (() => {
+        try {
+          return new URL(request.url).origin;
+        } catch {
+          return siteOrigin().replace(/\/$/, "");
+        }
+      })();
+    const successBase = `${origin.replace(/\/$/, "")}/autodiagnostic`;
 
     // Dev / smoke: no Stripe keys → unlock immediately
     if (!isStripeConfigured()) {
