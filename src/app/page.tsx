@@ -1,6 +1,7 @@
 import { Hero } from "@/components/Hero";
 import {
   Activities,
+  AuditTeaser,
   Compliance,
   ContactCta,
   Formulas,
@@ -18,6 +19,7 @@ export default function HomePage() {
       <Cases />
       <Formulas />
       <Method />
+      <AuditTeaser />
       <Testimonials />
       <Faq />
       <Compliance />

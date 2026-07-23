@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type KeyboardEvent } from "react";
-import { activities, formulas, processSteps, siteConfig } from "@/lib/site";
+import { activities, auditProduct, formulas, processSteps, siteConfig } from "@/lib/site";
 import { useModal } from "@/components/ModalProvider";
 
 export function Activities() {
@@ -295,6 +295,9 @@ export function ContactCta() {
             <button type="button" className="btn btn-secondary" onClick={() => open("devis")}>
               Obtenir un devis
             </button>
+            <a href="/autodiagnostic" className="btn btn-secondary">
+              Autodiagnostic {auditProduct.priceLabel}
+            </a>
           </div>
         </div>
         <aside
@@ -320,6 +323,33 @@ export function ContactCta() {
           </p>
           <p className="text-sm text-[var(--ink-soft)]">Réponse sous 24 à 48 h ouvrées.</p>
         </aside>
+      </div>
+    </section>
+  );
+}
+
+export function AuditTeaser() {
+  return (
+    <section id="autodiagnostic-teaser" className="section bg-white">
+      <div className="container">
+        <p className="eyebrow reveal-on-scroll text-[var(--signal)]">Autodiagnostic</p>
+        <h2 className="display reveal-on-scroll mt-3 max-w-[16ch] text-[clamp(1.85rem,4vw,2.85rem)] text-[var(--ink)]">
+          Scannez votre site avant le brief
+        </h2>
+        <p
+          className="reveal-on-scroll mt-4 max-w-2xl text-lg text-[var(--ink-soft)]"
+          style={{ ["--reveal-delay" as string]: "80ms" }}
+        >
+          Outil payant ({auditProduct.priceLabel}) : Lighthouse, axe-core et contrôles RGPD / PWA / SEO /
+          SEA — rapport de fails exigents, puis RDV Meridian.
+        </p>
+        <a
+          href="/autodiagnostic"
+          className="btn btn-primary reveal-on-scroll mt-8 min-h-12 w-fit"
+          style={{ ["--reveal-delay" as string]: "140ms" }}
+        >
+          Lancer l’autodiagnostic
+        </a>
       </div>
     </section>
   );

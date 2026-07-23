@@ -6,11 +6,12 @@ import { siteConfig } from "@/lib/site";
 import { useModal } from "@/components/ModalProvider";
 
 const links = [
-  { href: "#activites", id: "activites", label: "Activités" },
-  { href: "#realisations", id: "realisations", label: "Réalisations" },
-  { href: "#formules", id: "formules", label: "Formules" },
-  { href: "#faq", id: "faq", label: "FAQ" },
-  { href: "#contact", id: "contact", label: "Contact" },
+  { href: "/#activites", id: "activites", label: "Activités" },
+  { href: "/#realisations", id: "realisations", label: "Réalisations" },
+  { href: "/#formules", id: "formules", label: "Formules" },
+  { href: "/autodiagnostic", id: "autodiagnostic", label: "Autodiagnostic" },
+  { href: "/#faq", id: "faq", label: "FAQ" },
+  { href: "/#contact", id: "contact", label: "Contact" },
 ];
 
 export function Header() {
@@ -66,18 +67,30 @@ export function Header() {
         </Link>
 
         <nav className="hidden items-center gap-6 xl:gap-8 lg:flex" aria-label="Navigation principale">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={`linkish text-sm font-semibold transition-colors ${
-                active === link.id ? "text-[var(--ink)]" : "text-[var(--ink-soft)] hover:text-[var(--ink)]"
-              }`}
-              aria-current={active === link.id ? "true" : undefined}
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) =>
+            link.href.startsWith("/autodiagnostic") ? (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`linkish text-sm font-semibold transition-colors ${
+                  active === link.id ? "text-[var(--ink)]" : "text-[var(--ink-soft)] hover:text-[var(--ink)]"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`linkish text-sm font-semibold transition-colors ${
+                  active === link.id ? "text-[var(--ink)]" : "text-[var(--ink-soft)] hover:text-[var(--ink)]"
+                }`}
+                aria-current={active === link.id ? "true" : undefined}
+              >
+                {link.label}
+              </a>
+            ),
+          )}
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
@@ -103,16 +116,27 @@ export function Header() {
       {menuOpen ? (
         <div id="mobile-nav" className="border-t border-[var(--line)] bg-[rgba(242,244,247,0.98)] lg:hidden">
           <nav className="container flex flex-col gap-2 py-4" aria-label="Navigation mobile">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="rounded-xl px-3 py-3 font-semibold text-[var(--ink)] hover:bg-[var(--mist)]"
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) =>
+              link.href.startsWith("/autodiagnostic") ? (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="rounded-xl px-3 py-3 font-semibold text-[var(--ink)] hover:bg-[var(--mist)]"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="rounded-xl px-3 py-3 font-semibold text-[var(--ink)] hover:bg-[var(--mist)]"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ),
+            )}
             <div className="mt-2 grid gap-2">
               <button
                 type="button"

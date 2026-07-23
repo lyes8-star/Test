@@ -30,6 +30,25 @@ export const siteConfig = {
   },
 } as const;
 
+/** Produit autodiagnostic (Stripe Checkout one-shot). */
+export const auditProduct = {
+  id: "autodiagnostic",
+  name: "Autodiagnostic site Meridian",
+  priceCents: Number(process.env.AUDIT_PRICE_CENTS || 4900),
+  currency: "eur",
+  priceLabel: "49 € TTC",
+  scansIncluded: 3,
+  validityDays: 7,
+  pillars: [
+    "SEO",
+    "PWA / Web App",
+    "Accessibilité",
+    "Google / SEA",
+    "RGPD FR & UE",
+    "Performance",
+  ] as const,
+} as const;
+
 export const activities = [
   {
     id: "creation",
