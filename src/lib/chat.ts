@@ -157,7 +157,7 @@ export function replyFor(message: string): ChatReply {
   if (/(contact|email|e-mail|téléphone|telephone|adresse|où êtes|ou etes)/.test(q)) {
     return {
       reply:
-        "contact@crevia.fr · 01 84 80 00 00 · 12 rue de la Paix, 75002 Paris. Pour une demande suivie, laissez vos coordonnées ici ou ouvrez un devis / RDV.",
+        "contact@crevia.fr · 01 84 80 00 00 · 10 rue Jean Baptiste, 95240 Cormeilles-en-Parisis. Pour une demande suivie, laissez vos coordonnées ici ou ouvrez un devis / RDV.",
       actions: ["lead", "mailto", "devis", "rdv"],
       suggestions: ["Laisser mes coordonnées", "Prendre rendez-vous", "Demander un devis"],
     };

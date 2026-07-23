@@ -12,8 +12,9 @@ export const siteConfig = {
   phoneDisplay: "01 84 80 00 00",
   hours: "Lun – Ven : 9h00 – 18h00",
   address: {
-    street: "12 rue de la Paix",
-    city: "75002 Paris",
+    street: "10 rue Jean Baptiste",
+    postalCode: "95240",
+    city: "Cormeilles-en-Parisis",
     country: "France",
   },
   siret: "000 000 000 00000",
@@ -30,6 +31,24 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com/company/crevia",
   },
 } as const;
+
+/** Ligne d’adresse affichable (ex. barre de contact, pied de page). */
+export function formatAddress(
+  address: typeof siteConfig.address = siteConfig.address,
+): string {
+  return `${address.street}, ${address.postalCode} ${address.city}`;
+}
+
+/** Liens Google Maps (aperçu embed + ouverture complète). */
+export function mapsUrls(address: typeof siteConfig.address = siteConfig.address) {
+  const query = encodeURIComponent(
+    `${address.street}, ${address.postalCode} ${address.city}`,
+  );
+  return {
+    embed: `https://maps.google.com/maps?q=${query}&z=15&hl=fr&output=embed`,
+    link: `https://www.google.com/maps/search/?api=1&query=${query}`,
+  };
+}
 
 /** Produit autodiagnostic (Stripe Checkout one-shot). */
 export const auditProduct = {

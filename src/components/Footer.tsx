@@ -28,7 +28,7 @@ export function Footer() {
             <li>
               {siteConfig.address.street}
               <br />
-              {siteConfig.address.city}
+              {siteConfig.address.postalCode} {siteConfig.address.city}
             </li>
           </ul>
         </div>

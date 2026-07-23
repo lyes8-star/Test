@@ -15,8 +15,8 @@ export function JsonLd() {
         address: {
           "@type": "PostalAddress",
           streetAddress: siteConfig.address.street,
-          addressLocality: "Paris",
-          postalCode: "75002",
+          addressLocality: siteConfig.address.city,
+          postalCode: siteConfig.address.postalCode,
           addressCountry: "FR",
         },
         sameAs: [siteConfig.social.linkedin],
@@ -41,8 +41,8 @@ export function JsonLd() {
         address: {
           "@type": "PostalAddress",
           streetAddress: siteConfig.address.street,
-          addressLocality: "Paris",
-          postalCode: "75002",
+          addressLocality: siteConfig.address.city,
+          postalCode: siteConfig.address.postalCode,
           addressCountry: "FR",
         },
         areaServed: {

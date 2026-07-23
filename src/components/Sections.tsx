@@ -323,7 +323,8 @@ export function ContactCta() {
             </a>
           </p>
           <p className="text-[var(--ink-soft)]">
-            {siteConfig.address.street}, {siteConfig.address.city}
+            {siteConfig.address.street}, {siteConfig.address.postalCode}{" "}
+            {siteConfig.address.city}
           </p>
           <p className="text-sm text-[var(--ink-soft)]">Réponse sous 24 à 48 h ouvrées.</p>
         </aside>
