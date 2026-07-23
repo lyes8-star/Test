@@ -75,15 +75,13 @@ export function StickyMobileBar() {
 
   useEffect(() => {
     const sync = () => {
-      const visible = window.scrollY > window.innerHeight * 0.65 && window.innerWidth < 1024;
+      const visible = window.innerWidth < 1024;
       setShow(visible);
       document.body.classList.toggle("has-sticky-bar", visible);
     };
     sync();
-    window.addEventListener("scroll", sync, { passive: true });
     window.addEventListener("resize", sync, { passive: true });
     return () => {
-      window.removeEventListener("scroll", sync);
       window.removeEventListener("resize", sync);
       document.body.classList.remove("has-sticky-bar");
     };
