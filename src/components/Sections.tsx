@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, type KeyboardEvent } from "react";
 import { activities, formulas, processSteps, siteConfig } from "@/lib/site";
 import { useModal } from "@/components/ModalProvider";
 
@@ -50,6 +51,31 @@ export function Activities() {
 
 export function Formulas() {
   const { open } = useModal();
+  const [selected, setSelected] = useState<string>(
+    formulas.find((f) => f.featured)?.id ?? formulas[0].id,
+  );
+  const selectedFormula = formulas.find((f) => f.id === selected) ?? formulas[0];
+
+  function selectFormula(id: string) {
+    setSelected(id);
+  }
+
+  function onCardKeyDown(e: KeyboardEvent<HTMLElement>, id: string, index: number) {
+    if (e.key === " " || e.key === "Enter") {
+      e.preventDefault();
+      selectFormula(id);
+      return;
+    }
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft" && e.key !== "ArrowDown" && e.key !== "ArrowUp") {
+      return;
+    }
+    e.preventDefault();
+    const dir = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : -1;
+    const next = (index + dir + formulas.length) % formulas.length;
+    const nextId = formulas[next].id;
+    selectFormula(nextId);
+    document.getElementById(`formula-card-${nextId}`)?.focus();
+  }
 
   return (
     <section id="formules" className="section">
@@ -62,49 +88,108 @@ export function Formulas() {
           className="reveal-on-scroll mt-4 max-w-2xl text-lg text-[var(--ink-soft)]"
           style={{ ["--reveal-delay" as string]: "80ms" }}
         >
-          De l’audit express au dispositif multi-campagnes — chaque formule est ajustable sur devis.
+          Sélectionnez une formule, puis demandez un devis — chaque offre reste ajustable.
         </p>
 
-        <div className="mt-12 grid gap-0 border-t border-[var(--line)] lg:grid-cols-3 lg:border-t-0">
-          {formulas.map((formula, i) => (
-            <article
-              key={formula.id}
-              className={`reveal-on-scroll lift-hover flex flex-col gap-3 border-b border-[var(--line)] py-7 lg:border-b-0 lg:border-r lg:px-6 lg:py-8 ${
-                i === 0 ? "lg:pl-0" : ""
-              } ${i === formulas.length - 1 ? "lg:border-r-0 lg:pr-0" : ""} ${
-                formula.featured
-                  ? "mx-[-1rem] rounded-[0.75rem] border-none bg-[var(--ink)] px-4 text-[var(--paper)] lg:mx-0 lg:px-6"
-                  : ""
-              }`}
-              style={{ ["--reveal-delay" as string]: `${100 + i * 110}ms` }}
-            >
-              {formula.featured ? (
-                <span className="inline-flex w-fit rounded-full bg-[var(--signal)] px-2.5 py-1 text-[0.72rem] font-bold uppercase tracking-[0.04em] text-white">
-                  Recommandé
-                </span>
-              ) : null}
-              <h3 className="display text-[1.55rem] tracking-[-0.03em]">{formula.name}</h3>
-              <p className={`text-sm ${formula.featured ? "text-[rgba(242,244,247,0.68)]" : "text-[var(--ink-soft)]"}`}>
-                {formula.description}
-              </p>
-              <p className="display text-[2rem] tracking-[-0.03em]">{formula.price}</p>
-              <p className={`text-sm ${formula.featured ? "text-[rgba(242,244,247,0.68)]" : "text-[var(--ink-soft)]"}`}>
-                {formula.duration}
-              </p>
-              <ul className="mt-1 flex-1 space-y-2 text-sm opacity-90">
-                {formula.features.map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
-              <button
-                type="button"
-                className={`btn mt-4 w-fit ${formula.featured ? "btn-primary" : "btn-secondary"}`}
-                onClick={() => open("devis", formula.id)}
+        <div
+          role="radiogroup"
+          aria-label="Choisir une formule"
+          className="mt-12 grid gap-0 border-t border-[var(--line)] lg:grid-cols-3 lg:border-t-0"
+        >
+          {formulas.map((formula, i) => {
+            const isSelected = selected === formula.id;
+            return (
+              <div
+                key={formula.id}
+                id={`formula-card-${formula.id}`}
+                role="radio"
+                aria-checked={isSelected}
+                tabIndex={isSelected ? 0 : -1}
+                className={`formula-card reveal-on-scroll lift-hover flex cursor-pointer flex-col gap-3 border-b border-[var(--line)] py-7 outline-none lg:border-b-0 lg:border-r lg:px-6 lg:py-8 ${
+                  i === 0 ? "lg:pl-0" : ""
+                } ${i === formulas.length - 1 ? "lg:border-r-0 lg:pr-0" : ""} ${
+                  formula.featured
+                    ? "formula-card--featured mx-[-1rem] rounded-[0.75rem] border-none bg-[var(--ink)] px-4 text-[var(--paper)] lg:mx-0 lg:px-6"
+                    : "rounded-[0.75rem]"
+                } ${isSelected ? "is-selected" : ""}`}
+                style={{ ["--reveal-delay" as string]: `${100 + i * 110}ms` }}
+                onClick={() => selectFormula(formula.id)}
+                onKeyDown={(e) => onCardKeyDown(e, formula.id, i)}
               >
-                Demander un devis
-              </button>
-            </article>
-          ))}
+                <div className="flex items-center justify-between gap-3">
+                  {formula.featured ? (
+                    <span className="inline-flex w-fit rounded-full bg-[var(--signal)] px-2.5 py-1 text-[0.72rem] font-bold uppercase tracking-[0.04em] text-white">
+                      Recommandé
+                    </span>
+                  ) : (
+                    <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ink-soft)]">
+                      Formule
+                    </span>
+                  )}
+                  <span
+                    aria-hidden
+                    className={`formula-check grid h-7 w-7 place-items-center rounded-full border text-xs font-bold ${
+                      formula.featured
+                        ? "border-white/35 text-white"
+                        : "border-[var(--line-strong,var(--line))] text-[var(--ink)]"
+                    }`}
+                  >
+                    {isSelected ? "✓" : ""}
+                  </span>
+                </div>
+                <h3 className="display text-[1.55rem] tracking-[-0.03em]">{formula.name}</h3>
+                <p
+                  className={`text-sm ${
+                    formula.featured ? "text-[rgba(242,244,247,0.68)]" : "text-[var(--ink-soft)]"
+                  }`}
+                >
+                  {formula.description}
+                </p>
+                <p className="display text-[2rem] tracking-[-0.03em]">{formula.price}</p>
+                <p
+                  className={`text-sm ${
+                    formula.featured ? "text-[rgba(242,244,247,0.68)]" : "text-[var(--ink-soft)]"
+                  }`}
+                >
+                  {formula.duration}
+                </p>
+                <ul className="mt-1 flex-1 space-y-2 text-sm opacity-90">
+                  {formula.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+                <button
+                  type="button"
+                  className={`btn mt-4 min-h-11 w-fit ${formula.featured ? "btn-primary" : "btn-secondary"}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    selectFormula(formula.id);
+                    open("devis", formula.id);
+                  }}
+                >
+                  Demander un devis
+                </button>
+              </div>
+            );
+          })}
+        </div>
+
+        <div
+          className="formula-sticky-bar reveal-on-scroll mt-8 flex flex-wrap items-center justify-between gap-4 rounded-[0.75rem] border border-[var(--line)] bg-white/80 px-4 py-4 backdrop-blur-md"
+          style={{ ["--reveal-delay" as string]: "280ms" }}
+        >
+          <p className="text-sm text-[var(--ink-soft)] sm:text-base">
+            Sélection :{" "}
+            <strong className="text-[var(--ink)]">{selectedFormula.name}</strong>
+            <span className="hidden sm:inline"> — {selectedFormula.price}</span>
+          </p>
+          <button
+            type="button"
+            className="btn btn-primary min-h-11"
+            onClick={() => open("devis", selectedFormula.id)}
+          >
+            Continuer avec {selectedFormula.name}
+          </button>
         </div>
       </div>
     </section>

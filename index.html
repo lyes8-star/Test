@@ -350,6 +350,8 @@ a { color: inherit; }
   animation: beam-sweep 9s ease-in-out infinite;
 }
 .hero-content {
+  position: relative;
+  z-index: 1;
   width: min(100% - 2rem, var(--max));
   margin: 0 auto;
   padding: 7.5rem 0 4.5rem;
@@ -1116,6 +1118,9 @@ body::before {
   .lift-hover:hover, .brand:hover .brand-mark { transform: none; }
   .btn:hover, .btn:active, .chip:active { transform: none; }
   .btn-primary::after, .btn-amber::after { display: none; }
+  .hero-grain, .hero-media img, .hero-beam { animation: none !important; }
+  .case-media-beam { clip-path: none; opacity: 0.25; }
+  .case-media-frame:hover .case-media-img, .hero-parallax-layer { transform: none !important; transition: none !important; }
 }
 
 .case-list { list-style: none; margin: 2.75rem 0 0; padding: 0; border-top: 1px solid var(--line); }
@@ -1127,6 +1132,63 @@ body::before {
   .case-item { grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: center; }
 }
 .case-item img { width: 100%; border-radius: 0.75rem; }
+.case-media-frame {
+  --tilt-x: 0deg; --tilt-y: 0deg; --reveal-p: 0;
+  position: relative; overflow: hidden; border-radius: 0.75rem; perspective: 900px;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transition: transform 0.25s ease-out, box-shadow 0.35s ease;
+  box-shadow: 0 0 0 1px var(--line); outline: none; cursor: crosshair;
+}
+.case-media-frame:focus-visible, .case-media-frame:hover, .case-media-frame.is-active {
+  box-shadow: 0 0 0 1px rgba(125, 211, 252, 0.55), 0 22px 50px rgba(14, 18, 24, 0.14);
+}
+.case-media-img {
+  display: block; width: 100%; height: auto; border-radius: 0.75rem;
+  transform-origin: center; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); will-change: transform;
+}
+.case-media-frame:hover .case-media-img,
+.case-media-frame.is-active .case-media-img,
+.case-media-frame:focus-visible .case-media-img { transform: scale(1.04); }
+.case-media-beam {
+  pointer-events: none; position: absolute; inset: 0; z-index: 2; border-radius: inherit;
+  background: linear-gradient(105deg, transparent 0%, rgba(125, 211, 252, 0.18) 42%, rgba(255, 90, 31, 0.2) 52%, transparent 70%);
+  opacity: calc(0.15 + var(--reveal-p) * 0.7); mix-blend-mode: soft-light;
+  clip-path: inset(0 calc((1 - var(--reveal-p)) * 100%) 0 0);
+}
+.case-media-frame::after {
+  content: ""; pointer-events: none; position: absolute; inset: 0; z-index: 3; border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(125, 211, 252, calc(var(--reveal-p) * 0.55));
+}
+.formula { cursor: pointer; position: relative; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+.formula:focus-visible { outline: 2px solid var(--beam); outline-offset: 3px; }
+.formula.is-selected {
+  box-shadow: 0 0 0 2px var(--signal), 0 18px 40px rgba(14, 18, 24, 0.1); z-index: 1;
+}
+.formula.is-selected:not(.featured) { background: rgba(255, 255, 255, 0.72); border-radius: 0.75rem; }
+.formula-check {
+  width: 1.75rem; height: 1.75rem; border-radius: 999px; border: 1px solid var(--line-strong);
+  display: grid; place-items: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+}
+.formula.is-selected .formula-check { background: var(--signal); border-color: var(--signal); color: #fff; }
+.formula.featured .formula-check { border-color: rgba(255,255,255,0.35); color: #fff; }
+.formula-card-top { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; margin-bottom: 0.35rem; }
+.formula-sticky-bar {
+  margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1rem; border: 1px solid var(--line); border-radius: 0.75rem; background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(10px); position: sticky; bottom: 5.5rem; z-index: 20;
+}
+@media (min-width: 900px) { .formula-sticky-bar { bottom: 1.25rem; } }
+@media (max-width: 640px) { .hide-sm { display: none; } }
+.hero-parallax-layer { transition: transform 0.12s ease-out; will-change: transform; }
+.hero-grain {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px; animation: grain-pulse 4.5s ease-in-out infinite;
+}
+@keyframes grain-pulse { 0%,100% { opacity: 0.06; } 50% { opacity: 0.12; } }
+.hero.is-hero-paused .hero-media img,
+.hero.is-hero-paused .hero-beam,
+.hero.is-hero-paused .hero-grain { animation-play-state: paused; }
 .case-meta { display: flex; align-items: baseline; gap: 0.75rem; font-size: 0.92rem; color: var(--muted); font-weight: 600; }
 .case-metric { margin: 1.25rem 0; display: flex; flex-wrap: wrap; gap: 0.65rem; align-items: baseline; }
 .metric { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem,4vw,2.75rem); color: var(--signal); letter-spacing: -0.04em; }
@@ -1202,11 +1264,12 @@ body::before {
   </header>
 
   <main id="contenu">
-    <section class="hero" id="top">
-      <div class="hero-media" aria-hidden="true">
+    <section class="hero hero-interactive" id="top">
+      <div class="hero-media hero-parallax-layer" aria-hidden="true">
         <img src="public/hero.svg" alt="" width="1600" height="900" decoding="async" fetchpriority="high" />
       </div>
-      <div class="hero-beam" aria-hidden="true"></div>
+      <div class="hero-beam hero-parallax-layer" aria-hidden="true"></div>
+      <div class="hero-grain hero-parallax-layer" aria-hidden="true"></div>
       <div class="hero-content">
         <p class="hero-brand">Meridian</p>
         <h1>Valorisez votre présence Google</h1>
@@ -1263,9 +1326,12 @@ body::before {
         <h2 class="reveal-on-scroll">Preuves de valorisation Google</h2>
         <p class="section-intro reveal-on-scroll" style="--reveal-delay:80ms">Trois parcours représentatifs — local, PWA, Ads — avec un résultat mesurable.</p>
         <ul class="case-list">
-          <li class="case-item reveal-on-scroll" style="--reveal-delay:100ms">
-            <img src="public/cases/local-seo.svg" alt="" width="640" height="400" loading="lazy" />
-            <div>
+          <li class="case-item">
+            <div class="case-media-frame scroll-progress reveal-on-scroll" role="img" tabindex="0" aria-label="Visuel : Local SEO &amp; Google Business">
+              <span class="case-media-beam" aria-hidden="true"></span>
+              <img class="case-media-img" src="public/cases/local-seo.svg" alt="" width="640" height="400" loading="lazy" />
+            </div>
+            <div class="reveal-on-scroll" style="--reveal-delay:160ms">
               <p class="case-meta"><span class="activity-num">01</span> Commerce de proximité · Lyon</p>
               <h3>Local SEO &amp; Google Business</h3>
               <p class="muted">Refonte de la présence locale : fiche Google Business, pages de zones, avis et contenu sémantique.</p>
@@ -1273,9 +1339,12 @@ body::before {
               <button type="button" class="btn btn-secondary" data-open="devis">Demander un devis</button>
             </div>
           </li>
-          <li class="case-item reveal-on-scroll" style="--reveal-delay:200ms">
-            <img src="public/cases/pwa-ecom.svg" alt="" width="640" height="400" loading="lazy" />
-            <div>
+          <li class="case-item">
+            <div class="case-media-frame scroll-progress reveal-on-scroll" role="img" tabindex="0" aria-label="Visuel : PWA boutique &amp; Core Web Vitals" style="--reveal-delay:80ms">
+              <span class="case-media-beam" aria-hidden="true"></span>
+              <img class="case-media-img" src="public/cases/pwa-ecom.svg" alt="" width="640" height="400" loading="lazy" />
+            </div>
+            <div class="reveal-on-scroll" style="--reveal-delay:200ms">
               <p class="case-meta"><span class="activity-num">02</span> E-commerce · mode</p>
               <h3>PWA boutique &amp; Core Web Vitals</h3>
               <p class="muted">Passage en PWA installable, tunnels de conversion et SEO technique pour un catalogue 400+ SKU.</p>
@@ -1283,9 +1352,12 @@ body::before {
               <button type="button" class="btn btn-secondary" data-open="devis">Demander un devis</button>
             </div>
           </li>
-          <li class="case-item reveal-on-scroll" style="--reveal-delay:300ms">
-            <img src="public/cases/ads-b2b.svg" alt="" width="640" height="400" loading="lazy" />
-            <div>
+          <li class="case-item">
+            <div class="case-media-frame scroll-progress reveal-on-scroll" role="img" tabindex="0" aria-label="Visuel : Google Ads Search &amp; Remarketing" style="--reveal-delay:120ms">
+              <span class="case-media-beam" aria-hidden="true"></span>
+              <img class="case-media-img" src="public/cases/ads-b2b.svg" alt="" width="640" height="400" loading="lazy" />
+            </div>
+            <div class="reveal-on-scroll" style="--reveal-delay:240ms">
               <p class="case-meta"><span class="activity-num">03</span> SaaS B2B · Paris</p>
               <h3>Google Ads Search &amp; Remarketing</h3>
               <p class="muted">Restructuration du compte Ads, tracking consentement et landings SEO-ready pour leads qualifiés.</p>
@@ -1301,9 +1373,13 @@ body::before {
       <div class="container">
         <p class="eyebrow reveal-on-scroll">Formules</p>
         <h2 class="reveal-on-scroll">Formules de valorisation Google</h2>
-        <p class="section-intro reveal-on-scroll" style="--reveal-delay:80ms">De l’audit express au dispositif multi-campagnes — chaque formule est ajustable sur devis.</p>
-        <div class="formulas">
-          <article class="formula reveal-on-scroll lift-hover" style="--reveal-delay:100ms">
+        <p class="section-intro reveal-on-scroll" style="--reveal-delay:80ms">Sélectionnez une formule, puis demandez un devis — chaque offre reste ajustable.</p>
+        <div class="formulas" role="radiogroup" aria-label="Choisir une formule" id="formula-group">
+          <div class="formula reveal-on-scroll lift-hover" role="radio" aria-checked="false" tabindex="-1" data-formula-id="essentiel" id="formula-card-essentiel" style="--reveal-delay:100ms">
+            <div class="formula-card-top">
+              <span class="muted" style="font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase">Formule</span>
+              <span class="formula-check" aria-hidden="true"></span>
+            </div>
             <h3>Essentiel</h3>
             <p class="muted">Audit Google + quick wins SEO/SEA pour débloquer votre visibilité rapidement.</p>
             <p class="price">à partir de 1 490 €</p>
@@ -1315,9 +1391,12 @@ body::before {
               <li>Support e-mail 15 jours</li>
             </ul>
             <button type="button" class="btn btn-secondary" data-open="devis" data-formula="essentiel">Demander un devis</button>
-          </article>
-          <article class="formula featured reveal-on-scroll lift-hover" style="--reveal-delay:210ms">
-            <span class="badge">Recommandé</span>
+          </div>
+          <div class="formula featured reveal-on-scroll lift-hover is-selected" role="radio" aria-checked="true" tabindex="0" data-formula-id="croissance" id="formula-card-croissance" style="--reveal-delay:210ms">
+            <div class="formula-card-top">
+              <span class="badge">Recommandé</span>
+              <span class="formula-check" aria-hidden="true">✓</span>
+            </div>
             <h3>Croissance</h3>
             <p class="muted">Site ou PWA + SEO on-page + lancement Google Ads — le parcours complet.</p>
             <p class="price">à partir de 4 900 €</p>
@@ -1330,8 +1409,12 @@ body::before {
               <li>Reporting bi-mensuel</li>
             </ul>
             <button type="button" class="btn btn-primary" data-open="devis" data-formula="croissance">Demander un devis</button>
-          </article>
-          <article class="formula reveal-on-scroll lift-hover" style="--reveal-delay:320ms">
+          </div>
+          <div class="formula reveal-on-scroll lift-hover" role="radio" aria-checked="false" tabindex="-1" data-formula-id="sur-mesure" id="formula-card-sur-mesure" style="--reveal-delay:320ms">
+            <div class="formula-card-top">
+              <span class="muted" style="font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase">Formule</span>
+              <span class="formula-check" aria-hidden="true"></span>
+            </div>
             <h3>Sur-mesure</h3>
             <p class="muted">Dispositif multi-sites ou multi-campagnes, avec équipe dédiée et SLA.</p>
             <p class="price">sur devis</p>
@@ -1344,7 +1427,11 @@ body::before {
               <li>Reporting exécutif mensuel</li>
             </ul>
             <button type="button" class="btn btn-secondary" data-open="devis" data-formula="sur-mesure">Demander un devis</button>
-          </article>
+          </div>
+        </div>
+        <div class="formula-sticky-bar reveal-on-scroll" style="--reveal-delay:280ms">
+          <p class="muted" style="margin:0;font-size:.95rem">Sélection : <strong id="formula-selected-label" style="color:var(--ink)">Croissance</strong><span class="hide-sm"> — à partir de 4 900 €</span></p>
+          <button type="button" class="btn btn-primary" id="formula-continue" data-open="devis" data-formula="croissance">Continuer avec Croissance</button>
         </div>
       </div>
     </section>
@@ -1742,27 +1829,137 @@ body::before {
       sections.forEach((s) => io.observe(s));
     })();
 
-    /* Magnetic hero CTA */
+    /* Formula selection */
     (function () {
-      const btn = document.getElementById('hero-rdv');
-      if (!btn || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const onMove = (e) => {
-        const r = btn.getBoundingClientRect();
-        const x = e.clientX - (r.left + r.width / 2);
-        const y = e.clientY - (r.top + r.height / 2);
-        if (Math.hypot(x, y) > 140) { btn.style.transform = ''; return; }
-        btn.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`;
+      const cards = [...document.querySelectorAll('#formula-group .formula[data-formula-id]')];
+      const label = document.getElementById('formula-selected-label');
+      const continueBtn = document.getElementById('formula-continue');
+      const meta = {
+        essentiel: { name: 'Essentiel', price: 'à partir de 1 490 €' },
+        croissance: { name: 'Croissance', price: 'à partir de 4 900 €' },
+        'sur-mesure': { name: 'Sur-mesure', price: 'sur devis' },
       };
-      window.addEventListener('pointermove', onMove);
-      btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+      if (!cards.length) return;
+
+      function select(id) {
+        cards.forEach((card) => {
+          const on = card.dataset.formulaId === id;
+          card.classList.toggle('is-selected', on);
+          card.setAttribute('aria-checked', on ? 'true' : 'false');
+          card.tabIndex = on ? 0 : -1;
+          const check = card.querySelector('.formula-check');
+          if (check) check.textContent = on ? '✓' : '';
+        });
+        const m = meta[id] || meta.croissance;
+        if (label) label.textContent = m.name;
+        if (continueBtn) {
+          continueBtn.setAttribute('data-formula', id);
+          continueBtn.textContent = 'Continuer avec ' + m.name;
+        }
+        const priceSpan = document.querySelector('.formula-sticky-bar .hide-sm');
+        if (priceSpan) priceSpan.textContent = ' — ' + m.price;
+      }
+
+      cards.forEach((card, index) => {
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('button')) {
+            select(card.dataset.formulaId);
+            return;
+          }
+          select(card.dataset.formulaId);
+        });
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            select(card.dataset.formulaId);
+            return;
+          }
+          if (!['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp'].includes(e.key)) return;
+          e.preventDefault();
+          const dir = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : -1;
+          const next = cards[(index + dir + cards.length) % cards.length];
+          select(next.dataset.formulaId);
+          next.focus();
+        });
+      });
     })();
 
-    /* Scroll reveals */
+    /* Hero parallax + magnetic CTA */
+    (function () {
+      const section = document.querySelector('.hero-interactive');
+      const media = section?.querySelector('.hero-media');
+      const beam = section?.querySelector('.hero-beam');
+      const grain = section?.querySelector('.hero-grain');
+      const btn = document.getElementById('hero-rdv');
+      if (!section || !media || !beam) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      let raf = 0;
+      let inView = true;
+      const io = new IntersectionObserver(([entry]) => {
+        inView = entry.isIntersecting;
+        section.classList.toggle('is-hero-paused', !inView);
+      }, { threshold: 0.08 });
+      io.observe(section);
+
+      section.addEventListener('pointermove', (e) => {
+        if (!inView) return;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const r = section.getBoundingClientRect();
+          const mx = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - 0.5) * 2));
+          const my = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height - 0.5) * 2));
+          media.style.transform = `translate3d(${mx * -2.8}%, ${my * -2.2}%, 0)`;
+          beam.style.transform = `translate3d(${mx * 3.2}%, ${my * 2.4}%, 0)`;
+          if (grain) grain.style.transform = `translate3d(${mx * 1.2}%, ${my}%, 0)`;
+          if (btn) {
+            const br = btn.getBoundingClientRect();
+            const x = e.clientX - (br.left + br.width / 2);
+            const y = e.clientY - (br.top + br.height / 2);
+            btn.style.transform = Math.hypot(x, y) > 140 ? '' : `translate(${x * 0.12}px, ${y * 0.12}px)`;
+          }
+        });
+      });
+      section.addEventListener('pointerleave', () => {
+        media.style.transform = '';
+        beam.style.transform = '';
+        if (grain) grain.style.transform = '';
+        if (btn) btn.style.transform = '';
+      });
+    })();
+
+    /* Case media tilt */
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      document.querySelectorAll('.case-media-frame').forEach((frame) => {
+        const img = frame.querySelector('.case-media-img');
+        frame.addEventListener('pointermove', (e) => {
+          const r = frame.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - 0.5;
+          const py = (e.clientY - r.top) / r.height - 0.5;
+          frame.style.setProperty('--tilt-x', `${-py * 6}deg`);
+          frame.style.setProperty('--tilt-y', `${px * 8}deg`);
+          if (img) img.style.transform = `scale(1.06) translate(${px * -4}%, ${py * -3}%)`;
+        });
+        const reset = () => {
+          frame.style.setProperty('--tilt-x', '0deg');
+          frame.style.setProperty('--tilt-y', '0deg');
+          frame.classList.remove('is-active');
+          if (img) img.style.transform = '';
+        };
+        frame.addEventListener('pointerleave', reset);
+        frame.addEventListener('blur', reset);
+        frame.addEventListener('pointerdown', () => frame.classList.add('is-active'));
+      });
+    })();
+
+    /* Scroll reveals + progress */
     (function () {
       const nodes = document.querySelectorAll(".reveal-on-scroll");
-      if (!nodes.length) return;
+      const progressNodes = document.querySelectorAll(".scroll-progress");
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         nodes.forEach((el) => el.classList.add("is-inview"));
+        progressNodes.forEach((el) => el.style.setProperty("--reveal-p", "1"));
         return;
       }
       const io = new IntersectionObserver((entries) => {
@@ -1774,6 +1971,16 @@ body::before {
         });
       }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
       nodes.forEach((el) => io.observe(el));
+
+      const progressIo = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+          const p = Math.min(1, Math.max(0, entry.intersectionRatio));
+          el.style.setProperty("--reveal-p", String(p));
+          if (p > 0.55) el.classList.add("is-inview");
+        });
+      }, { threshold: Array.from({ length: 21 }, (_, i) => i / 20) });
+      progressNodes.forEach((el) => progressIo.observe(el));
     })();
 
 

@@ -386,12 +386,161 @@ a:hover .brand-mark-live {
   transition: grid-template-rows 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Selectable formulas */
+.formula-card {
+  position: relative;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.3s ease;
+}
+
+.formula-card:focus-visible {
+  outline: 2px solid var(--beam);
+  outline-offset: 3px;
+}
+
+.formula-card.is-selected {
+  box-shadow:
+    0 0 0 2px var(--signal),
+    0 18px 40px rgba(14, 18, 24, 0.1);
+  z-index: 1;
+}
+
+.formula-card.is-selected:not(.formula-card--featured) {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.formula-card.is-selected .formula-check {
+  background: var(--signal);
+  border-color: var(--signal) !important;
+  color: #fff !important;
+}
+
+.formula-sticky-bar {
+  position: sticky;
+  bottom: 5.5rem;
+  z-index: 20;
+}
+
+@media (min-width: 1024px) {
+  .formula-sticky-bar {
+    bottom: 1.25rem;
+  }
+}
+
+/* Case media interactivity */
+.case-media-frame {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --reveal-p: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  perspective: 900px;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transition: transform 0.25s ease-out, box-shadow 0.35s ease;
+  box-shadow: 0 0 0 1px var(--line);
+  outline: none;
+  cursor: crosshair;
+}
+
+.case-media-frame:focus-visible,
+.case-media-frame:hover,
+.case-media-frame.is-active {
+  box-shadow:
+    0 0 0 1px rgba(125, 211, 252, 0.55),
+    0 22px 50px rgba(14, 18, 24, 0.14);
+}
+
+.case-media-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  transform-origin: center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.case-media-frame:hover .case-media-img,
+.case-media-frame.is-active .case-media-img,
+.case-media-frame:focus-visible .case-media-img {
+  transform: scale(1.04);
+}
+
+.case-media-beam {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(125, 211, 252, 0.18) 42%,
+    rgba(255, 90, 31, 0.2) 52%,
+    transparent 70%
+  );
+  opacity: calc(0.15 + var(--reveal-p) * 0.7);
+  mix-blend-mode: soft-light;
+  clip-path: inset(0 calc((1 - var(--reveal-p)) * 100%) 0 0);
+  transition: opacity 0.2s ease;
+}
+
+.case-media-frame::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(125, 211, 252, calc(var(--reveal-p) * 0.55));
+}
+
+.hero-parallax-layer {
+  transition: transform 0.12s ease-out;
+}
+
+.hero-grain-pulse {
+  animation: grain-pulse 4.5s ease-in-out infinite;
+}
+
+@keyframes grain-pulse {
+  0%,
+  100% {
+    opacity: 0.06;
+  }
+  50% {
+    opacity: 0.12;
+  }
+}
+
+.hero-interactive.is-hero-paused .hero-media-drift,
+.hero-interactive.is-hero-paused .hero-beam-sweep,
+.hero-interactive.is-hero-paused .hero-grain-pulse {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .magnetic-cta {
     transition: none;
   }
   .faq-panel {
     transition: none;
+  }
+  .formula-card,
+  .case-media-frame,
+  .case-media-img,
+  .hero-parallax-layer {
+    transition: none !important;
+  }
+  .case-media-beam {
+    clip-path: none;
+    opacity: 0.25;
+  }
+  .hero-grain-pulse {
+    animation: none !important;
   }
 }
 
@@ -410,7 +559,8 @@ a:hover .brand-mark-live {
   .reveal-delay-3,
   .hero-brand-in,
   .hero-media-drift,
-  .hero-beam-sweep {
+  .hero-beam-sweep,
+  .hero-grain-pulse {
     animation: none !important;
   }
 
@@ -426,7 +576,9 @@ a:hover .brand-mark-live {
   .chip:active,
   .lift-hover:hover,
   .group:hover .brand-mark-live,
-  a:hover .brand-mark-live {
+  a:hover .brand-mark-live,
+  .case-media-frame:hover,
+  .case-media-frame:hover .case-media-img {
     transform: none;
   }
 
