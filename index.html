@@ -1400,19 +1400,39 @@ body::before {
 .sticky-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 65;
   background: rgba(242,244,247,0.94); border-top: 1px solid var(--line);
-  backdrop-filter: blur(12px); padding: 0.5rem 0;
+  backdrop-filter: blur(12px); padding: 0.4rem 0;
 }
 .sticky-bar[hidden] { display: none !important; }
-.sticky-bar-inner { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.4rem; }
-.sticky-bar .btn { min-height: 2.5rem; padding: 0.4rem 0.4rem; font-size: 0.85rem; }
+.sticky-bar-inner {
+  display: flex; justify-content: center; align-items: center; gap: 0.75rem;
+}
+.sticky-fab {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 2.5rem; min-width: 2.5rem; padding: 0.35rem; gap: 0;
+  border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink);
+  cursor: pointer; box-shadow: 0 8px 24px rgba(14, 18, 24, 0.12);
+}
+.sticky-fab-primary {
+  background: var(--signal); border-color: transparent; color: #fff;
+}
+.sticky-fab-primary:hover { background: #e84e16; }
+.sticky-fab:hover { border-color: var(--ink); }
+.sticky-fab:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.sticky-fab-icon {
+  display: grid; place-items: center; width: 1.75rem; height: 1.75rem;
+}
+.sticky-fab-label {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
 @media (min-width: 900px) { .sticky-bar { display: none !important; } }
 
 /* Chat FAB vs sticky bar: hide launcher, lift panel */
 body.has-sticky-bar {
-  padding-bottom: 4.75rem;
+  padding-bottom: 3.75rem;
 }
 body.has-sticky-bar #chat {
-  bottom: 4.75rem;
+  bottom: 3.75rem;
 }
 body.has-sticky-bar #chat-toggle {
   display: none !important;
@@ -1420,6 +1440,24 @@ body.has-sticky-bar #chat-toggle {
 @media (min-width: 900px) {
   body.has-sticky-bar { padding-bottom: 0; }
   body.has-sticky-bar #chat { bottom: 1.5rem; }
+}
+
+.chat-fab {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+}
+.chat-fab-icon {
+  display: none; place-items: center; width: 1.35rem; height: 1.35rem; flex-shrink: 0;
+}
+@media (max-width: 899px) {
+  .chat-fab {
+    min-height: 2.5rem; min-width: 2.5rem; padding: 0.45rem; gap: 0;
+    border-radius: 999px; justify-content: center;
+  }
+  .chat-fab-icon { display: grid; width: 1.5rem; height: 1.5rem; }
+  .chat-fab-label {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
 }
 
 .nav-links a[aria-current="true"] { color: var(--ink); }
@@ -2030,9 +2068,24 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
 
   <div id="sticky-bar" class="sticky-bar" hidden>
     <div class="container sticky-bar-inner">
-      <button type="button" class="btn btn-primary" data-open="rdv">RDV</button>
-      <button type="button" class="btn btn-secondary" data-open="devis">Devis</button>
-      <button type="button" class="btn btn-secondary" id="sticky-chat">Chat</button>
+      <button type="button" class="sticky-fab sticky-fab-primary" data-open="rdv" aria-label="Rendez-vous">
+        <span class="sticky-fab-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" stroke="currentColor" stroke-width="2"/><path d="M8 3.5v3M16 3.5v3M3.5 10h17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="sticky-fab-label">RDV</span>
+      </button>
+      <button type="button" class="sticky-fab" data-open="devis" aria-label="Devis">
+        <span class="sticky-fab-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 3.5h7.5L19.5 8.5V20a1.5 1.5 0 0 1-1.5 1.5H7A1.5 1.5 0 0 1 5.5 20V5A1.5 1.5 0 0 1 7 3.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3.5V8h5M8.5 12.5h7M8.5 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="sticky-fab-label">Devis</span>
+      </button>
+      <button type="button" class="sticky-fab" id="sticky-chat" aria-label="Chat">
+        <span class="sticky-fab-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 18.5 4 21l3-1.2A8.5 8.5 0 1 0 5 18.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 11h6M9 14.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="sticky-fab-label">Chat</span>
+      </button>
     </div>
   </div>
 
@@ -2101,7 +2154,12 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
         <button type="submit" class="btn btn-primary" style="min-height:2.5rem;padding:.5rem 1rem;">Envoyer</button>
       </form>
     </div>
-    <button type="button" class="btn btn-primary" id="chat-toggle" style="box-shadow:var(--shadow);">Une question ?</button>
+    <button type="button" class="btn btn-primary chat-fab" id="chat-toggle" style="box-shadow:var(--shadow);" aria-label="Une question ?">
+      <span class="chat-fab-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 18.5 4 21l3-1.2A8.5 8.5 0 1 0 5 18.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 11h6M9 14.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </span>
+      <span class="chat-fab-label">Une question ?</span>
+    </button>
   </div>
 
   <!-- Cookies -->
