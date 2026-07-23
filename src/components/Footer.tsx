@@ -36,6 +36,11 @@ export function Footer() {
           <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--beam)]">Légal</p>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
+              <Link className="hover:text-[var(--beam)]" href="/autodiagnostic">
+                Autodiagnostic site
+              </Link>
+            </li>
+            <li>
               <Link className="hover:text-[var(--beam)]" href="/mentions-legales">
                 Mentions légales
               </Link>

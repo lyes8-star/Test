@@ -8,6 +8,7 @@ SEO, SEA / Google Ads, sites PWA, prise de rendez-vous, devis et chatbot.
 - Landing : activités, formules, méthode, conformité, contact
 - Modales **RDV** et **devis** avec consentement RGPD
 - **Chatbot** multi-tours : FAQ enrichie + collecte de coordonnées (consentement RGPD), actions RDV/devis/mailto
+- **Autodiagnostic payant** (`/autodiagnostic`) : Stripe Checkout → jeton 7 j / 3 scans → rapport Lighthouse + axe + SEO/PWA/RGPD/SEA
 - **PWA** : manifest, service worker, icônes, installable
 - **SEO** : metadata, Open Graph, JSON-LD, `robots.ts`, `sitemap.ts`
 - **SEA ready** : catégorie cookies publicitaires ; tags Ads à brancher après consentement
@@ -37,11 +38,30 @@ Ouvrir [http://localhost:3000](http://localhost:3000).
 npm run build && npm start
 ```
 
+Prérequis **autodiagnostic** : Google Chrome / Chromium (`CHROME_PATH`, défaut `/usr/local/bin/google-chrome`).
+
 ## Variables d’environnement
 
 | Variable | Description |
 |---|---|
 | `NEXT_PUBLIC_SITE_URL` | URL canonique (défaut `https://meridian-digital.fr`) |
+| `STRIPE_SECRET_KEY` | Clé secrète Stripe (Checkout). Absent → **mode démo** (déblocage sans paiement) |
+| `STRIPE_WEBHOOK_SECRET` | Secret webhook `checkout.session.completed` |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Clé publiable (optionnel si redirect Checkout) |
+| `AUDIT_PRICE_CENTS` | Prix en centimes (défaut `4900` = 49 €) |
+| `AUDIT_TOKEN_SECRET` | Secret de hash des jetons d’accès |
+| `CHROME_PATH` | Binaire Chrome pour Lighthouse / axe |
+
+Webhook Stripe : `POST /api/webhooks/stripe` (événements `checkout.session.completed`).
+
+## Autodiagnostic
+
+```bash
+npm run test:audit-http   # heuristiques HTML/RGPD
+npm run dev               # puis /autodiagnostic
+```
+
+Sans clés Stripe, le checkout débloque immédiatement un jeton (dev/smoke). En production, configurez Stripe Test puis Live.
 
 ## Audits (Lighthouse, Axe, OG/Schema, CWV, Bundle)
 

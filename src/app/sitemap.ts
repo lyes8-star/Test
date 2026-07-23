@@ -5,6 +5,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
   const paths = [
     "",
+    "/autodiagnostic",
     "/mentions-legales",
     "/politique-confidentialite",
     "/politique-cookies",
