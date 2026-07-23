@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Autodiagnostic site — Meridian | SEO · PWA · RGPD · CWV</title>
+  <title>Autodiagnostic site — Crevia | SEO · PWA · RGPD · CWV</title>
   <meta name="description" content="Autodiagnostic exigence Google, PWA, SEO, SEA, RGPD FR/UE et accessibilité. Paiement Stripe, rapport de fails actionnable." />
   <meta name="theme-color" content="#0E1218" />
   <link rel="canonical" href="https://lyes8-star.github.io/Test/autodiagnostic.html" />
   <!-- Déployez Next (Vercel) puis renseignez l’URL API pour le scan réel sur GitHub Pages -->
-  <meta name="meridian-api" content="" />
+  <meta name="crevia-api" content="" />
   <link rel="icon" href="public/icons/icon-192.png" />
   <link rel="preload" href="public/fonts/4ecc7e89b7-sg.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="public/fonts/868a235a9c-ips.woff2" as="font" type="font/woff2" crossorigin />
@@ -144,8 +144,8 @@ a { color: inherit; text-decoration: none; }
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="index.html">
-        <span class="brand-mark" aria-hidden="true">M</span>
-        <span>Meridian</span>
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span>Crevia</span>
       </a>
       <button type="button" class="btn btn-secondary menu-btn" id="menu-toggle" aria-expanded="false" aria-controls="audit-nav">Menu</button>
       <nav class="nav-links" id="audit-nav" aria-label="Navigation">
@@ -163,7 +163,7 @@ a { color: inherit; text-decoration: none; }
     <section class="hero-ink">
       <div class="container">
         <p class="eyebrow" style="color: var(--beam)">Autodiagnostic</p>
-        <p class="display" style="margin: 1rem 0 0; font-size: clamp(2.5rem, 10vw, 5rem); line-height: .9; letter-spacing: -.05em">Meridian</p>
+        <p class="display" style="margin: 1rem 0 0; font-size: clamp(2.5rem, 10vw, 5rem); line-height: .9; letter-spacing: -.05em">Crevia</p>
         <h1 class="display" style="margin: 1.1rem 0 0; max-width: 20ch; font-size: clamp(1.6rem, 4vw, 2.6rem); line-height: 1.05">
           Exigence Google, PWA, SEO, SEA, RGPD &amp; accessibilité (WCAG · RGAA · EAA)
         </h1>
@@ -224,8 +224,8 @@ a { color: inherit; text-decoration: none; }
         <div id="report" class="report" hidden aria-live="polite"></div>
 
         <p style="margin-top: 2.5rem; font-size: .9rem; color: var(--muted)">
-          Config API&nbsp;: meta <code>meridian-api</code>, query <code>?api=https://…</code>, ou
-          <code>localStorage.meridian_api_base</code>.
+          Config API&nbsp;: meta <code>crevia-api</code>, query <code>?api=https://…</code>, ou
+          <code>localStorage.crevia_api_base</code>.
           Puis <a href="index.html#contact" style="text-decoration: underline">contact / RDV</a>.
         </p>
       </div>
@@ -234,7 +234,7 @@ a { color: inherit; text-decoration: none; }
 
   <footer class="site-footer">
     <div class="container" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center">
-      <p class="display" style="margin:0;color:#fff;font-size:1.4rem">Meridian</p>
+      <p class="display" style="margin:0;color:#fff;font-size:1.4rem">Crevia</p>
       <p style="margin:0;font-size:.85rem">
         <a href="index.html">Accueil</a> ·
         <a href="autodiagnostic.html">Autodiagnostic</a> ·
@@ -271,14 +271,14 @@ a { color: inherit; text-decoration: none; }
     const params = new URLSearchParams(location.search);
     const fromQuery = params.get("api");
     if (fromQuery) {
-      try { localStorage.setItem("meridian_api_base", fromQuery.replace(/\/$/, "")); } catch (_) {}
+      try { localStorage.setItem("crevia_api_base", fromQuery.replace(/\/$/, "")); } catch (_) {}
       return fromQuery.replace(/\/$/, "");
     }
     try {
-      const stored = localStorage.getItem("meridian_api_base");
+      const stored = localStorage.getItem("crevia_api_base");
       if (stored) return stored.replace(/\/$/, "");
     } catch (_) {}
-    const meta = document.querySelector('meta[name="meridian-api"]');
+    const meta = document.querySelector('meta[name="crevia-api"]');
     const fromMeta = (meta && meta.getAttribute("content") || "").trim();
     if (fromMeta) return fromMeta.replace(/\/$/, "");
     // Même origine si Next sert aussi ces pages ; sinon "" = Pages-only
@@ -306,7 +306,7 @@ a { color: inherit; text-decoration: none; }
       statusEl.className = "notice error";
       statusEl.innerHTML =
         "GitHub Pages ne peut pas exécuter Lighthouse. Déployez l’app Next (ex. Vercel), puis ajoutez " +
-        "<code>&lt;meta name=\"meridian-api\" content=\"https://votre-app.vercel.app\" /&gt;</code> " +
+        "<code>&lt;meta name=\"crevia-api\" content=\"https://votre-app.vercel.app\" /&gt;</code> " +
         "ou ouvrez cette page avec <code>?api=https://votre-app.vercel.app</code>.";
     } else if (API_BASE) {
       statusEl.className = "notice ok";
@@ -380,7 +380,7 @@ a { color: inherit; text-decoration: none; }
 
     const reachable = await probeApi();
     if (!reachable && /github\.io/i.test(location.hostname) && !API_BASE) {
-      showError("Configurez meridian-api (voir encadré) pour enchaîner paiement + scan.");
+      showError("Configurez crevia-api (voir encadré) pour enchaîner paiement + scan.");
       btn.disabled = false;
       btn.textContent = "Lancer l’audit — 49 € TTC";
       return;

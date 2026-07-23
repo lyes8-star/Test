@@ -48,12 +48,12 @@ const badHtml = `<!doctype html><html><head><title>x</title>
 </head><body><h1>a</h1><h1>b</h1></body></html>`;
 
 const goodHtml = `<!doctype html><html lang="fr"><head>
-<title>Meridian — Valorisation Google SEO SEA</title>
+<title>Crevia — Valorisation Google SEO SEA</title>
 <meta name="description" content="Agence française PWA SEO SEA Google Ads pour convertir et être trouvé." />
 <link rel="canonical" href="https://example.com/" />
-<meta property="og:title" content="Meridian" />
+<meta property="og:title" content="Crevia" />
 <meta property="og:image" content="https://example.com/og.jpg" />
-<script type="application/ld+json">{"@type":"Organization","name":"Meridian"}</script>
+<script type="application/ld+json">{"@type":"Organization","name":"Crevia"}</script>
 </head><body>
 <a href="/mentions-legales">Mentions légales</a>
 <a href="/politique-confidentialite">Politique de confidentialité</a>

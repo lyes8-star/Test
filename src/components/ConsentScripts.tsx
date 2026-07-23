@@ -19,7 +19,7 @@ export function ConsentScripts() {
     }
 
     try {
-      const raw = localStorage.getItem("meridian_cookie_consent_v1");
+      const raw = localStorage.getItem("crevia_cookie_consent_v1");
       if (raw) apply(JSON.parse(raw));
     } catch {
       /* ignore */
@@ -28,8 +28,8 @@ export function ConsentScripts() {
     const onConsent = (e: Event) => {
       apply((e as CustomEvent).detail);
     };
-    window.addEventListener("meridian:consent", onConsent);
-    return () => window.removeEventListener("meridian:consent", onConsent);
+    window.addEventListener("crevia:consent", onConsent);
+    return () => window.removeEventListener("crevia:consent", onConsent);
   }, []);
 
   return null;

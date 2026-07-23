@@ -62,7 +62,7 @@ async function fetchText(url: string, timeout = 12000): Promise<{ ok: boolean; s
     redirect: "follow",
     signal: AbortSignal.timeout(timeout),
     headers: {
-      "User-Agent": "MeridianAuditBot/1.0 (+https://meridian-digital.fr/autodiagnostic)",
+      "User-Agent": "CreviaAuditBot/1.0 (+https://crevia.fr/autodiagnostic)",
       Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     },
   });
@@ -81,7 +81,7 @@ export async function runHttpChecks(url: string): Promise<HttpAuditResult> {
       redirect: "follow",
       signal: controller.signal,
       headers: {
-        "User-Agent": "MeridianAuditBot/1.0 (+https://meridian-digital.fr/autodiagnostic)",
+        "User-Agent": "CreviaAuditBot/1.0 (+https://crevia.fr/autodiagnostic)",
         Accept: "text/html,application/xhtml+xml",
       },
     });

@@ -59,7 +59,7 @@ export function Header() {
             aria-hidden
             className="brand-mark-live grid h-8 w-8 place-items-center rounded-[0.55rem] bg-[var(--ink)] text-[0.95rem] font-bold text-[var(--beam)]"
           >
-            M
+            C
           </span>
           <span className="display text-[1.15rem] tracking-[-0.03em] text-[var(--ink)]">
             {siteConfig.name}

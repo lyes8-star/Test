@@ -55,7 +55,7 @@ export function buildMailto(opts: {
   phone?: string;
   need: string;
 }): string {
-  const subject = encodeURIComponent(`Demande Meridian — ${opts.name}`);
+  const subject = encodeURIComponent(`Demande Crevia — ${opts.name}`);
   const body = encodeURIComponent(
     [
       `Nom / société : ${opts.name}`,
@@ -63,7 +63,7 @@ export function buildMailto(opts: {
       opts.phone ? `Téléphone : ${opts.phone}` : null,
       `Besoin : ${opts.need}`,
       "",
-      "(Envoyé depuis l’assistant Meridian)",
+      "(Envoyé depuis l’assistant Crevia)",
     ]
       .filter(Boolean)
       .join("\n"),
@@ -149,7 +149,7 @@ export function replyFor(message: string): ChatReply {
   if (/(rgpd|données|cookie|confidentialité|cnil|europe|consent)/.test(q)) {
     return {
       reply:
-        "Conformité FR/UE : bannière cookies granulaire (nécessaires / analytics / publicitaires), pages légales, tags Ads/Analytics conditionnés au consentement. DPO : dpo@meridian-digital.fr.",
+        "Conformité FR/UE : bannière cookies granulaire (nécessaires / analytics / publicitaires), pages légales, tags Ads/Analytics conditionnés au consentement. DPO : dpo@crevia.fr.",
       suggestions: ["Laisser mes coordonnées", "Formules SEO / SEA ?"],
     };
   }
@@ -157,7 +157,7 @@ export function replyFor(message: string): ChatReply {
   if (/(contact|email|e-mail|téléphone|telephone|adresse|où êtes|ou etes)/.test(q)) {
     return {
       reply:
-        "contact@meridian-digital.fr · 01 84 80 00 00 · 12 rue de la Paix, 75002 Paris. Pour une demande suivie, laissez vos coordonnées ici ou ouvrez un devis / RDV.",
+        "contact@crevia.fr · 01 84 80 00 00 · 12 rue de la Paix, 75002 Paris. Pour une demande suivie, laissez vos coordonnées ici ou ouvrez un devis / RDV.",
       actions: ["lead", "mailto", "devis", "rdv"],
       suggestions: ["Laisser mes coordonnées", "Prendre rendez-vous", "Demander un devis"],
     };

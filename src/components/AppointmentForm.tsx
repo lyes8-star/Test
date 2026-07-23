@@ -189,7 +189,7 @@ export function AppointmentForm({ onSuccess }: Props) {
           <label className="flex items-start gap-3 text-sm text-[var(--ink-soft)]">
             <input type="checkbox" name="consent" required className="mt-1" />
             <span>
-              J’accepte que Meridian traite mes données pour organiser ce rendez-vous, conformément à la{" "}
+              J’accepte que Crevia traite mes données pour organiser ce rendez-vous, conformément à la{" "}
               <a className="underline" href="/politique-confidentialite" target="_blank" rel="noreferrer">
                 politique de confidentialité
               </a>

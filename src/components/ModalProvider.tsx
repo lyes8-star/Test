@@ -111,7 +111,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
           >
             <div className="mb-6 flex items-start justify-between gap-4">
               <div>
-                <p className="eyebrow">Meridian</p>
+                <p className="eyebrow">Crevia</p>
                 <h2 id="modal-title" className="display mt-2 text-3xl text-[var(--ink)]">
                   {type === "rdv" ? "Prendre rendez-vous" : "Demander un devis"}
                 </h2>

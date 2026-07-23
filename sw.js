@@ -1,5 +1,5 @@
 /* Service worker — version statique (index.html à la racine) */
-const CACHE = "meridian-static-v1";
+const CACHE = "crevia-static-v1";
 const PRECACHE = [
   "./",
   "./index.html",

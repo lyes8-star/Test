@@ -345,7 +345,7 @@ export function AuditTeaser() {
           style={{ ["--reveal-delay" as string]: "80ms" }}
         >
           Outil payant ({auditProduct.priceLabel}) : Lighthouse, axe-core et contrôles RGPD / PWA / SEO /
-          SEA — rapport de fails exigents, puis RDV Meridian.
+          SEA — rapport de fails exigents, puis RDV Crevia.
         </p>
         <a
           href="/autodiagnostic"

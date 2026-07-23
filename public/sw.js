@@ -1,5 +1,5 @@
-/* Meridian PWA service worker — cache shell offline de base */
-const CACHE = "meridian-v1";
+/* Crevia PWA service worker — cache shell offline de base */
+const CACHE = "crevia-v1";
 const PRECACHE = ["/", "/manifest.webmanifest", "/hero.svg", "/icons/icon-192.png"];
 
 self.addEventListener("install", (event) => {
