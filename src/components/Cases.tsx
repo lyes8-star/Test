@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { caseStudies } from "@/lib/site";
 import { useModal } from "@/components/ModalProvider";
 
@@ -54,6 +54,71 @@ function MetricCounter({
   );
 }
 
+function CaseMedia({ src, title }: { src: string; title: string }) {
+  const frameRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const reduceRef = useRef(false);
+
+  useEffect(() => {
+    reduceRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+
+  function onPointerMove(e: ReactPointerEvent<HTMLDivElement>) {
+    if (reduceRef.current) return;
+    const frame = frameRef.current;
+    const img = imgRef.current;
+    if (!frame || !img) return;
+    const r = frame.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    const rotY = px * 8;
+    const rotX = -py * 6;
+    frame.style.setProperty("--tilt-x", `${rotX}deg`);
+    frame.style.setProperty("--tilt-y", `${rotY}deg`);
+    img.style.transform = `scale(1.06) translate(${px * -4}%, ${py * -3}%)`;
+  }
+
+  function onPointerLeave() {
+    const frame = frameRef.current;
+    const img = imgRef.current;
+    if (frame) {
+      frame.style.setProperty("--tilt-x", "0deg");
+      frame.style.setProperty("--tilt-y", "0deg");
+      frame.classList.remove("is-active");
+    }
+    if (img) img.style.transform = "";
+  }
+
+  function onPointerDown() {
+    frameRef.current?.classList.add("is-active");
+  }
+
+  return (
+    <div
+      ref={frameRef}
+      className="case-media-frame scroll-progress reveal-on-scroll"
+      tabIndex={0}
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
+      onPointerDown={onPointerDown}
+      onBlur={onPointerLeave}
+      aria-label={`Visuel : ${title}`}
+    >
+      <span className="case-media-beam" aria-hidden />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        ref={imgRef}
+        src={src}
+        alt=""
+        width={640}
+        height={400}
+        className="case-media-img"
+        loading="lazy"
+      />
+    </div>
+  );
+}
+
 export function Cases() {
   const { open } = useModal();
 
@@ -75,19 +140,13 @@ export function Cases() {
           {caseStudies.map((c, i) => (
             <li
               key={c.id}
-              className="reveal-on-scroll grid gap-6 border-b border-[var(--line)] py-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-12"
-              style={{ ["--reveal-delay" as string]: `${100 + i * 100}ms` }}
+              className="case-item grid gap-6 border-b border-[var(--line)] py-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-12"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={c.image}
-                alt=""
-                width={640}
-                height={400}
-                className="w-full rounded-[0.75rem] object-cover"
-                loading="lazy"
-              />
-              <div>
+              <CaseMedia src={c.image} title={c.title} />
+              <div
+                className="reveal-on-scroll"
+                style={{ ["--reveal-delay" as string]: `${160 + i * 80}ms` }}
+              >
                 <p className="text-sm font-semibold text-[var(--ink-soft)]">
                   <span className="display mr-3 text-[1.5rem] text-[var(--ink)] opacity-30">{c.number}</span>
                   {c.sector}
