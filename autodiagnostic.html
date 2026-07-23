@@ -67,12 +67,15 @@ a { color: inherit; text-decoration: none; }
   width: 2rem; height: 2rem; border-radius: .55rem; background: var(--ink);
   color: var(--beam); display: grid; place-items: center; font-size: .95rem;
 }
-.nav-links { display: none; gap: 1.25rem; font-size: .9rem; font-weight: 600; color: var(--muted); }
-.nav-links.is-open { display: flex; flex-direction: column; width: 100%; padding-bottom: 1rem; }
+.nav-links { display: none; gap: 1.25rem; font-size: .9rem; font-weight: 600; color: var(--muted); align-items: center; }
+.nav-links.is-open { display: flex; flex-direction: column; width: 100%; padding-bottom: 1rem; align-items: flex-start; }
 .nav-links a:hover { color: var(--ink); }
+.nav-links a[aria-current="page"] { color: var(--ink); }
+.nav-cta { display: none; gap: .65rem; align-items: center; }
 .menu-btn { display: inline-flex; }
 @media (min-width: 900px) {
-  .nav-links { display: flex; flex-direction: row; width: auto; padding-bottom: 0; }
+  .nav-links { display: flex; flex-direction: row; width: auto; padding-bottom: 0; align-items: center; }
+  .nav-cta { display: flex; }
   .menu-btn { display: none; }
 }
 .pages-banner {
@@ -132,7 +135,7 @@ a { color: inherit; text-decoration: none; }
 /* —— Menu accessibilité flottant —— */
 .a11y-widget {
   position: fixed; left: 1rem; bottom: 1.5rem; z-index: 68;
-  display: flex; flex-direction: column; align-items: flex-start; gap: .65rem;
+  display: flex; flex-direction: column-reverse; align-items: flex-start; gap: .65rem;
 }
 .a11y-fab {
   display: inline-flex; align-items: center; gap: .55rem;
@@ -210,15 +213,19 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
         <span class="brand-mark" aria-hidden="true">C</span>
         <span>Crevia</span>
       </a>
-      <button type="button" class="btn btn-secondary menu-btn" id="menu-toggle" aria-expanded="false" aria-controls="audit-nav">Menu</button>
-      <nav class="nav-links" id="audit-nav" aria-label="Navigation">
+      <nav class="nav-links" id="audit-nav" aria-label="Navigation principale">
         <a href="index.html#activites">Activités</a>
+        <a href="index.html#realisations">Réalisations</a>
         <a href="index.html#formules">Formules</a>
         <a href="autodiagnostic.html" aria-current="page">Autodiagnostic</a>
-        <a href="accessibilite.html">Accessibilité</a>
+        <a href="index.html#faq">FAQ</a>
         <a href="index.html#contact">Contact</a>
       </nav>
-      <a class="btn btn-secondary" href="index.html#contact">Contact</a>
+      <div class="nav-cta">
+        <a class="btn btn-secondary" href="index.html#contact">Devis</a>
+        <a class="btn btn-primary" href="index.html#contact">Rendez-vous</a>
+      </div>
+      <button type="button" class="btn btn-secondary menu-btn" id="menu-toggle" aria-expanded="false" aria-controls="audit-nav">Menu</button>
     </div>
   </header>
 
