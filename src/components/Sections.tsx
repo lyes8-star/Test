@@ -99,7 +99,7 @@ export function Formulas() {
           {formulas.map((formula, i) => {
             const isSelected = selected === formula.id;
             return (
-              <article
+              <div
                 key={formula.id}
                 id={`formula-card-${formula.id}`}
                 role="radio"
@@ -169,7 +169,7 @@ export function Formulas() {
                 >
                   Demander un devis
                 </button>
-              </article>
+              </div>
             );
           })}
         </div>

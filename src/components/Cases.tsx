@@ -97,6 +97,7 @@ function CaseMedia({ src, title }: { src: string; title: string }) {
     <div
       ref={frameRef}
       className="case-media-frame scroll-progress reveal-on-scroll"
+      role="img"
       tabIndex={0}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}

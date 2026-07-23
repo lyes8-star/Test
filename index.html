@@ -1327,7 +1327,7 @@ body::before {
         <p class="section-intro reveal-on-scroll" style="--reveal-delay:80ms">Trois parcours représentatifs — local, PWA, Ads — avec un résultat mesurable.</p>
         <ul class="case-list">
           <li class="case-item">
-            <div class="case-media-frame scroll-progress reveal-on-scroll" tabindex="0" aria-label="Visuel : Local SEO &amp; Google Business">
+            <div class="case-media-frame scroll-progress reveal-on-scroll" role="img" tabindex="0" aria-label="Visuel : Local SEO &amp; Google Business">
               <span class="case-media-beam" aria-hidden="true"></span>
               <img class="case-media-img" src="public/cases/local-seo.svg" alt="" width="640" height="400" loading="lazy" />
             </div>
@@ -1340,7 +1340,7 @@ body::before {
             </div>
           </li>
           <li class="case-item">
-            <div class="case-media-frame scroll-progress reveal-on-scroll" tabindex="0" aria-label="Visuel : PWA boutique &amp; Core Web Vitals" style="--reveal-delay:80ms">
+            <div class="case-media-frame scroll-progress reveal-on-scroll" role="img" tabindex="0" aria-label="Visuel : PWA boutique &amp; Core Web Vitals" style="--reveal-delay:80ms">
               <span class="case-media-beam" aria-hidden="true"></span>
               <img class="case-media-img" src="public/cases/pwa-ecom.svg" alt="" width="640" height="400" loading="lazy" />
             </div>
@@ -1353,7 +1353,7 @@ body::before {
             </div>
           </li>
           <li class="case-item">
-            <div class="case-media-frame scroll-progress reveal-on-scroll" tabindex="0" aria-label="Visuel : Google Ads Search &amp; Remarketing" style="--reveal-delay:120ms">
+            <div class="case-media-frame scroll-progress reveal-on-scroll" role="img" tabindex="0" aria-label="Visuel : Google Ads Search &amp; Remarketing" style="--reveal-delay:120ms">
               <span class="case-media-beam" aria-hidden="true"></span>
               <img class="case-media-img" src="public/cases/ads-b2b.svg" alt="" width="640" height="400" loading="lazy" />
             </div>
@@ -1375,7 +1375,7 @@ body::before {
         <h2 class="reveal-on-scroll">Formules de valorisation Google</h2>
         <p class="section-intro reveal-on-scroll" style="--reveal-delay:80ms">Sélectionnez une formule, puis demandez un devis — chaque offre reste ajustable.</p>
         <div class="formulas" role="radiogroup" aria-label="Choisir une formule" id="formula-group">
-          <article class="formula reveal-on-scroll lift-hover" role="radio" aria-checked="false" tabindex="-1" data-formula-id="essentiel" id="formula-card-essentiel" style="--reveal-delay:100ms">
+          <div class="formula reveal-on-scroll lift-hover" role="radio" aria-checked="false" tabindex="-1" data-formula-id="essentiel" id="formula-card-essentiel" style="--reveal-delay:100ms">
             <div class="formula-card-top">
               <span class="muted" style="font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase">Formule</span>
               <span class="formula-check" aria-hidden="true"></span>
@@ -1391,8 +1391,8 @@ body::before {
               <li>Support e-mail 15 jours</li>
             </ul>
             <button type="button" class="btn btn-secondary" data-open="devis" data-formula="essentiel">Demander un devis</button>
-          </article>
-          <article class="formula featured reveal-on-scroll lift-hover is-selected" role="radio" aria-checked="true" tabindex="0" data-formula-id="croissance" id="formula-card-croissance" style="--reveal-delay:210ms">
+          </div>
+          <div class="formula featured reveal-on-scroll lift-hover is-selected" role="radio" aria-checked="true" tabindex="0" data-formula-id="croissance" id="formula-card-croissance" style="--reveal-delay:210ms">
             <div class="formula-card-top">
               <span class="badge">Recommandé</span>
               <span class="formula-check" aria-hidden="true">✓</span>
@@ -1409,8 +1409,8 @@ body::before {
               <li>Reporting bi-mensuel</li>
             </ul>
             <button type="button" class="btn btn-primary" data-open="devis" data-formula="croissance">Demander un devis</button>
-          </article>
-          <article class="formula reveal-on-scroll lift-hover" role="radio" aria-checked="false" tabindex="-1" data-formula-id="sur-mesure" id="formula-card-sur-mesure" style="--reveal-delay:320ms">
+          </div>
+          <div class="formula reveal-on-scroll lift-hover" role="radio" aria-checked="false" tabindex="-1" data-formula-id="sur-mesure" id="formula-card-sur-mesure" style="--reveal-delay:320ms">
             <div class="formula-card-top">
               <span class="muted" style="font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase">Formule</span>
               <span class="formula-check" aria-hidden="true"></span>
@@ -1427,7 +1427,7 @@ body::before {
               <li>Reporting exécutif mensuel</li>
             </ul>
             <button type="button" class="btn btn-secondary" data-open="devis" data-formula="sur-mesure">Demander un devis</button>
-          </article>
+          </div>
         </div>
         <div class="formula-sticky-bar reveal-on-scroll" style="--reveal-delay:280ms">
           <p class="muted" style="margin:0;font-size:.95rem">Sélection : <strong id="formula-selected-label" style="color:var(--ink)">Croissance</strong><span class="hide-sm"> — à partir de 4 900 €</span></p>
