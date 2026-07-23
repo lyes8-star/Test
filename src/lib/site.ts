@@ -148,6 +148,30 @@ export const activities = [
   },
 ] as const;
 
+/** Popup de guidage post-cookies (« Vous cherchez »). */
+export const WELCOME_GUIDE_KEY = "crevia_welcome_guide_v1";
+
+export const welcomeGuideOptions = [
+  {
+    id: "site-pwa",
+    label: "Créer ou refondre mon site PWA",
+    href: "/#activites",
+    hash: "activites",
+  },
+  {
+    id: "google-seo-sea",
+    label: "Être visible sur Google (SEO & Ads)",
+    href: "/#formules",
+    hash: "formules",
+  },
+  {
+    id: "autodiagnostic",
+    label: "Autodiagnostic / audit rapide",
+    href: "/autodiagnostic",
+    hash: null,
+  },
+] as const;
+
 export const formulas = [
   {
     id: "essentiel",

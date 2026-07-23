@@ -1136,6 +1136,38 @@ img,
 .prefs { margin-top: 1rem; background: var(--mist); border-radius: 0.85rem; padding: 1rem; font-size: 0.9rem; }
 .prefs label { display: flex; gap: 0.75rem; margin: 0.5rem 0; align-items: flex-start; }
 .cookie-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 0.9rem; }
+.welcome-guide-overlay {
+  display: none; position: fixed; inset: 0; z-index: 95;
+  place-items: center; padding: 1rem;
+  background: rgba(14, 18, 24, 0.55); backdrop-filter: blur(2px);
+}
+.welcome-guide-overlay.is-open { display: grid; }
+.welcome-guide-dialog {
+  position: relative; width: min(28rem, 100%); padding: 1.75rem 1.5rem 1.5rem;
+  border-radius: 0.35rem; background: #fff; color: var(--ink);
+  box-shadow: 0 24px 64px rgba(14, 18, 24, 0.28); border: 1px solid var(--line);
+}
+.welcome-guide-close {
+  position: absolute; top: 0.75rem; right: 0.75rem;
+  min-height: 2.25rem; min-width: 2.25rem; border: 0; background: transparent;
+  color: var(--muted); font-size: 1.1rem; cursor: pointer; border-radius: 0.35rem;
+}
+.welcome-guide-close:hover { color: var(--ink); background: rgba(14, 18, 24, 0.06); }
+.welcome-guide-title {
+  margin: 0 2rem 1.25rem 0; font-family: var(--font-display); font-size: 1.65rem;
+  letter-spacing: -0.03em; color: var(--ink);
+}
+.welcome-guide-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.65rem; }
+.welcome-guide-option {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  width: 100%; min-height: 3.75rem; padding: 0.85rem 1rem;
+  border: 1px solid var(--line); border-radius: 0.25rem; background: #fff;
+  color: var(--ink); font: inherit; font-weight: 600; font-size: 0.95rem;
+  text-align: left; cursor: pointer;
+}
+.welcome-guide-option:hover { border-color: var(--ink); background: rgba(242, 244, 247, 0.65); }
+.welcome-guide-option:focus-visible { outline: 2px solid var(--beam); outline-offset: 2px; }
+.welcome-guide-option-icon { flex-shrink: 0; color: var(--ink); display: grid; place-items: center; }
 .site-footer a:hover { color: var(--beam); }
 header.site-header { /* ensure sticky header class works */ }
 
@@ -1965,9 +1997,41 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
     </div>
   </div>
 
-  
+  <!-- Guidage post-cookies -->
+  <div id="welcome-guide" class="welcome-guide-overlay" hidden>
+    <div class="welcome-guide-dialog" role="dialog" aria-modal="true" aria-labelledby="welcome-guide-title" tabindex="-1">
+      <button type="button" class="welcome-guide-close" id="welcome-guide-close" aria-label="Fermer">✕</button>
+      <h2 class="welcome-guide-title" id="welcome-guide-title">Vous cherchez</h2>
+      <ul class="welcome-guide-list">
+        <li>
+          <button type="button" class="welcome-guide-option" data-guide="site-pwa" data-hash="activites">
+            <span>Créer ou refondre mon site PWA</span>
+            <span class="welcome-guide-option-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="20" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M6 14h28M12 28v4M28 28v4M14 32h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="20" cy="21" r="3" stroke="var(--signal)" stroke-width="1.6"/></svg>
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="welcome-guide-option" data-guide="google-seo-sea" data-hash="formules">
+            <span>Être visible sur Google (SEO &amp; Ads)</span>
+            <span class="welcome-guide-option-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="18" cy="18" r="8" stroke="currentColor" stroke-width="1.8"/><path d="M24 24l8 8" stroke="var(--signal)" stroke-width="2" stroke-linecap="round"/><path d="M15 18h6M18 15v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="welcome-guide-option" data-guide="autodiagnostic" data-href="autodiagnostic.html">
+            <span>Autodiagnostic / audit rapide</span>
+            <span class="welcome-guide-option-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M12 8h12l6 6v16a2 2 0 01-2 2H12a2 2 0 01-2-2V10a2 2 0 012-2z" stroke="currentColor" stroke-width="1.8"/><path d="M24 8v6h6M14 20h12M14 25h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="28" cy="28" r="5" stroke="var(--signal)" stroke-width="1.6"/><path d="M28 26v2.5l1.5 1" stroke="var(--signal)" stroke-width="1.4" stroke-linecap="round"/></svg>
+            </span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-  <script>
+    <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
     const siteHeader = document.getElementById("site-header");
@@ -2543,16 +2607,40 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
       });
 
       const COOKIE_KEY = "crevia_cookie_consent_v1";
+      const GUIDE_KEY = "crevia_welcome_guide_v1";
       const cookiesEl = document.getElementById("cookies");
+      const guideEl = document.getElementById("welcome-guide");
+
+      function openWelcomeGuide() {
+        if (!guideEl || localStorage.getItem(GUIDE_KEY)) return;
+        guideEl.hidden = false;
+        guideEl.classList.add("is-open");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => guideEl.querySelector(".welcome-guide-option")?.focus(), 50);
+      }
+
+      function closeWelcomeGuide(choice) {
+        if (!guideEl) return;
+        try {
+          localStorage.setItem(GUIDE_KEY, JSON.stringify({ choice: choice || "dismissed", at: new Date().toISOString() }));
+        } catch (_) {}
+        guideEl.classList.remove("is-open");
+        guideEl.hidden = true;
+        document.body.style.overflow = "";
+      }
+
       function saveConsent(analytics, advertising) {
         const consent = { necessary: true, analytics, advertising, decidedAt: new Date().toISOString() };
         localStorage.setItem(COOKIE_KEY, JSON.stringify(consent));
         window.dispatchEvent(new CustomEvent("crevia:consent", { detail: consent }));
         cookiesEl.classList.remove("open");
+        setTimeout(openWelcomeGuide, 280);
       }
       if (!localStorage.getItem(COOKIE_KEY)) {
         cookiesEl.classList.add("open");
         setTimeout(() => document.getElementById("c-accept")?.focus(), 50);
+      } else {
+        setTimeout(openWelcomeGuide, 200);
       }
       document.getElementById("c-accept").addEventListener("click", () => saveConsent(true, true));
       document.getElementById("c-reject").addEventListener("click", () => saveConsent(false, false));
@@ -2566,6 +2654,30 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
           document.getElementById("c-analytics").checked,
           document.getElementById("c-ads").checked
         );
+      });
+
+      document.getElementById("welcome-guide-close")?.addEventListener("click", () => closeWelcomeGuide("dismissed"));
+      guideEl?.querySelectorAll("[data-guide]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const choice = btn.getAttribute("data-guide");
+          const hash = btn.getAttribute("data-hash");
+          const href = btn.getAttribute("data-href");
+          closeWelcomeGuide(choice);
+          if (href) {
+            location.href = href;
+            return;
+          }
+          if (hash) {
+            const el = document.getElementById(hash);
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && guideEl?.classList.contains("is-open")) {
+          e.preventDefault();
+          closeWelcomeGuide("dismissed");
+        }
       });
 
       if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
