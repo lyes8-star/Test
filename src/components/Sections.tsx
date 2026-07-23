@@ -108,10 +108,8 @@ export function Formulas() {
                 className={`formula-card reveal-on-scroll lift-hover flex cursor-pointer flex-col gap-3 border-b border-[var(--line)] py-7 outline-none lg:border-b-0 lg:border-r lg:px-6 lg:py-8 ${
                   i === 0 ? "lg:pl-0" : ""
                 } ${i === formulas.length - 1 ? "lg:border-r-0 lg:pr-0" : ""} ${
-                  formula.featured
-                    ? "formula-card--featured mx-[-1rem] rounded-[0.75rem] border-none bg-[var(--ink)] px-4 text-[var(--paper)] lg:mx-0 lg:px-6"
-                    : "rounded-[0.75rem]"
-                } ${isSelected ? "is-selected" : ""}`}
+                  isSelected ? "is-selected" : ""
+                }`}
                 style={{ ["--reveal-delay" as string]: `${100 + i * 110}ms` }}
                 onClick={() => selectFormula(formula.id)}
                 onKeyDown={(e) => onCardKeyDown(e, formula.id, i)}
@@ -122,14 +120,18 @@ export function Formulas() {
                       Recommandé
                     </span>
                   ) : (
-                    <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ink-soft)]">
+                    <span
+                      className={`text-xs font-semibold uppercase tracking-[0.12em] ${
+                        isSelected ? "formula-muted text-[rgba(242,244,247,0.68)]" : "text-[var(--ink-soft)]"
+                      }`}
+                    >
                       Formule
                     </span>
                   )}
                   <span
                     aria-hidden
                     className={`formula-check grid h-7 w-7 place-items-center rounded-full border text-xs font-bold ${
-                      formula.featured
+                      isSelected
                         ? "border-white/35 text-white"
                         : "border-[var(--line-strong,var(--line))] text-[var(--ink)]"
                     }`}
@@ -139,16 +141,16 @@ export function Formulas() {
                 </div>
                 <h3 className="display text-[1.55rem] tracking-[-0.03em]">{formula.name}</h3>
                 <p
-                  className={`text-sm ${
-                    formula.featured ? "text-[rgba(242,244,247,0.68)]" : "text-[var(--ink-soft)]"
+                  className={`formula-muted text-sm ${
+                    isSelected ? "text-[rgba(242,244,247,0.68)]" : "text-[var(--ink-soft)]"
                   }`}
                 >
                   {formula.description}
                 </p>
                 <p className="display text-[2rem] tracking-[-0.03em]">{formula.price}</p>
                 <p
-                  className={`text-sm ${
-                    formula.featured ? "text-[rgba(242,244,247,0.68)]" : "text-[var(--ink-soft)]"
+                  className={`formula-muted text-sm ${
+                    isSelected ? "text-[rgba(242,244,247,0.68)]" : "text-[var(--ink-soft)]"
                   }`}
                 >
                   {formula.duration}
@@ -160,7 +162,7 @@ export function Formulas() {
                 </ul>
                 <button
                   type="button"
-                  className={`btn mt-4 min-h-11 w-fit ${formula.featured ? "btn-primary" : "btn-secondary"}`}
+                  className={`btn mt-4 min-h-11 w-fit ${isSelected ? "btn-primary" : "btn-secondary"}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     selectFormula(formula.id);

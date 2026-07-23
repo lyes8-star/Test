@@ -389,10 +389,14 @@ a:hover .brand-mark-live {
 /* Selectable formulas */
 .formula-card {
   position: relative;
+  border-radius: 0.75rem;
   transition:
     box-shadow 0.3s ease,
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    background 0.3s ease;
+    background 0.3s ease,
+    color 0.3s ease,
+    margin 0.3s ease,
+    padding 0.3s ease;
 }
 
 .formula-card:focus-visible {
@@ -401,19 +405,31 @@ a:hover .brand-mark-live {
 }
 
 .formula-card.is-selected {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: transparent;
+  margin-inline: -1rem;
+  padding-inline: 1rem;
   box-shadow:
     0 0 0 2px var(--signal),
-    0 18px 40px rgba(14, 18, 24, 0.1);
+    0 18px 40px rgba(14, 18, 24, 0.18);
   z-index: 1;
 }
 
-.formula-card.is-selected:not(.formula-card--featured) {
-  background: rgba(255, 255, 255, 0.72);
+@media (min-width: 1024px) {
+  .formula-card.is-selected {
+    margin-inline: 0;
+    padding-inline: 1.5rem;
+  }
+}
+
+.formula-card.is-selected .formula-muted {
+  color: rgba(242, 244, 247, 0.68);
 }
 
 .formula-card.is-selected .formula-check {
   background: var(--signal);
-  border-color: var(--signal) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
   color: #fff !important;
 }
 
