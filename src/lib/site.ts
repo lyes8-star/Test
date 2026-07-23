@@ -30,6 +30,8 @@ export const siteConfig = {
   social: {
     linkedin: "https://www.linkedin.com/company/crevia",
   },
+  copyrightLine:
+    "© Crevia — tous droits réservés. Toute reproduction non autorisée est interdite.",
 } as const;
 
 /** Ligne d’adresse affichable (ex. barre de contact, pied de page). */

@@ -56,9 +56,14 @@ export default function MentionsLegalesPage() {
           <section>
             <h2 className="text-xl font-semibold">Propriété intellectuelle</h2>
             <p className="mt-2 text-[var(--ink-soft)] leading-relaxed">
-              L’ensemble des contenus (textes, visuels, marques, code) présents sur ce site est protégé par le
-              droit d’auteur et le droit des marques. Toute reproduction non autorisée est interdite.
+              L’ensemble des contenus présents sur ce site (textes, photographies, illustrations, logos, marques,
+              éléments graphiques, code source, structure et bases de données) est la propriété exclusive de{" "}
+              {siteConfig.legalName} ou de ses partenaires, et est protégé par le Code de la propriété
+              intellectuelle et le droit des marques. Toute reproduction, représentation, modification, publication,
+              adaptation, totale ou partielle, des éléments du site, quel que soit le moyen ou le procédé utilisé,
+              est interdite sans autorisation écrite préalable de {siteConfig.legalName}.
             </p>
+            <p className="mt-2 text-[var(--ink-soft)] leading-relaxed">{siteConfig.copyrightLine}</p>
           </section>
 
           <section>
