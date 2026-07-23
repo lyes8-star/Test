@@ -8,8 +8,8 @@ export function Footer() {
         <div>
           <p className="display text-3xl text-white">{siteConfig.name}</p>
           <p className="mt-3 max-w-sm">
-            {siteConfig.tagline} Création de sites PWA, SEO, SEA et Google Ads — conforme RGPD et droit
-            français.
+            {siteConfig.tagline} Création de sites PWA, SEO, SEA et Google Ads — conforme RGPD,
+            accessibilité (WCAG / RGAA) et droit français / UE.
           </p>
         </div>
         <div>
@@ -41,6 +41,11 @@ export function Footer() {
               </Link>
             </li>
             <li>
+              <Link className="hover:text-[var(--beam)]" href="/accessibilite">
+                Accessibilité
+              </Link>
+            </li>
+            <li>
               <Link className="hover:text-[var(--beam)]" href="/mentions-legales">
                 Mentions légales
               </Link>
@@ -63,7 +68,7 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} {siteConfig.legalName}. Tous droits réservés.
           </p>
-          <p>Site PWA · SEO / SEA ready · RGPD & droit français</p>
+          <p>Site PWA · SEO / SEA · RGPD · WCAG / RGAA / EAA</p>
         </div>
       </div>
     </footer>

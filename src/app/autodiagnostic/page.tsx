@@ -35,11 +35,12 @@ export default async function AutodiagnosticPage({ searchParams }: Props) {
             {siteConfig.name}
           </p>
           <h1 className="display mt-5 max-w-[18ch] text-[clamp(1.6rem,4vw,2.6rem)] leading-[1.05]">
-            Exigence Google, PWA, SEO, SEA, RGPD & accessibilité
+            Exigence Google, PWA, SEO, SEA, RGPD & accessibilité (WCAG · RGAA · EAA)
           </h1>
           <p className="mt-5 max-w-[40ch] text-lg text-[rgba(242,244,247,0.8)]">
-            Un vrai scan open source (Lighthouse, axe-core, heuristiques HTTP) — {auditProduct.priceLabel},{" "}
-            {auditProduct.scansIncluded} passages, {auditProduct.validityDays} jours.
+            Un vrai scan open source (Lighthouse Accessibility, axe-core WCAG 2.2, heuristiques HTTP /
+            RGAA) — {auditProduct.priceLabel}, {auditProduct.scansIncluded} passages,{" "}
+            {auditProduct.validityDays} jours.
           </p>
         </div>
       </section>

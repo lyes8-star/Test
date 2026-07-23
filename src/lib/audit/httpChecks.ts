@@ -206,11 +206,68 @@ export async function runHttpChecks(url: string): Promise<HttpAuditResult> {
       pillar: "a11y",
       severity: "majeur",
       title: "Attribut lang manquant sur <html>",
-      detail: "Requis WCAG 2.1 — Success Criterion 3.1.1 Language of Page.",
+      detail: "Requis WCAG 2.2 SC 3.1.1 et RGAA 4.1 (critère 8.3).",
       recommendation: "Ajoutez lang=\"fr\" (ou la langue principale).",
-      standard: "WCAG 2.1 SC 3.1.1",
-      standardUrl: "https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html",
-      informational: true,
+      standard: "WCAG 2.2 SC 3.1.1 / RGAA 4.1",
+      standardUrl: STANDARD_URLS.wcag22,
+    });
+  }
+
+  const hasSkipLink =
+    /href\s*=\s*["']#[^"']*["'][^>]*>[\s\S]{0,80}(contenu|content|main|aller au)/i.test(html) ||
+    /class\s*=\s*["'][^"']*skip[^"']*["']/i.test(html) ||
+    /id\s*=\s*["']skip/i.test(html);
+  const hasMain = /<main\b/i.test(html) || /role\s*=\s*["']main["']/i.test(html);
+  const accessibiliteUrl = findNavLink(
+    html,
+    [
+      /accessibilit[ée]/i,
+      /d[ée]claration[- ]d['’]?accessibilit/i,
+      /accessibility[- ]?statement/i,
+      /\/accessibilite/i,
+      /\/accessibility/i,
+    ],
+    finalUrl,
+  );
+
+  if (!hasSkipLink) {
+    findings.push({
+      id: "skip-link",
+      pillar: "a11y",
+      severity: "majeur",
+      title: "Lien d’évitement non détecté",
+      detail: "Aucun lien « Aller au contenu » / skip link évident en tête de page.",
+      recommendation: "Ajoutez un lien d’évitement visible au focus vers le contenu principal.",
+      standard: "WCAG 2.2 SC 2.4.1 / RGAA 4.1",
+      standardUrl: STANDARD_URLS.rgaa,
+    });
+  }
+
+  if (!hasMain) {
+    findings.push({
+      id: "main-landmark",
+      pillar: "a11y",
+      severity: "majeur",
+      title: "Landmark <main> absent",
+      detail: "Pas de <main> ni role=\"main\" détecté.",
+      recommendation: "Enveloppez le contenu principal dans <main> (structure ARIA / RGAA).",
+      standard: "WCAG 2.2 / RGAA 4.1 (structure)",
+      standardUrl: STANDARD_URLS.rgaa,
+    });
+  }
+
+  if (!accessibiliteUrl) {
+    findings.push({
+      id: "a11y-statement-link",
+      pillar: "a11y",
+      severity: "majeur",
+      title: "Déclaration d’accessibilité non trouvée",
+      detail:
+        "Aucun lien vers une déclaration d’accessibilité (RGAA / loi 2005-102 art. 47 / EAA).",
+      recommendation:
+        "Publiez une déclaration citant WCAG 2.2, RGAA 4.1 et la directive (UE) 2019/882, liée en footer.",
+      standard: "RGAA 4.1 / EAA (UE 2019/882)",
+      standardUrl: STANDARD_URLS.eaa,
     });
   }
 

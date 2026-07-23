@@ -260,7 +260,11 @@ export function Compliance() {
           </li>
           <li>
             <strong className="text-white">PWA & accessibilité</strong> — site installable, contraste
-            soigné, navigation clavier et lien d’évitement.
+            soigné, navigation clavier, lien d’évitement ; référentiels{" "}
+            <a className="underline text-white" href="/accessibilite">
+              WCAG 2.2 · RGAA 4.1 · EAA
+            </a>
+            .
           </li>
         </ul>
       </div>

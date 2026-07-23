@@ -140,8 +140,20 @@ export function AuditReportView({
             Core Web Vitals
           </a>
           {" · "}
-          <a className="underline" href={STANDARD_URLS.wcag} target="_blank" rel="noreferrer">
-            WCAG 2.1
+          <a className="underline" href={STANDARD_URLS.lighthouseA11y} target="_blank" rel="noreferrer">
+            Lighthouse Accessibility
+          </a>
+          {" · "}
+          <a className="underline" href={STANDARD_URLS.wcag22} target="_blank" rel="noreferrer">
+            WCAG 2.2
+          </a>
+          {" · "}
+          <a className="underline" href={STANDARD_URLS.rgaa} target="_blank" rel="noreferrer">
+            RGAA 4.1
+          </a>
+          {" · "}
+          <a className="underline" href={STANDARD_URLS.eaa} target="_blank" rel="noreferrer">
+            EAA (UE 2019/882)
           </a>
           {" · "}
           <a className="underline" href={STANDARD_URLS.axe} target="_blank" rel="noreferrer">

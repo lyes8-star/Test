@@ -42,7 +42,7 @@ export const auditProduct = {
   pillars: [
     "SEO",
     "PWA / Web App",
-    "Accessibilité",
+    "Accessibilité (WCAG 2.2 · RGAA · Lighthouse)",
     "Google / SEA",
     "RGPD FR & UE",
     "Performance",
@@ -250,9 +250,9 @@ export const faqItems = [
   },
   {
     id: "faq-rgpd",
-    question: "Le site et vos dispositifs sont-ils conformes RGPD ?",
+    question: "Le site est-il conforme RGPD et accessibilité (FR / UE) ?",
     answer:
-      "Oui : bannière cookies granulaire, pages légales françaises et tags analytics/Ads conditionnés au consentement. DPO : dpo@meridian-digital.fr.",
+      "Oui côté RGPD : bannière cookies granulaire, pages légales françaises et tags analytics/Ads conditionnés au consentement. DPO : dpo@meridian-digital.fr. Accessibilité : déclaration WCAG 2.2 / RGAA 4.1 / EAA (diagnostic automatisé, pas une certification humaine).",
   },
   {
     id: "faq-delais",

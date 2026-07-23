@@ -8,11 +8,12 @@ SEO, SEA / Google Ads, sites PWA, prise de rendez-vous, devis et chatbot.
 - Landing : activités, formules, méthode, conformité, contact
 - Modales **RDV** et **devis** avec consentement RGPD
 - **Chatbot** multi-tours : FAQ enrichie + collecte de coordonnées (consentement RGPD), actions RDV/devis/mailto
-- **Autodiagnostic payant** (`/autodiagnostic` Next, `autodiagnostic.html` sur Pages) : Stripe Checkout → jeton 7 j / 3 scans → rapport Lighthouse + axe + SEO/PWA/RGPD/SEA
+- **Autodiagnostic payant** (`/autodiagnostic` Next, `autodiagnostic.html` sur Pages) : Stripe Checkout → jeton 7 j / 3 scans → rapport Lighthouse Accessibility + axe WCAG 2.2 / RGAA + SEO/PWA/RGPD/SEA
 - **PWA** : manifest, service worker, icônes, installable
 - **SEO** : metadata, Open Graph, JSON-LD, `robots.ts`, `sitemap.ts`
 - **SEA ready** : catégorie cookies publicitaires ; tags Ads à brancher après consentement
 - **RGPD / droit FR** : mentions légales, confidentialité, cookies, bannière granulaire
+- **Accessibilité** : [`accessibilite.html`](accessibilite.html) / `/accessibilite` — déclaration WCAG 2.2 · RGAA 4.1 · EAA (UE 2019/882)
 
 ## Démarrage rapide (fichier `index.html`)
 
@@ -33,6 +34,9 @@ Ce dépôt est un **project site** : l’URL correcte est
 
 Page autodiagnostic statique :  
 [`https://lyes8-star.github.io/Test/autodiagnostic.html`](https://lyes8-star.github.io/Test/autodiagnostic.html)
+
+Déclaration d’accessibilité :  
+[`https://lyes8-star.github.io/Test/accessibilite.html`](https://lyes8-star.github.io/Test/accessibilite.html)
 
 Les liens dans `index.html` pointent vers `autodiagnostic.html` (chemins relatifs, compatibles avec le préfixe `/Test/`).
 

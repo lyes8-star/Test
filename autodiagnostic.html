@@ -49,20 +49,38 @@ a { color: inherit; text-decoration: none; }
 .btn-secondary { background: transparent; color: var(--ink); border-color: var(--line); }
 .btn-secondary:hover { background: var(--ink); color: var(--paper); }
 .btn:disabled { opacity: .6; cursor: not-allowed; }
+.btn:focus-visible, a:focus-visible, input:focus-visible, button:focus-visible {
+  outline: 2px solid var(--signal); outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
 .site-header {
   position: sticky; top: 0; z-index: 50;
   background: rgba(242,244,247,.92); border-bottom: 1px solid var(--line);
   backdrop-filter: blur(12px);
 }
-.nav { display: flex; align-items: center; justify-content: space-between; min-height: 4.5rem; gap: 1rem; }
+.nav { display: flex; align-items: center; justify-content: space-between; min-height: 4.5rem; gap: 1rem; flex-wrap: wrap; }
 .brand { display: flex; align-items: center; gap: .75rem; font-family: var(--font-display); font-weight: 700; }
 .brand-mark {
   width: 2rem; height: 2rem; border-radius: .55rem; background: var(--ink);
   color: var(--beam); display: grid; place-items: center; font-size: .95rem;
 }
 .nav-links { display: none; gap: 1.25rem; font-size: .9rem; font-weight: 600; color: var(--muted); }
+.nav-links.is-open { display: flex; flex-direction: column; width: 100%; padding-bottom: 1rem; }
 .nav-links a:hover { color: var(--ink); }
-@media (min-width: 900px) { .nav-links { display: flex; } }
+.menu-btn { display: inline-flex; }
+@media (min-width: 900px) {
+  .nav-links { display: flex; flex-direction: row; width: auto; padding-bottom: 0; }
+  .menu-btn { display: none; }
+}
+.pages-banner {
+  margin: 0; padding: .75rem 0; background: #0e1218; color: rgba(242,244,247,.88);
+  font-size: .85rem; border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.pages-banner strong { color: var(--beam); }
+.pages-banner a { color: var(--beam); text-decoration: underline; text-underline-offset: 2px; }
 .hero-ink {
   position: relative; overflow: hidden; color: #fff; background: #0e1218;
   padding: 4.5rem 0 3.5rem;
@@ -114,16 +132,27 @@ a { color: inherit; text-decoration: none; }
 </head>
 <body>
   <a class="skip" href="#contenu">Aller au contenu</a>
+  <div class="pages-banner" role="note">
+    <div class="container">
+      URL GitHub Pages correcte&nbsp;:
+      <strong>https://lyes8-star.github.io/Test/autodiagnostic.html</strong>
+      (avec <code>/Test/</code>). Sans ce préfixe → 404 GitHub.
+      · <a href="accessibilite.html">Déclaration d’accessibilité</a>
+      (WCAG&nbsp;2.2 · RGAA&nbsp;4.1 · EAA)
+    </div>
+  </div>
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="index.html">
         <span class="brand-mark" aria-hidden="true">M</span>
         <span>Meridian</span>
       </a>
-      <nav class="nav-links" aria-label="Navigation">
+      <button type="button" class="btn btn-secondary menu-btn" id="menu-toggle" aria-expanded="false" aria-controls="audit-nav">Menu</button>
+      <nav class="nav-links" id="audit-nav" aria-label="Navigation">
         <a href="index.html#activites">Activités</a>
         <a href="index.html#formules">Formules</a>
         <a href="autodiagnostic.html" aria-current="page">Autodiagnostic</a>
+        <a href="accessibilite.html">Accessibilité</a>
         <a href="index.html#contact">Contact</a>
       </nav>
       <a class="btn btn-secondary" href="index.html#contact">Contact</a>
@@ -135,11 +164,11 @@ a { color: inherit; text-decoration: none; }
       <div class="container">
         <p class="eyebrow" style="color: var(--beam)">Autodiagnostic</p>
         <p class="display" style="margin: 1rem 0 0; font-size: clamp(2.5rem, 10vw, 5rem); line-height: .9; letter-spacing: -.05em">Meridian</p>
-        <h1 class="display" style="margin: 1.1rem 0 0; max-width: 18ch; font-size: clamp(1.6rem, 4vw, 2.6rem); line-height: 1.05">
-          Exigence Google, PWA, SEO, SEA, RGPD &amp; accessibilité
+        <h1 class="display" style="margin: 1.1rem 0 0; max-width: 20ch; font-size: clamp(1.6rem, 4vw, 2.6rem); line-height: 1.05">
+          Exigence Google, PWA, SEO, SEA, RGPD &amp; accessibilité (WCAG · RGAA · EAA)
         </h1>
-        <p style="margin: 1.15rem 0 0; max-width: 40ch; font-size: 1.1rem; color: rgba(242,244,247,.8)">
-          Scan open source (Lighthouse, axe-core, HTTP) — 49&nbsp;€ TTC, 3 passages, 7 jours.
+        <p style="margin: 1.15rem 0 0; max-width: 42ch; font-size: 1.1rem; color: rgba(242,244,247,.8)">
+          Scan open source (Lighthouse Accessibility, axe-core WCAG&nbsp;2.2, HTTP / RGAA) — 49&nbsp;€ TTC, 3 passages, 7 jours.
         </p>
       </div>
     </section>
@@ -152,13 +181,12 @@ a { color: inherit; text-decoration: none; }
         </h2>
         <p style="margin: 1rem 0 0; max-width: 40rem; color: var(--muted); font-size: 1.05rem; line-height: 1.55">
           Sur GitHub Pages, cette UI appelle une API Next (Chrome + Stripe). Sans API configurée, le formulaire explique comment brancher l’hôte.
-          URL Pages correcte&nbsp;: <strong>https://lyes8-star.github.io/Test/autodiagnostic.html</strong>
         </p>
 
         <ul class="pillars">
           <li class="display" style="font-size: 1.15rem">SEO</li>
           <li class="display" style="font-size: 1.15rem">PWA / Web App</li>
-          <li class="display" style="font-size: 1.15rem">Accessibilité</li>
+          <li class="display" style="font-size: 1.15rem">Accessibilité (WCAG 2.2 · RGAA · Lighthouse)</li>
           <li class="display" style="font-size: 1.15rem">Google / SEA</li>
           <li class="display" style="font-size: 1.15rem">RGPD FR &amp; UE</li>
           <li class="display" style="font-size: 1.15rem">Performance</li>
@@ -169,11 +197,11 @@ a { color: inherit; text-decoration: none; }
         <form id="pay-form" style="margin-top: 2rem; max-width: 36rem">
           <div class="field">
             <label for="audit-url">URL du site à diagnostiquer *</label>
-            <input id="audit-url" name="url" type="url" required placeholder="https://www.exemple.fr" />
+            <input id="audit-url" name="url" type="url" required placeholder="https://www.exemple.fr" autocomplete="url" />
           </div>
           <div class="field">
             <label for="audit-email">E-mail (reçu Stripe, optionnel)</label>
-            <input id="audit-email" name="email" type="email" placeholder="vous@entreprise.fr" />
+            <input id="audit-email" name="email" type="email" placeholder="vous@entreprise.fr" autocomplete="email" />
           </div>
           <p style="margin: 0 0 1rem; font-size: .9rem; color: var(--muted)">
             49&nbsp;€ TTC · 3 scans · 7 jours. Paiement Stripe (ou mode démo si l’API n’a pas de clé Stripe).
@@ -185,10 +213,10 @@ a { color: inherit; text-decoration: none; }
           <p class="notice ok" id="unlocked-msg">Accès débloqué</p>
           <div class="field">
             <label for="scan-url">URL à scanner *</label>
-            <input id="scan-url" type="url" required />
+            <input id="scan-url" type="url" required autocomplete="url" />
           </div>
           <button type="submit" class="btn btn-primary" id="scan-btn">Lancer le diagnostic</button>
-          <p id="scan-step" style="margin-top: .75rem; font-size: .9rem; color: var(--muted)" hidden></p>
+          <p id="scan-step" style="margin-top: .75rem; font-size: .9rem; color: var(--muted)" hidden role="status" aria-live="polite"></p>
         </form>
 
         <p id="form-error" class="notice error" hidden role="alert"></p>
@@ -210,7 +238,10 @@ a { color: inherit; text-decoration: none; }
       <p style="margin:0;font-size:.85rem">
         <a href="index.html">Accueil</a> ·
         <a href="autodiagnostic.html">Autodiagnostic</a> ·
-        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="accessibilite.html">Accessibilité</a> ·
+        <a href="mentions-legales.html">Mentions légales</a> ·
+        <a href="politique-confidentialite.html">Confidentialité</a> ·
+        <a href="politique-cookies.html">Cookies</a>
       </p>
     </div>
   </footer>
@@ -222,9 +253,19 @@ a { color: inherit; text-decoration: none; }
     "SEO / JSON-LD / sitemap",
     "Pages légales RGPD / LCEN",
     "Réseau pré-consentement",
-    "axe-core WCAG",
-    "Lighthouse + CWV",
+    "axe-core WCAG 2.2 / RGAA",
+    "Lighthouse Accessibility + CWV",
   ];
+
+  const menuBtn = document.getElementById("menu-toggle");
+  const nav = document.getElementById("audit-nav");
+  if (menuBtn && nav) {
+    menuBtn.addEventListener("click", () => {
+      const open = !nav.classList.contains("is-open");
+      nav.classList.toggle("is-open", open);
+      menuBtn.setAttribute("aria-expanded", String(open));
+    });
+  }
 
   function resolveApiBase() {
     const params = new URLSearchParams(location.search);
@@ -386,6 +427,7 @@ a { color: inherit; text-decoration: none; }
     const stepEl = document.getElementById("scan-step");
     btn.disabled = true;
     stepEl.hidden = false;
+    btn.setAttribute("aria-busy", "true");
     let i = 0;
     stepEl.textContent = "Étape : " + STEPS[0] + "…";
     const tick = setInterval(() => {
@@ -412,6 +454,7 @@ a { color: inherit; text-decoration: none; }
       clearInterval(tick);
       stepEl.hidden = true;
       btn.disabled = false;
+      btn.removeAttribute("aria-busy");
     }
   });
 
