@@ -10,6 +10,7 @@ export const siteConfig = {
   email: "contact@crevia.fr",
   phone: "+33 1 84 80 00 00",
   phoneDisplay: "01 84 80 00 00",
+  hours: "Lun – Ven : 9h00 – 18h00",
   address: {
     street: "12 rue de la Paix",
     city: "75002 Paris",
