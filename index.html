@@ -397,7 +397,7 @@ a.top-contact-item:hover { color: #fff; }
   position: relative;
   min-height: min(100svh, 58rem);
   display: grid;
-  align-items: end;
+  align-items: center;
   overflow: hidden;
   color: #fff;
   isolation: isolate;
@@ -448,26 +448,27 @@ img,
   z-index: 1;
   width: min(100% - 2rem, var(--max));
   margin: 0 auto;
-  padding: 7.5rem 0 4.5rem;
+  padding: 6rem 0 3.5rem;
 }
 .hero-brand {
-  margin: 0 0 1.1rem;
+  margin: 0 0 0.85rem;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(3.4rem, 14vw, 7.5rem);
-  line-height: 0.9;
-  letter-spacing: -0.06em;
+  font-size: clamp(4.5rem, 20vw, 10rem);
+  line-height: 0.86;
+  letter-spacing: -0.07em;
   color: #fff;
   animation: reveal-up 0.9s ease both;
 }
-.hero h1 {
+.hero-tagline {
   margin: 0;
-  max-width: 16ch;
+  max-width: 20ch;
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.75rem, 4.8vw, 3.1rem);
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  font-weight: 600;
+  font-size: clamp(1.25rem, 3.2vw, 2.1rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: rgba(242, 244, 247, 0.9);
   animation: reveal-up 0.9s ease 0.08s both;
 }
 .hero-lead {
@@ -498,7 +499,7 @@ img,
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-media img, .hero-beam { animation: none; }
-  .hero-brand, .hero h1, .hero-lead, .hero-actions { animation: none; }
+  .hero-brand, .hero-tagline, .hero-lead, .hero-actions { animation: none; }
 }
 .section {
   padding: clamp(4rem, 9vw, 6.5rem) 0;
@@ -1255,7 +1256,7 @@ body::before {
 }
 @keyframes brand-in {
   from { opacity: 0; letter-spacing: 0.12em; transform: translateY(1.4rem); }
-  to { opacity: 1; letter-spacing: -0.06em; transform: translateY(0); }
+  to { opacity: 1; letter-spacing: -0.07em; transform: translateY(0); }
 }
 .hero-brand { animation: brand-in 1.15s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .btn { position: relative; overflow: hidden; isolation: isolate; }
@@ -1614,8 +1615,8 @@ html.a11y-reduced-motion, html.a11y-reduced-motion * {
       <div class="hero-beam hero-parallax-layer" aria-hidden="true"></div>
       <div class="hero-grain hero-parallax-layer" aria-hidden="true"></div>
       <div class="hero-content">
-        <p class="hero-brand">Crevia</p>
-        <h1>Valorisez votre présence Google</h1>
+        <h1 class="hero-brand">Crevia</h1>
+        <p class="hero-tagline">Valorisez votre présence Google</p>
         <p class="hero-lead">Création de sites PWA, SEO, SEA et Google Ads — pour être trouvé, choisi et converti.</p>
         <div class="hero-actions">
           <button type="button" class="btn btn-primary magnetic-cta" id="hero-rdv" data-open="rdv">Prendre rendez-vous</button>

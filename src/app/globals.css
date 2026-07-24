@@ -341,7 +341,7 @@ a:hover .brand-mark-live {
   }
   to {
     opacity: 1;
-    letter-spacing: -0.06em;
+    letter-spacing: -0.07em;
     transform: translateY(0);
   }
 }
