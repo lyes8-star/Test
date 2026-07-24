@@ -81,7 +81,7 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="hero-interactive relative isolate flex min-h-[min(100svh,58rem)] items-end overflow-hidden text-white"
+      className="hero-interactive relative isolate flex min-h-[min(100svh,58rem)] items-center overflow-hidden text-white"
     >
       <div
         aria-hidden
@@ -123,13 +123,13 @@ export function Hero() {
         }}
       />
 
-      <div className="container relative pb-20 pt-28 sm:pb-24 sm:pt-32">
-        <p className="display hero-brand-in text-[clamp(3.6rem,15vw,8rem)] leading-[0.88] tracking-[-0.06em] text-white">
+      <div className="container relative py-24 sm:py-28">
+        <h1 className="display hero-brand-in text-[clamp(4.5rem,20vw,10rem)] leading-[0.86] tracking-[-0.07em] text-white">
           {siteConfig.name}
-        </p>
-        <h1 className="display reveal reveal-delay-1 mt-5 max-w-[15ch] text-[clamp(1.85rem,5vw,3.25rem)] leading-[1.02] text-white">
-          {siteConfig.tagline}
         </h1>
+        <p className="display reveal reveal-delay-1 mt-4 max-w-[20ch] text-[clamp(1.25rem,3.2vw,2.1rem)] font-semibold leading-[1.15] tracking-[-0.03em] text-[rgba(242,244,247,0.9)]">
+          {siteConfig.tagline}
+        </p>
         <p className="reveal reveal-delay-2 mt-5 max-w-[34ch] text-[clamp(1.05rem,2.2vw,1.3rem)] leading-relaxed text-[rgba(242,244,247,0.84)]">
           Création de sites PWA, SEO, SEA et Google Ads — pour être trouvé, choisi et converti.
         </p>
